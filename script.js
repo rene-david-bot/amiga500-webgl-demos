@@ -156,6 +156,8 @@ import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
     });
 
     let renderer = null;
+    const originalConsoleError = console.error;
+    console.error = () => {};
     try {
         renderer = new THREE.WebGLRenderer({
             canvas,
@@ -165,10 +167,11 @@ import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
             powerPreference: "high-performance",
         });
     } catch (error) {
-        console.error("WebGL init failed", error);
-        showWebGLWarning("WebGL context could not be created. Try enabling WebGL or updating your browser/GPU driver.");
+        console.error = originalConsoleError;
+        showWebGLWarning("WebGL context could not be created in this session.");
         return;
     }
+    console.error = originalConsoleError;
 
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 1);
