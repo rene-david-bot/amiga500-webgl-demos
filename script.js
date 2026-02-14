@@ -118,10 +118,20 @@
         return;
     }
 
+    const gl =
+        canvas.getContext("webgl2", { antialias: true, alpha: true }) ||
+        canvas.getContext("webgl", { antialias: true, alpha: true });
+
+    if (!gl) {
+        showWebGLWarning("WebGL is not available in this browser/session.");
+        return;
+    }
+
     let renderer = null;
     try {
         renderer = new THREE.WebGLRenderer({
             canvas,
+            context: gl,
             antialias: true,
             alpha: true,
             powerPreference: "high-performance",
