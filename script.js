@@ -1,5 +1,3 @@
-import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
-
 (() => {
     const effects = [
         {
@@ -118,26 +116,6 @@ import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
     const isAutomated = navigator.webdriver || /HeadlessChrome/i.test(navigator.userAgent);
     if (isAutomated) {
         showWebGLWarning("WebGL is disabled in automated browser sessions.");
-        return;
-    }
-
-    const canWebGL = (() => {
-        try {
-            const probe = document.createElement("canvas");
-            const testGl =
-                probe.getContext("webgl2", { antialias: true, alpha: true, failIfMajorPerformanceCaveat: true }) ||
-                probe.getContext("webgl", { antialias: true, alpha: true, failIfMajorPerformanceCaveat: true });
-            if (!testGl) return false;
-            const version = testGl.getParameter(testGl.VERSION);
-            const renderer = testGl.getParameter(testGl.RENDERER);
-            return Boolean(version && renderer);
-        } catch (error) {
-            return false;
-        }
-    })();
-
-    if (!canWebGL) {
-        showWebGLWarning("WebGL is not available in this browser/session.");
         return;
     }
 
@@ -743,7 +721,7 @@ import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
         let channels = [];
         let noiseBuffer = null;
 
-        const bpm = 158;
+        const bpm = 172;
         const stepsPerBeat = 4;
         const stepTime = 60 / bpm / stepsPerBeat;
 
@@ -788,7 +766,7 @@ import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
             notes.E4, notes.G4, notes.B4, notes.G4,
             notes.D4, notes.F4, notes.A4, notes.F4,
         ];
-        const kickPattern = [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1];
+        const kickPattern = [1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1];
         const snarePattern = [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0];
         const hatPattern = [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0];
 
@@ -796,7 +774,7 @@ import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
             if (context) return;
             context = new (window.AudioContext || window.webkitAudioContext)();
             master = context.createGain();
-            master.gain.value = 0.24;
+            master.gain.value = 0.28;
 
             compressor = context.createDynamicsCompressor();
             compressor.threshold.value = -18;
