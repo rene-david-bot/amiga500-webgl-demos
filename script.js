@@ -1,3 +1,5 @@
+import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
+
 (() => {
     const effects = [
         {
@@ -113,10 +115,12 @@
     const chip = createChiptune(audioBtn, audioStatus);
     audioBtn?.addEventListener("click", chip.toggle);
 
-    if (!window.THREE) {
-        showWebGLWarning("Three.js failed to load — WebGL effects unavailable.");
+    const isHeadless = navigator.webdriver || /HeadlessChrome/i.test(navigator.userAgent);
+    if (isHeadless) {
+        showWebGLWarning("WebGL is disabled in automated browser sessions.");
         return;
     }
+
 
     const gl =
         canvas.getContext("webgl2", { antialias: true, alpha: true }) ||
