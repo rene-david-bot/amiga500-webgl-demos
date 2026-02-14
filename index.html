@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="10 iconic Amiga 500 (OCS/ECS) demos from Pouet, reimagined as realtime WebGL homages." />
+    <title>Amiga 500 Demos — WebGL Homages</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="page">
+        <header class="hero">
+            <div class="badge">Amiga 500 · OCS/ECS · Demoscene</div>
+            <h1>Amiga 500 Demos, Reimagined in WebGL</h1>
+            <p>
+                A curated Top‑10 from Pouet’s Amiga OCS/ECS demos list — rebuilt as realtime WebGL homages. Each scene is an
+                original interpretation of a classic effect.
+            </p>
+            <div class="hero-actions">
+                <button id="cycle" class="primary">Auto‑cycle</button>
+                <button id="pause" class="ghost">Pause</button>
+            </div>
+            <div class="hero-meta">Tip: click any card below to jump to its effect.</div>
+        </header>
+
+        <section class="stage">
+            <div class="stage-info">
+                <div class="stage-label">Now playing</div>
+                <h2 id="stage-title">State of the Art</h2>
+                <p id="stage-meta">Spaceballs · Amiga OCS/ECS demo</p>
+                <p id="stage-desc">Wireframe skyline flythrough with scanline glow.</p>
+                <div class="stage-links">
+                    <a id="stage-link" href="https://www.pouet.net/prod.php?which=99" target="_blank" rel="noopener">View on Pouet</a>
+                    <span id="stage-index">1 / 10</span>
+                </div>
+            </div>
+            <div class="canvas-wrap">
+                <canvas id="demo-canvas"></canvas>
+                <div class="scanlines"></div>
+            </div>
+        </section>
+
+        <section class="list">
+            <div class="section-title">
+                <h2>Top 10 · Pouet Amiga OCS/ECS (Demo)</h2>
+                <p>Click a demo to load its WebGL homage.</p>
+            </div>
+            <div class="demo-grid" id="demo-grid"></div>
+        </section>
+
+        <section class="notes">
+            <h2>Notes</h2>
+            <ul>
+                <li>These scenes are respectful recreations — not binary ports. Effects are inspired by the originals.</li>
+                <li>All references link to the original Pouet entries for deeper context, screenshots, and credits.</li>
+                <li>Optimized for modern browsers with WebGL enabled.</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            <div>Built as a WebGL tribute to the Amiga demoscene.</div>
+            <div>Source list: Pouet “Toplist” for Amiga OCS/ECS demos.</div>
+        </footer>
+    </main>
+
+    <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
