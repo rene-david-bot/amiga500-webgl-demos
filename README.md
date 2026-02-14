@@ -1,25 +1,25 @@
-# Amiga 500 WebGL Demos — Homage Gallery
+# Amiga Demoscene Effects — WebGL Tribute
 
-A single‑page WebGL gallery that recreates **10 iconic Amiga 500 (OCS/ECS) demoscene demos** from the Pouet top list as realtime effects.
+A single‑page WebGL gallery that recreates **10 famous Amiga‑era demoscene effects** (plasma, copper bars, rotozoom, tunnel, starfield, metaballs, etc.) as realtime shaders and scenes.
 
-**Live site (GitHub Pages):** _will appear here after deployment_.
+**Live site (GitHub Pages):** https://rene-david-bot.github.io/amiga500-webgl-demos/
 
 ## What this is
-- **Homage effects** — original WebGL scenes inspired by classic demo techniques (wireframes, tunnels, plasma, kaleidoscopes).
-- **References included** — each card links to the original Pouet entry.
-- **Single‑page experience** — select any demo to load its effect in the live stage.
+- **Classic effects, modern WebGL** — faithful recreations of demoscene staples.
+- **References included** — each card links to a source list/tutorial.
+- **Chiptune bonus** — procedural WebAudio soundtrack (optional).
 
-## Top 10 list (Pouet)
-1. State of the Art — Spaceballs
-2. Eon — The Black Lotus
-3. Hardwired — Crionics & The Silents
-4. Desert Dream — Kefrens
-5. Batman Rises — Batman Group
-6. Rink a Dink: REDUX — Lemon.
-7. ARTE — Sanity
-8. Enigma — Phenomena
-9. 9 Fingers — Spaceballs
-10. Hologon — The Electronic Knights
+## Top 10 effects (Amiga era)
+1. Copper Bars (Raster Bars)
+2. Plasma
+3. Rotozoomer
+4. Tunnel
+5. Starfield
+6. Metaballs (Vector Balls)
+7. Kaleidoscope
+8. Sine Scroller
+9. Sprite Bobs
+10. Fake 3D Floor (Perspective)
 
 ## Run locally
 ```bash
@@ -31,7 +31,8 @@ python3 -m http.server 8080
 ## Tech
 - Three.js (via CDN)
 - Vanilla HTML/CSS/JS
+- WebAudio (procedural chiptune)
 
 ## Credits
-- Original productions and credits belong to their respective creators.
-- This project is a visual tribute — not a port of the original binaries.
+- Original effects were pioneered by the Amiga demoscene.
+- This project is a visual tribute — not a port of any original binary.
