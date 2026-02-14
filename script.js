@@ -94,6 +94,18 @@
     const audioBtn = document.getElementById("audio-toggle");
     const audioStatus = document.getElementById("audio-status");
 
+    function showWebGLWarning(message) {
+        const wrap = canvas?.parentElement;
+        if (!wrap) return;
+        let warning = wrap.querySelector(".webgl-warning");
+        if (!warning) {
+            warning = document.createElement("div");
+            warning.className = "webgl-warning";
+            wrap.appendChild(warning);
+        }
+        warning.textContent = message;
+    }
+
     if (!canvas) {
         return;
     }
@@ -140,17 +152,7 @@
         stageIndex.textContent = `${index + 1} / ${effects.length}`;
     };
 
-    const showWebGLWarning = (message) => {
-        const wrap = canvas.parentElement;
-        if (!wrap) return;
-        let warning = wrap.querySelector(".webgl-warning");
-        if (!warning) {
-            warning = document.createElement("div");
-            warning.className = "webgl-warning";
-            wrap.appendChild(warning);
-        }
-        warning.textContent = message;
-    };
+    // webgl warning helper declared above
 
     const disposeScene = (scene) => {
         scene.traverse((child) => {
