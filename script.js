@@ -113,15 +113,22 @@
     const chip = createChiptune(audioBtn, audioStatus);
     audioBtn?.addEventListener("click", chip.toggle);
 
+    if (!window.THREE) {
+        showWebGLWarning("Three.js failed to load — WebGL effects unavailable.");
+        return;
+    }
+
     const isAutomated = navigator.webdriver || /HeadlessChrome/i.test(navigator.userAgent);
     if (isAutomated) {
         showWebGLWarning("WebGL is disabled in automated browser sessions.");
         return;
     }
 
-    const gl =
-        canvas.getContext("webgl2", { antialias: true, alpha: true }) ||
-        canvas.getContext("webgl", { antialias: true, alpha: true });
+    const gl = canvas.getContext("webgl", {
+        antialias: true,
+        alpha: true,
+        preserveDrawingBuffer: false,
+    });
 
     if (!gl) {
         showWebGLWarning("WebGL is not available in this browser/session.");
@@ -284,6 +291,19 @@
         }
     `;
 
+    const PRECISION_HEADER = `
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+`;
+
+    const withSafePrecision = (source) =>
+        `${PRECISION_HEADER}
+${source.replace(/precision\s+(highp|mediump|lowp)\s+float;\s*/g, "")}`;
+
+
     function createFullscreenEffect(fragmentShader, extraUniforms = {}) {
         const scene = new THREE.Scene();
         const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
@@ -296,7 +316,7 @@
         const material = new THREE.ShaderMaterial({
             uniforms,
             vertexShader: FULLSCREEN_VERTEX,
-            fragmentShader,
+            fragmentShader: withSafePrecision(fragmentShader),
         });
         const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
         mesh.frustumCulled = false;
@@ -571,8 +591,7 @@
                     gl_Position = vec4(position, 1.0);
                 }
             `,
-            fragmentShader: `
-                precision highp float;
+            fragmentShader: withSafePrecision(`
                 varying vec2 vUv;
                 uniform float uTime;
                 uniform sampler2D uTexture;
@@ -583,7 +602,7 @@
                     vec3 glow = tex.rgb + vec3(0.1, 0.4, 0.6) * tex.a;
                     gl_FragColor = vec4(glow, tex.a);
                 }
-            `,
+            `),
             transparent: true,
         });
 
