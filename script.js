@@ -94,80 +94,18 @@
     const audioBtn = document.getElementById("audio-toggle");
     const audioStatus = document.getElementById("audio-status");
 
-    function showWebGLWarning(message) {
-        const wrap = canvas?.parentElement;
-        if (!wrap) return;
-        let warning = wrap.querySelector(".webgl-warning");
-        if (!warning) {
-            warning = document.createElement("div");
-            warning.className = "webgl-warning";
-            wrap.appendChild(warning);
-        }
-        warning.textContent = message;
-    }
-
-    if (!canvas) {
-        return;
-    }
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
     const chip = createChiptune(audioBtn, audioStatus);
     audioBtn?.addEventListener("click", chip.toggle);
-
-    if (!window.THREE) {
-        showWebGLWarning("Three.js failed to load — WebGL effects unavailable.");
-        return;
-    }
-
-    const isAutomated = navigator.webdriver || /HeadlessChrome/i.test(navigator.userAgent);
-    if (isAutomated) {
-        showWebGLWarning("WebGL is disabled in automated browser sessions.");
-        return;
-    }
-
-    const gl = canvas.getContext("webgl", {
-        antialias: true,
-        alpha: true,
-        preserveDrawingBuffer: false,
-    });
-
-    if (!gl) {
-        showWebGLWarning("WebGL is not available in this browser/session.");
-        return;
-    }
-
-    canvas.addEventListener("webglcontextlost", (event) => {
-        event.preventDefault();
-        showWebGLWarning("WebGL context lost. Please reload the page.");
-    });
-
-    let renderer = null;
-    const originalConsoleError = console.error;
-    console.error = () => {};
-    try {
-        renderer = new THREE.WebGLRenderer({
-            canvas,
-            context: gl,
-            antialias: true,
-            alpha: true,
-            powerPreference: "high-performance",
-        });
-    } catch (error) {
-        console.error = originalConsoleError;
-        showWebGLWarning("WebGL context could not be created in this session.");
-        return;
-    }
-    console.error = originalConsoleError;
-
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x000000, 1);
-    if (renderer.outputColorSpace) {
-        renderer.outputColorSpace = THREE.SRGBColorSpace;
-    }
 
     let currentIndex = 0;
     let currentEffect = null;
     let lastTime = 0;
     let cycleTimer = null;
+    const size = { width: 0, height: 0 };
 
     const updateUI = (index) => {
         const effect = effects[index];
@@ -178,51 +116,39 @@
         stageIndex.textContent = `${index + 1} / ${effects.length}`;
     };
 
-    // webgl warning helper declared above
-
-    const disposeScene = (scene) => {
-        scene.traverse((child) => {
-            if (child.geometry) child.geometry.dispose();
-            if (child.material) {
-                if (Array.isArray(child.material)) {
-                    child.material.forEach((mat) => mat.dispose());
-                } else {
-                    child.material.dispose();
-                }
-            }
-        });
-    };
-
     const setEffect = (index) => {
-        if (currentEffect) {
-            disposeScene(currentEffect.scene);
-        }
         currentIndex = index;
         updateUI(index);
-        currentEffect = effects[index].factory(renderer);
+        currentEffect = effects[index].factory();
         resize();
     };
 
     const resize = () => {
         const wrap = canvas.parentElement || canvas;
         const rect = wrap.getBoundingClientRect();
-        const width = Math.max(1, rect.width || wrap.clientWidth || 640);
-        const height = Math.max(1, rect.height || wrap.clientHeight || 360);
-        renderer.setSize(width, height, false);
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        size.width = rect.width;
+        size.height = rect.height;
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        canvas.style.width = `${rect.width}px`;
+        canvas.style.height = `${rect.height}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.imageSmoothingEnabled = true;
         if (currentEffect?.onResize) {
-            currentEffect.onResize(width, height);
+            currentEffect.onResize(size.width, size.height, dpr);
         }
     };
 
     const animate = (time) => {
         const t = time * 0.001;
-        const dt = Math.min(t - lastTime, 0.033);
+        const dt = Math.min(t - lastTime, 0.05);
         lastTime = t;
         if (currentEffect?.update) {
             currentEffect.update(t, dt);
         }
-        if (currentEffect?.scene && currentEffect?.camera) {
-            renderer.render(currentEffect.scene, currentEffect.camera);
+        if (currentEffect?.draw) {
+            currentEffect.draw(ctx, size.width, size.height, t, dt);
         }
         requestAnimationFrame(animate);
     };
@@ -283,450 +209,445 @@
     resize();
     requestAnimationFrame(animate);
 
-    const FULLSCREEN_VERTEX = `
-        varying vec2 vUv;
-        void main() {
-            vUv = uv;
-            gl_Position = vec4(position, 1.0);
-        }
-    `;
+    function createLowRes(width, height, scale = 0.35) {
+        const buffer = document.createElement("canvas");
+        const bctx = buffer.getContext("2d", { willReadFrequently: true });
+        let imageData = null;
+        let data = null;
 
-    const PRECISION_HEADER = `
-#ifdef GL_FRAGMENT_PRECISION_HIGH
-precision highp float;
-#else
-precision mediump float;
-#endif
-`;
-
-    const withSafePrecision = (source) =>
-        `${PRECISION_HEADER}
-${source.replace(/precision\s+(highp|mediump|lowp)\s+float;\s*/g, "")}`;
-
-
-    function createFullscreenEffect(fragmentShader, extraUniforms = {}) {
-        const scene = new THREE.Scene();
-        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
-        camera.position.z = 1;
-        const uniforms = {
-            uTime: { value: 0 },
-            uResolution: { value: new THREE.Vector2(1, 1) },
-            ...extraUniforms,
+        const resize = (w, h) => {
+            const bw = Math.max(90, Math.round(w * scale));
+            const bh = Math.max(60, Math.round(h * scale));
+            buffer.width = bw;
+            buffer.height = bh;
+            imageData = bctx.createImageData(bw, bh);
+            data = imageData.data;
         };
-        const material = new THREE.ShaderMaterial({
-            uniforms,
-            vertexShader: FULLSCREEN_VERTEX,
-            fragmentShader: withSafePrecision(fragmentShader),
-        });
-        const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
-        mesh.frustumCulled = false;
-        scene.add(mesh);
+
+        resize(width, height);
+
         return {
-            scene,
-            camera,
-            uniforms,
-            update: (t) => {
-                uniforms.uTime.value = t;
+            canvas: buffer,
+            ctx: bctx,
+            resize,
+            get imageData() {
+                return imageData;
             },
-            onResize: (w, h) => {
-                uniforms.uResolution.value.set(w, h);
+            get data() {
+                return data;
+            },
+            get width() {
+                return buffer.width;
+            },
+            get height() {
+                return buffer.height;
             },
         };
     }
 
     function createCopperBars() {
-        return createFullscreenEffect(`
-            precision highp float;
-            varying vec2 vUv;
-            uniform float uTime;
-
-            void main() {
-                vec2 p = vUv * 2.0 - 1.0;
-                float t = uTime * 0.8;
-                float bars = 0.0;
-                for (int i = 0; i < 5; i++) {
-                    float fi = float(i);
-                    float center = sin(t * 0.9 + fi * 1.3) * 0.55 + (fi - 2.0) * 0.12;
-                    float dist = abs(p.y - center);
-                    float bar = smoothstep(0.18, 0.0, dist);
-                    bars += bar;
+        return {
+            draw: (ctx, w, h, t) => {
+                ctx.fillStyle = "#050509";
+                ctx.fillRect(0, 0, w, h);
+                const barHeight = h * 0.12;
+                for (let i = 0; i < 5; i += 1) {
+                    const center =
+                        h * 0.5 +
+                        Math.sin(t * 0.8 + i * 1.4) * h * 0.22 +
+                        (i - 2) * barHeight * 0.28;
+                    const y = center - barHeight / 2;
+                    const grad = ctx.createLinearGradient(0, y, 0, y + barHeight);
+                    grad.addColorStop(0, "#1b0600");
+                    grad.addColorStop(0.35, "#ff9f3f");
+                    grad.addColorStop(0.5, "#fff0c7");
+                    grad.addColorStop(0.65, "#ff6a00");
+                    grad.addColorStop(1, "#1b0600");
+                    ctx.fillStyle = grad;
+                    ctx.fillRect(0, y, w, barHeight);
                 }
-                float sheen = 0.6 + 0.4 * sin((p.y + t * 0.6) * 20.0);
-                vec3 base = vec3(0.03, 0.02, 0.04);
-                vec3 copper = vec3(1.0, 0.5, 0.12);
-                vec3 glow = vec3(0.9, 0.3, 0.1);
-                vec3 col = base + copper * bars * sheen;
-                col += glow * bars * 0.35;
-                gl_FragColor = vec4(col, 1.0);
-            }
-        `);
+            },
+        };
     }
 
     function createPlasma() {
-        return createFullscreenEffect(`
-            precision highp float;
-            varying vec2 vUv;
-            uniform float uTime;
-            const float PI = 3.14159265359;
+        let low = createLowRes(320, 180, 0.32);
+        const palette = new Array(256).fill(0).map((_, i) => {
+            const v = i / 255;
+            const r = Math.round(128 + 127 * Math.sin(v * Math.PI * 2 + 0));
+            const g = Math.round(128 + 127 * Math.sin(v * Math.PI * 2 + 2));
+            const b = Math.round(128 + 127 * Math.sin(v * Math.PI * 2 + 4));
+            return [r, g, b];
+        });
 
-            void main() {
-                vec2 p = vUv * 2.0 - 1.0;
-                float t = uTime * 0.7;
-                float v = sin(p.x * 3.0 + t) + sin(p.y * 4.0 - t * 1.3);
-                v += sin((p.x + p.y) * 2.5 + t * 0.9);
-                v += sin(length(p) * 5.0 - t * 1.4);
-                float c = 0.5 + 0.5 * sin(v);
-                vec3 palette = 0.5 + 0.5 * cos(6.2831 * (vec3(0.0, 0.33, 0.67) + c));
-                gl_FragColor = vec4(palette, 1.0);
-            }
-        `);
+        return {
+            onResize: (w, h) => {
+                low.resize(w, h);
+            },
+            draw: (ctx, w, h, t) => {
+                const lw = low.width;
+                const lh = low.height;
+                const data = low.data;
+                let idx = 0;
+                for (let y = 0; y < lh; y += 1) {
+                    for (let x = 0; x < lw; x += 1) {
+                        const dx = x - lw * 0.5;
+                        const dy = y - lh * 0.5;
+                        let v = 0;
+                        v += Math.sin(x * 0.045 + t * 1.1);
+                        v += Math.sin(y * 0.04 - t * 1.3);
+                        v += Math.sin((x + y) * 0.03 + t * 0.9);
+                        v += Math.sin(Math.sqrt(dx * dx + dy * dy) * 0.08 - t * 1.4);
+                        v = (v + 4) * 0.125;
+                        const color = palette[Math.floor(v * 255) & 255];
+                        data[idx] = color[0];
+                        data[idx + 1] = color[1];
+                        data[idx + 2] = color[2];
+                        data[idx + 3] = 255;
+                        idx += 4;
+                    }
+                }
+                low.ctx.putImageData(low.imageData, 0, 0);
+                ctx.imageSmoothingEnabled = true;
+                ctx.drawImage(low.canvas, 0, 0, w, h);
+            },
+        };
     }
 
     function createRotozoom() {
-        return createFullscreenEffect(`
-            precision highp float;
-            varying vec2 vUv;
-            uniform float uTime;
-            const float PI = 3.14159265359;
-
-            float checker(vec2 uv) {
-                vec2 c = floor(uv);
-                return mod(c.x + c.y, 2.0);
+        const patternCanvas = document.createElement("canvas");
+        patternCanvas.width = 160;
+        patternCanvas.height = 160;
+        const pctx = patternCanvas.getContext("2d");
+        const cell = 20;
+        for (let y = 0; y < patternCanvas.height; y += cell) {
+            for (let x = 0; x < patternCanvas.width; x += cell) {
+                const on = (x / cell + y / cell) % 2 === 0;
+                pctx.fillStyle = on ? "#5ad7ff" : "#ff59d6";
+                pctx.fillRect(x, y, cell, cell);
             }
+        }
+        pctx.strokeStyle = "rgba(0,0,0,0.25)";
+        for (let i = 0; i <= patternCanvas.width; i += cell) {
+            pctx.beginPath();
+            pctx.moveTo(i, 0);
+            pctx.lineTo(i, patternCanvas.height);
+            pctx.stroke();
+        }
 
-            void main() {
-                vec2 p = vUv * 2.0 - 1.0;
-                float angle = uTime * 0.4;
-                float zoom = 1.2 + 0.6 * sin(uTime * 0.6);
-                mat2 rot = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
-                vec2 uv = rot * p * zoom;
-                vec2 tile = uv * 4.0;
-                float board = checker(tile);
-                float stripes = 0.5 + 0.5 * sin(tile.x * PI + uTime * 1.2);
-                vec3 colA = vec3(0.12, 0.8, 0.9);
-                vec3 colB = vec3(0.8, 0.2, 0.9);
-                vec3 col = mix(colA, colB, board);
-                col *= 0.6 + 0.4 * stripes;
-                gl_FragColor = vec4(col, 1.0);
-            }
-        `);
+        return {
+            draw: (ctx, w, h, t) => {
+                ctx.fillStyle = "#050509";
+                ctx.fillRect(0, 0, w, h);
+                ctx.save();
+                ctx.translate(w / 2, h / 2);
+                ctx.rotate(t * 0.45);
+                const scale = 1.2 + 0.4 * Math.sin(t * 0.6);
+                ctx.scale(scale, scale);
+                const pattern = ctx.createPattern(patternCanvas, "repeat");
+                ctx.fillStyle = pattern;
+                ctx.fillRect(-w * 2, -h * 2, w * 4, h * 4);
+                ctx.restore();
+            },
+        };
     }
 
     function createTunnel() {
-        return createFullscreenEffect(`
-            precision highp float;
-            varying vec2 vUv;
-            uniform float uTime;
-            const float PI = 3.14159265359;
-
-            void main() {
-                vec2 p = vUv * 2.0 - 1.0;
-                float r = length(p);
-                float a = atan(p.y, p.x);
-                float t = uTime * 0.6;
-                float u = a / (2.0 * PI) + t * 0.08;
-                float v = 1.0 / (r + 0.25) + t * 0.9;
-                vec2 uv = vec2(u, v);
-                float stripes = 0.5 + 0.5 * sin((uv.y + uv.x) * 6.0);
-                float rings = 0.5 + 0.5 * cos(uv.y * 4.0);
-                vec3 col = vec3(0.06, 0.2, 0.5) * stripes + vec3(0.7, 0.3, 0.9) * rings * 0.7;
-                col *= smoothstep(1.2, 0.0, r);
-                gl_FragColor = vec4(col, 1.0);
-            }
-        `);
+        let low = createLowRes(320, 180, 0.35);
+        return {
+            onResize: (w, h) => {
+                low.resize(w, h);
+            },
+            draw: (ctx, w, h, t) => {
+                const lw = low.width;
+                const lh = low.height;
+                const data = low.data;
+                let idx = 0;
+                for (let y = 0; y < lh; y += 1) {
+                    for (let x = 0; x < lw; x += 1) {
+                        const dx = (x - lw * 0.5) / lw;
+                        const dy = (y - lh * 0.5) / lh;
+                        const r = Math.sqrt(dx * dx + dy * dy);
+                        const angle = Math.atan2(dy, dx);
+                        const u = angle / (Math.PI * 2) + 0.5 + t * 0.05;
+                        const v = 1.0 / (r + 0.22) + t * 0.9;
+                        const stripes = 0.5 + 0.5 * Math.sin(v * 6.0);
+                        const rings = 0.5 + 0.5 * Math.cos(v * 3.0 + u * 6.0);
+                        const base = Math.max(0, 1 - r * 1.4);
+                        const rcol = 30 + 190 * stripes * base;
+                        const gcol = 40 + 140 * rings * base;
+                        const bcol = 90 + 160 * (1 - stripes) * base;
+                        data[idx] = rcol;
+                        data[idx + 1] = gcol;
+                        data[idx + 2] = bcol;
+                        data[idx + 3] = 255;
+                        idx += 4;
+                    }
+                }
+                low.ctx.putImageData(low.imageData, 0, 0);
+                ctx.imageSmoothingEnabled = true;
+                ctx.drawImage(low.canvas, 0, 0, w, h);
+            },
+        };
     }
 
     function createStarfield() {
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x03040c);
-        const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 120);
-        camera.position.z = 12;
+        const count = 420;
+        let stars = [];
+        let width = 0;
+        let height = 0;
 
-        const starCount = 1400;
-        const positions = new Float32Array(starCount * 3);
-        const speeds = new Float32Array(starCount);
-        for (let i = 0; i < starCount; i += 1) {
-            const i3 = i * 3;
-            positions[i3] = (Math.random() - 0.5) * 40;
-            positions[i3 + 1] = (Math.random() - 0.5) * 24;
-            positions[i3 + 2] = -Math.random() * 80;
-            speeds[i] = 0.3 + Math.random() * 1.2;
-        }
-
-        const geometry = new THREE.BufferGeometry();
-        geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-        const material = new THREE.PointsMaterial({
-            color: 0xffffff,
-            size: 0.18,
-            transparent: true,
-            opacity: 0.9,
-        });
-        const stars = new THREE.Points(geometry, material);
-        scene.add(stars);
+        const resetStar = (star) => {
+            star.x = (Math.random() - 0.5) * width;
+            star.y = (Math.random() - 0.5) * height;
+            star.z = Math.random() * 1 + 0.2;
+            star.speed = 0.3 + Math.random() * 0.7;
+        };
 
         return {
-            scene,
-            camera,
-            update: (t, dt) => {
-                const pos = geometry.attributes.position;
-                for (let i = 0; i < starCount; i += 1) {
-                    const i3 = i * 3;
-                    let z = pos.getZ(i) + dt * (8 + speeds[i] * 10);
-                    if (z > 8) {
-                        z = -80;
-                        pos.setX(i, (Math.random() - 0.5) * 40);
-                        pos.setY(i, (Math.random() - 0.5) * 24);
-                    }
-                    pos.setZ(i, z);
-                }
-                pos.needsUpdate = true;
-                stars.rotation.z = Math.sin(t * 0.1) * 0.02;
-            },
             onResize: (w, h) => {
-                camera.aspect = w / h;
-                camera.updateProjectionMatrix();
+                width = w;
+                height = h;
+                stars = Array.from({ length: count }, () => {
+                    const star = {};
+                    resetStar(star);
+                    return star;
+                });
+            },
+            update: (t, dt) => {
+                stars.forEach((star) => {
+                    star.z -= dt * star.speed;
+                    if (star.z <= 0.15) {
+                        resetStar(star);
+                    }
+                });
+            },
+            draw: (ctx, w, h) => {
+                ctx.fillStyle = "#050509";
+                ctx.fillRect(0, 0, w, h);
+                ctx.fillStyle = "#dff9ff";
+                stars.forEach((star) => {
+                    const sx = star.x / star.z + w / 2;
+                    const sy = star.y / star.z + h / 2;
+                    if (sx < -10 || sx > w + 10 || sy < -10 || sy > h + 10) return;
+                    const size = Math.max(1, (1 / star.z) * 1.2);
+                    ctx.globalAlpha = Math.min(1, 0.4 + (1 - star.z) * 0.8);
+                    ctx.fillRect(sx, sy, size, size);
+                });
+                ctx.globalAlpha = 1;
             },
         };
     }
 
     function createMetaballs() {
-        const balls = Array.from({ length: 6 }, () => new THREE.Vector3());
-        const effect = createFullscreenEffect(
-            `
-            precision highp float;
-            varying vec2 vUv;
-            uniform vec3 uBalls[6];
-
-            void main() {
-                float field = 0.0;
-                for (int i = 0; i < 6; i++) {
-                    vec2 pos = uBalls[i].xy;
-                    float radius = uBalls[i].z;
-                    float d = distance(vUv, pos) + 0.001;
-                    field += (radius * radius) / (d * d);
-                }
-                float glow = smoothstep(1.0, 2.4, field);
-                vec3 col = mix(vec3(0.02, 0.03, 0.06), vec3(0.1, 0.8, 0.7), glow);
-                col += vec3(0.8, 0.2, 0.9) * field * 0.08;
-                gl_FragColor = vec4(col, 1.0);
-            }
-        `,
-            { uBalls: { value: balls } }
-        );
+        let low = createLowRes(320, 180, 0.3);
+        const balls = Array.from({ length: 6 }, () => ({ x: 0, y: 0, r: 0 }));
 
         return {
-            ...effect,
+            onResize: (w, h) => {
+                low.resize(w, h);
+            },
             update: (t) => {
-                effect.uniforms.uTime.value = t;
                 balls.forEach((ball, i) => {
-                    const speed = 0.4 + i * 0.18;
-                    const offset = i * 1.3;
-                    ball.x = 0.5 + 0.32 * Math.sin(t * speed + offset);
-                    ball.y = 0.5 + 0.28 * Math.cos(t * speed + offset * 1.2);
-                    ball.z = 0.18 + 0.08 * Math.sin(t * 0.7 + offset);
+                    const speed = 0.7 + i * 0.1;
+                    ball.x = 0.5 + 0.28 * Math.sin(t * speed + i * 1.1);
+                    ball.y = 0.5 + 0.25 * Math.cos(t * speed * 0.9 + i * 1.3);
+                    ball.r = 0.09 + 0.03 * Math.sin(t * 0.7 + i);
                 });
+            },
+            draw: (ctx, w, h) => {
+                const lw = low.width;
+                const lh = low.height;
+                const data = low.data;
+                let idx = 0;
+                for (let y = 0; y < lh; y += 1) {
+                    for (let x = 0; x < lw; x += 1) {
+                        const ux = x / lw;
+                        const uy = y / lh;
+                        let field = 0;
+                        balls.forEach((ball) => {
+                            const dx = ux - ball.x;
+                            const dy = uy - ball.y;
+                            const d = dx * dx + dy * dy + 0.0008;
+                            field += (ball.r * ball.r) / d;
+                        });
+                        const glow = Math.min(1, field * 0.8);
+                        const rcol = 20 + glow * 220;
+                        const gcol = 40 + glow * 120;
+                        const bcol = 120 + glow * 140;
+                        data[idx] = rcol;
+                        data[idx + 1] = gcol;
+                        data[idx + 2] = bcol;
+                        data[idx + 3] = 255;
+                        idx += 4;
+                    }
+                }
+                low.ctx.putImageData(low.imageData, 0, 0);
+                ctx.imageSmoothingEnabled = true;
+                ctx.drawImage(low.canvas, 0, 0, w, h);
             },
         };
     }
 
     function createKaleidoscope() {
-        return createFullscreenEffect(`
-            precision highp float;
-            varying vec2 vUv;
-            uniform float uTime;
-            const float PI = 3.14159265359;
+        let low = createLowRes(320, 180, 0.32);
+        const sides = 8;
+        const slice = (Math.PI * 2) / sides;
 
-            vec2 kaleido(vec2 p, float sides) {
-                float angle = atan(p.y, p.x);
-                float radius = length(p);
-                float slice = PI * 2.0 / sides;
-                angle = mod(angle, slice);
-                angle = abs(angle - slice * 0.5);
-                return radius * vec2(cos(angle), sin(angle));
-            }
-
-            void main() {
-                vec2 p = vUv * 2.0 - 1.0;
-                vec2 k = kaleido(p, 8.0);
-                float t = uTime * 0.6;
-                float wave = sin((k.x + k.y) * 6.0 + t * 2.0);
-                float pulse = cos(length(k) * 9.0 - t * 2.4);
-                vec3 col = vec3(0.1, 0.7, 1.0) * (0.4 + 0.6 * wave);
-                col += vec3(1.0, 0.3, 0.8) * (0.3 + 0.7 * pulse);
-                col *= smoothstep(1.2, 0.0, length(p));
-                gl_FragColor = vec4(col, 1.0);
-            }
-        `);
+        return {
+            onResize: (w, h) => {
+                low.resize(w, h);
+            },
+            draw: (ctx, w, h, t) => {
+                const lw = low.width;
+                const lh = low.height;
+                const data = low.data;
+                let idx = 0;
+                for (let y = 0; y < lh; y += 1) {
+                    for (let x = 0; x < lw; x += 1) {
+                        const px = (x / lw) * 2 - 1;
+                        const py = (y / lh) * 2 - 1;
+                        const r = Math.sqrt(px * px + py * py);
+                        let a = Math.atan2(py, px);
+                        a = ((a % slice) + slice) % slice;
+                        a = Math.abs(a - slice * 0.5);
+                        const kx = Math.cos(a) * r;
+                        const ky = Math.sin(a) * r;
+                        const wave = Math.sin((kx + ky) * 6 + t * 1.4);
+                        const pulse = Math.cos(r * 10 - t * 2.1);
+                        const rcol = 40 + 160 * (0.5 + 0.5 * wave);
+                        const gcol = 40 + 160 * (0.5 + 0.5 * pulse);
+                        const bcol = 90 + 140 * (0.5 + 0.5 * wave);
+                        data[idx] = rcol;
+                        data[idx + 1] = gcol;
+                        data[idx + 2] = bcol;
+                        data[idx + 3] = 255;
+                        idx += 4;
+                    }
+                }
+                low.ctx.putImageData(low.imageData, 0, 0);
+                ctx.imageSmoothingEnabled = true;
+                ctx.drawImage(low.canvas, 0, 0, w, h);
+            },
+        };
     }
 
     function createSineScroller() {
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x050509);
-        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-
         const scrollCanvas = document.createElement("canvas");
-        scrollCanvas.width = 1024;
-        scrollCanvas.height = 128;
-        const ctx = scrollCanvas.getContext("2d");
-        const texture = new THREE.CanvasTexture(scrollCanvas);
-        texture.wrapS = THREE.RepeatWrapping;
-        texture.wrapT = THREE.ClampToEdgeWrapping;
-        texture.minFilter = THREE.LinearFilter;
-        texture.magFilter = THREE.LinearFilter;
-
+        scrollCanvas.width = 2000;
+        scrollCanvas.height = 90;
+        const sctx = scrollCanvas.getContext("2d");
         const message = "  AMIGA DEMOSCENE FOREVER · GREETINGS TO THE SCENE · KEEP CODING · ";
-        ctx.font = "48px 'Trebuchet MS', sans-serif";
-        const textWidth = ctx.measureText(message).width;
         let scroll = 0;
+        const textHeight = 60;
 
-        const material = new THREE.ShaderMaterial({
-            uniforms: {
-                uTime: { value: 0 },
-                uTexture: { value: texture },
-            },
-            vertexShader: `
-                varying vec2 vUv;
-                void main() {
-                    vUv = uv;
-                    gl_Position = vec4(position, 1.0);
-                }
-            `,
-            fragmentShader: withSafePrecision(`
-                varying vec2 vUv;
-                uniform float uTime;
-                uniform sampler2D uTexture;
-                void main() {
-                    float offset = sin(vUv.x * 10.0 + uTime * 3.5) * 0.08;
-                    vec2 uv = vec2(vUv.x, clamp(vUv.y + offset, 0.0, 1.0));
-                    vec4 tex = texture2D(uTexture, uv);
-                    vec3 glow = tex.rgb + vec3(0.1, 0.4, 0.6) * tex.a;
-                    gl_FragColor = vec4(glow, tex.a);
-                }
-            `),
-            transparent: true,
-        });
-
-        const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 0.6), material);
-        mesh.position.y = 0.0;
-        scene.add(mesh);
-
-        const drawScroller = () => {
-            ctx.clearRect(0, 0, scrollCanvas.width, scrollCanvas.height);
-            ctx.fillStyle = "#050509";
-            ctx.fillRect(0, 0, scrollCanvas.width, scrollCanvas.height);
-            ctx.fillStyle = "#7cf9ff";
-            ctx.shadowColor = "rgba(124, 249, 255, 0.8)";
-            ctx.shadowBlur = 12;
-            ctx.textBaseline = "middle";
-            const y = scrollCanvas.height / 2 + 6;
-            ctx.fillText(message, -scroll, y);
-            ctx.fillText(message, -scroll + textWidth + 60, y);
-            texture.needsUpdate = true;
+        const redrawText = () => {
+            sctx.clearRect(0, 0, scrollCanvas.width, scrollCanvas.height);
+            sctx.fillStyle = "#050509";
+            sctx.fillRect(0, 0, scrollCanvas.width, scrollCanvas.height);
+            sctx.font = "bold 48px 'Trebuchet MS', sans-serif";
+            sctx.textBaseline = "middle";
+            sctx.fillStyle = "#7cf9ff";
+            sctx.shadowColor = "rgba(124, 249, 255, 0.8)";
+            sctx.shadowBlur = 12;
+            sctx.fillText(message, 20, scrollCanvas.height / 2 + 6);
         };
 
-        drawScroller();
+        redrawText();
 
         return {
-            scene,
-            camera,
             update: (t, dt) => {
-                material.uniforms.uTime.value = t;
-                scroll = (scroll + dt * 120) % (textWidth + 60);
-                drawScroller();
+                scroll = (scroll + dt * 140) % scrollCanvas.width;
+            },
+            draw: (ctx, w, h, t) => {
+                ctx.fillStyle = "#050509";
+                ctx.fillRect(0, 0, w, h);
+                const baseY = h * 0.55;
+                const slice = 3;
+                for (let x = 0; x < w; x += slice) {
+                    const offset = Math.sin(x * 0.03 + t * 3) * 18;
+                    ctx.drawImage(
+                        scrollCanvas,
+                        (scroll + x) % scrollCanvas.width,
+                        scrollCanvas.height / 2 - textHeight / 2,
+                        slice,
+                        textHeight,
+                        x,
+                        baseY + offset,
+                        slice,
+                        textHeight
+                    );
+                }
             },
         };
     }
 
     function createBobs() {
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x050509);
-        const camera = new THREE.OrthographicCamera(-10, 10, 7, -7, 0.1, 20);
-        camera.position.z = 10;
-
-        const spriteCanvas = document.createElement("canvas");
-        spriteCanvas.width = 64;
-        spriteCanvas.height = 64;
-        const sctx = spriteCanvas.getContext("2d");
-        const gradient = sctx.createRadialGradient(32, 32, 4, 32, 32, 30);
-        gradient.addColorStop(0, "rgba(124, 249, 255, 1)");
-        gradient.addColorStop(1, "rgba(124, 249, 255, 0)");
-        sctx.fillStyle = gradient;
+        const sprite = document.createElement("canvas");
+        sprite.width = 64;
+        sprite.height = 64;
+        const sctx = sprite.getContext("2d");
+        const grad = sctx.createRadialGradient(32, 32, 4, 32, 32, 30);
+        grad.addColorStop(0, "rgba(124, 249, 255, 1)");
+        grad.addColorStop(1, "rgba(124, 249, 255, 0)");
+        sctx.fillStyle = grad;
         sctx.fillRect(0, 0, 64, 64);
-        const spriteTexture = new THREE.CanvasTexture(spriteCanvas);
 
-        const count = 42;
-        const positions = new Float32Array(count * 3);
-        const phases = new Float32Array(count * 2);
-        for (let i = 0; i < count; i += 1) {
-            const i3 = i * 3;
-            positions[i3] = 0;
-            positions[i3 + 1] = 0;
-            positions[i3 + 2] = 0;
-            phases[i * 2] = Math.random() * Math.PI * 2;
-            phases[i * 2 + 1] = Math.random() * Math.PI * 2;
-        }
-
-        const geometry = new THREE.BufferGeometry();
-        geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-        const material = new THREE.PointsMaterial({
-            size: 1.6,
-            map: spriteTexture,
-            transparent: true,
-            blending: THREE.AdditiveBlending,
-            depthWrite: false,
-        });
-        const points = new THREE.Points(geometry, material);
-        scene.add(points);
+        const count = 36;
+        const phases = Array.from({ length: count }, () => [Math.random() * Math.PI * 2, Math.random() * Math.PI * 2]);
 
         return {
-            scene,
-            camera,
-            update: (t) => {
-                const pos = geometry.attributes.position;
-                for (let i = 0; i < count; i += 1) {
-                    const phaseX = phases[i * 2];
-                    const phaseY = phases[i * 2 + 1];
-                    const x = Math.sin(t * 0.8 + phaseX) * 7.5 + Math.sin(t * 1.7 + phaseY) * 1.5;
-                    const y = Math.cos(t * 1.1 + phaseY) * 4.0 + Math.sin(t * 0.6 + phaseX) * 1.2;
-                    pos.setXYZ(i, x, y, 0);
-                }
-                pos.needsUpdate = true;
-            },
-            onResize: (w, h) => {
-                const aspect = w / h;
-                camera.left = -10 * aspect;
-                camera.right = 10 * aspect;
-                camera.updateProjectionMatrix();
+            draw: (ctx, w, h, t) => {
+                ctx.fillStyle = "#050509";
+                ctx.fillRect(0, 0, w, h);
+                ctx.globalCompositeOperation = "lighter";
+                phases.forEach(([p1, p2]) => {
+                    const x = w / 2 + Math.sin(t * 0.9 + p1) * w * 0.35 + Math.sin(t * 1.8 + p2) * w * 0.08;
+                    const y = h / 2 + Math.cos(t * 1.1 + p2) * h * 0.25 + Math.sin(t * 0.6 + p1) * h * 0.08;
+                    ctx.drawImage(sprite, x - 32, y - 32, 64, 64);
+                });
+                ctx.globalCompositeOperation = "source-over";
             },
         };
     }
 
     function createFake3DFloor() {
-        return createFullscreenEffect(`
-            precision highp float;
-            varying vec2 vUv;
-            uniform float uTime;
+        return {
+            draw: (ctx, w, h, t) => {
+                const horizon = h * 0.35;
+                const skyGrad = ctx.createLinearGradient(0, 0, 0, horizon);
+                skyGrad.addColorStop(0, "#080814");
+                skyGrad.addColorStop(1, "#121a2e");
+                ctx.fillStyle = skyGrad;
+                ctx.fillRect(0, 0, w, horizon);
+                ctx.fillStyle = "#050509";
+                ctx.fillRect(0, horizon, w, h - horizon);
 
-            void main() {
-                vec2 p = vUv * 2.0 - 1.0;
-                if (p.y > 0.15) {
-                    vec3 sky = mix(vec3(0.02, 0.02, 0.08), vec3(0.1, 0.2, 0.4), p.y * 0.5 + 0.5);
-                    gl_FragColor = vec4(sky, 1.0);
-                    return;
+                const gridColor = "rgba(90, 215, 255, 0.5)";
+                ctx.strokeStyle = gridColor;
+                ctx.lineWidth = 1;
+
+                const depthLines = 50;
+                const offset = (t * 0.25) % 1;
+                for (let i = 1; i <= depthLines; i += 1) {
+                    const p = ((i / depthLines) + offset) % 1;
+                    const y = horizon + (p * p) * (h - horizon);
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(w, y);
+                    ctx.stroke();
                 }
-                float denom = max(0.02, 0.15 - p.y);
-                float z = 1.0 / denom;
-                vec2 uv = vec2(p.x * z * 0.12, z * 0.08 + uTime * 0.6);
-                float checker = step(0.5, fract(uv.x)) + step(0.5, fract(uv.y));
-                checker = mod(checker, 2.0);
-                vec3 colA = vec3(0.02, 0.1, 0.14);
-                vec3 colB = vec3(0.15, 0.75, 0.6);
-                vec3 floor = mix(colA, colB, checker);
-                float fog = clamp(exp(-z * 0.03), 0.0, 1.0);
-                floor = mix(vec3(0.0, 0.0, 0.02), floor, fog);
-                gl_FragColor = vec4(floor, 1.0);
-            }
-        `);
+
+                const cols = 14;
+                for (let i = -cols; i <= cols; i += 1) {
+                    const x = w / 2 + (i / cols) * w;
+                    ctx.beginPath();
+                    ctx.moveTo(w / 2, horizon);
+                    ctx.lineTo(x, h);
+                    ctx.stroke();
+                }
+            },
+        };
     }
 
     function createChiptune(button, status) {

@@ -1,11 +1,11 @@
-# Amiga Demoscene Effects — WebGL Tribute
+# Amiga Demoscene Effects — Canvas Tribute
 
-A single‑page WebGL gallery that recreates **10 famous Amiga‑era demoscene effects** (plasma, copper bars, rotozoom, tunnel, starfield, metaballs, etc.) as realtime shaders and scenes.
+A single‑page gallery that recreates **10 famous Amiga‑era demoscene effects** (plasma, copper bars, rotozoom, tunnel, starfield, metaballs, etc.) as realtime **HTML5 Canvas** renders.
 
 **Live site (GitHub Pages):** https://rene-david-bot.github.io/amiga500-webgl-demos/
 
 ## What this is
-- **Classic effects, modern WebGL** — faithful recreations of demoscene staples.
+- **Classic effects, modern Canvas** — faithful recreations of demoscene staples.
 - **References included** — each card links to a source list/tutorial.
 - **Chiptune bonus** — procedural WebAudio soundtrack (optional).
 
@@ -29,7 +29,7 @@ python3 -m http.server 8080
 ```
 
 ## Tech
-- Three.js (via CDN)
+- HTML5 Canvas 2D
 - Vanilla HTML/CSS/JS
 - WebAudio (procedural chiptune)
 
