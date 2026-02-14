@@ -173,6 +173,20 @@ button:hover {
     mix-blend-mode: screen;
 }
 
+.webgl-warning {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.95rem;
+    color: #ffd7c8;
+    background: rgba(6, 6, 12, 0.72);
+    backdrop-filter: blur(2px);
+}
+
 .list {
     margin-top: 3rem;
     display: grid;

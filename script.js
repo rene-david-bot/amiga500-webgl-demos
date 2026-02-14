@@ -94,12 +94,37 @@
     const audioBtn = document.getElementById("audio-toggle");
     const audioStatus = document.getElementById("audio-status");
 
-    if (!canvas || !window.THREE) {
+    if (!canvas) {
         return;
     }
 
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    const chip = createChiptune(audioBtn, audioStatus);
+    audioBtn?.addEventListener("click", chip.toggle);
+
+    if (!window.THREE) {
+        showWebGLWarning("Three.js failed to load — WebGL effects unavailable.");
+        return;
+    }
+
+    let renderer = null;
+    try {
+        renderer = new THREE.WebGLRenderer({
+            canvas,
+            antialias: true,
+            alpha: true,
+            powerPreference: "high-performance",
+        });
+    } catch (error) {
+        console.error("WebGL init failed", error);
+        showWebGLWarning("WebGL context could not be created. Try enabling WebGL or updating your browser/GPU driver.");
+        return;
+    }
+
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 1);
+    if (renderer.outputColorSpace) {
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+    }
 
     let currentIndex = 0;
     let currentEffect = null;
@@ -113,6 +138,18 @@
         stageDesc.textContent = effect.effect;
         stageLink.href = effect.url;
         stageIndex.textContent = `${index + 1} / ${effects.length}`;
+    };
+
+    const showWebGLWarning = (message) => {
+        const wrap = canvas.parentElement;
+        if (!wrap) return;
+        let warning = wrap.querySelector(".webgl-warning");
+        if (!warning) {
+            warning = document.createElement("div");
+            warning.className = "webgl-warning";
+            wrap.appendChild(warning);
+        }
+        warning.textContent = message;
     };
 
     const disposeScene = (scene) => {
@@ -139,10 +176,13 @@
     };
 
     const resize = () => {
-        const { clientWidth, clientHeight } = canvas.parentElement;
-        renderer.setSize(clientWidth, clientHeight, false);
+        const wrap = canvas.parentElement || canvas;
+        const rect = wrap.getBoundingClientRect();
+        const width = Math.max(1, rect.width || wrap.clientWidth || 640);
+        const height = Math.max(1, rect.height || wrap.clientHeight || 360);
+        renderer.setSize(width, height, false);
         if (currentEffect?.onResize) {
-            currentEffect.onResize(clientWidth, clientHeight);
+            currentEffect.onResize(width, height);
         }
     };
 
@@ -198,9 +238,6 @@
     cycleBtn?.addEventListener("click", startCycle);
     pauseBtn?.addEventListener("click", stopCycle);
 
-    const chip = createChiptune(audioBtn, audioStatus);
-    audioBtn?.addEventListener("click", chip.toggle);
-
     window.addEventListener("resize", resize);
     window.addEventListener("keydown", (event) => {
         if (event.code === "Space") {
@@ -228,7 +265,8 @@
 
     function createFullscreenEffect(fragmentShader, extraUniforms = {}) {
         const scene = new THREE.Scene();
-        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+        camera.position.z = 1;
         const uniforms = {
             uTime: { value: 0 },
             uResolution: { value: new THREE.Vector2(1, 1) },
@@ -240,6 +278,7 @@
             fragmentShader,
         });
         const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
+        mesh.frustumCulled = false;
         scene.add(mesh);
         return {
             scene,
@@ -653,17 +692,24 @@
     function createChiptune(button, status) {
         let context = null;
         let master = null;
+        let compressor = null;
         let isPlaying = false;
         let nextTime = 0;
         let step = 0;
         let rafId = null;
         let channels = [];
+        let noiseBuffer = null;
 
-        const bpm = 125;
+        const bpm = 158;
         const stepsPerBeat = 4;
         const stepTime = 60 / bpm / stepsPerBeat;
 
         const notes = {
+            C2: 65.41,
+            D2: 73.42,
+            E2: 82.41,
+            G2: 98.0,
+            A2: 110.0,
             C3: 130.81,
             D3: 146.83,
             E3: 164.81,
@@ -682,12 +728,16 @@
         };
 
         const bassPattern = [
-            notes.C3, null, notes.C3, null, notes.G3, null, notes.A3, null,
-            notes.C3, null, notes.C3, null, notes.E3, null, notes.G3, null,
+            notes.C2, null, notes.C2, null,
+            notes.G2, null, notes.A2, null,
+            notes.C2, null, notes.C2, null,
+            notes.E2, null, notes.G2, null,
         ];
         const leadPattern = [
-            notes.C4, notes.D4, notes.E4, null, notes.G4, notes.A4, notes.C5, null,
-            notes.E4, null, notes.D4, null, notes.C4, null, notes.A3, null,
+            notes.C4, notes.D4, notes.E4, null,
+            notes.G4, notes.A4, notes.C5, null,
+            notes.E4, null, notes.D4, null,
+            notes.C4, null, notes.A3, null,
         ];
         const arpPattern = [
             notes.C4, notes.E4, notes.G4, notes.E4,
@@ -695,19 +745,29 @@
             notes.E4, notes.G4, notes.B4, notes.G4,
             notes.D4, notes.F4, notes.A4, notes.F4,
         ];
-        const drumPattern = [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0];
+        const kickPattern = [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1];
+        const snarePattern = [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0];
+        const hatPattern = [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0];
 
-        function setup() {
+        function ensureContext() {
             if (context) return;
             context = new (window.AudioContext || window.webkitAudioContext)();
             master = context.createGain();
-            master.gain.value = 0.18;
-            master.connect(context.destination);
+            master.gain.value = 0.24;
+
+            compressor = context.createDynamicsCompressor();
+            compressor.threshold.value = -18;
+            compressor.knee.value = 24;
+            compressor.ratio.value = 6;
+            compressor.attack.value = 0.003;
+            compressor.release.value = 0.18;
+
+            master.connect(compressor).connect(context.destination);
 
             channels = [
-                { type: "square", level: 0.08, pattern: bassPattern },
-                { type: "triangle", level: 0.06, pattern: leadPattern },
-                { type: "sawtooth", level: 0.04, pattern: arpPattern },
+                { type: "triangle", level: 0.1, pattern: bassPattern },
+                { type: "square", level: 0.075, pattern: leadPattern },
+                { type: "sawtooth", level: 0.05, pattern: arpPattern },
             ];
 
             channels.forEach((channel) => {
@@ -722,26 +782,48 @@
             });
         }
 
-        setup();
-
-        function playNoise(time) {
-            const duration = 0.08;
-            const buffer = context.createBuffer(1, context.sampleRate * duration, context.sampleRate);
-            const data = buffer.getChannelData(0);
+        function getNoiseBuffer() {
+            if (noiseBuffer) return noiseBuffer;
+            const duration = 0.5;
+            noiseBuffer = context.createBuffer(1, context.sampleRate * duration, context.sampleRate);
+            const data = noiseBuffer.getChannelData(0);
             for (let i = 0; i < data.length; i += 1) {
                 data[i] = Math.random() * 2 - 1;
             }
-            const source = context.createBufferSource();
-            source.buffer = buffer;
+            return noiseBuffer;
+        }
+
+        function triggerKick(time) {
+            const osc = context.createOscillator();
             const gain = context.createGain();
-            gain.gain.setValueAtTime(0.06, time);
+            osc.type = "sine";
+            osc.frequency.setValueAtTime(120, time);
+            osc.frequency.exponentialRampToValueAtTime(44, time + 0.12);
+            gain.gain.setValueAtTime(0.9, time);
+            gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.12);
+            osc.connect(gain).connect(master);
+            osc.start(time);
+            osc.stop(time + 0.14);
+        }
+
+        function triggerNoise(time, type, gainValue, duration, freq) {
+            const source = context.createBufferSource();
+            source.buffer = getNoiseBuffer();
+            const filter = context.createBiquadFilter();
+            filter.type = type;
+            filter.frequency.setValueAtTime(freq, time);
+            filter.Q.value = 0.8;
+            const gain = context.createGain();
+            gain.gain.setValueAtTime(gainValue, time);
             gain.gain.exponentialRampToValueAtTime(0.0001, time + duration);
-            source.connect(gain).connect(master);
+            source.connect(filter).connect(gain).connect(master);
             source.start(time);
             source.stop(time + duration);
         }
 
         function scheduleStep(time, index) {
+            const accent = index % 4 === 0 ? 1.2 : 1.0;
+
             channels.forEach((channel) => {
                 const note = channel.pattern[index % channel.pattern.length];
                 const gainNode = channel.gainNode;
@@ -749,15 +831,21 @@
                 if (note) {
                     channel.osc.frequency.setValueAtTime(note, time);
                     gainNode.gain.setValueAtTime(0.0, time);
-                    gainNode.gain.linearRampToValueAtTime(channel.level, time + 0.01);
-                    gainNode.gain.exponentialRampToValueAtTime(0.0001, time + stepTime * 0.9);
+                    gainNode.gain.linearRampToValueAtTime(channel.level * accent, time + 0.01);
+                    gainNode.gain.exponentialRampToValueAtTime(0.0001, time + stepTime * 0.85);
                 } else {
                     gainNode.gain.setValueAtTime(0.0, time);
                 }
             });
 
-            if (drumPattern[index % drumPattern.length]) {
-                playNoise(time);
+            if (kickPattern[index % kickPattern.length]) {
+                triggerKick(time);
+            }
+            if (snarePattern[index % snarePattern.length]) {
+                triggerNoise(time, "bandpass", 0.35, 0.12, 1800);
+            }
+            if (hatPattern[index % hatPattern.length]) {
+                triggerNoise(time, "highpass", 0.12, 0.05, 6000);
             }
         }
 
@@ -789,6 +877,7 @@
 
         return {
             toggle: async () => {
+                ensureContext();
                 if (!context) return;
                 if (!isPlaying) {
                     await context.resume();
