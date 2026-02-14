@@ -115,12 +115,31 @@ import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
     const chip = createChiptune(audioBtn, audioStatus);
     audioBtn?.addEventListener("click", chip.toggle);
 
-    const isHeadless = navigator.webdriver || /HeadlessChrome/i.test(navigator.userAgent);
-    if (isHeadless) {
+    const isAutomated = navigator.webdriver || /HeadlessChrome/i.test(navigator.userAgent);
+    if (isAutomated) {
         showWebGLWarning("WebGL is disabled in automated browser sessions.");
         return;
     }
 
+    const canWebGL = (() => {
+        try {
+            const probe = document.createElement("canvas");
+            const testGl =
+                probe.getContext("webgl2", { antialias: true, alpha: true, failIfMajorPerformanceCaveat: true }) ||
+                probe.getContext("webgl", { antialias: true, alpha: true, failIfMajorPerformanceCaveat: true });
+            if (!testGl) return false;
+            const version = testGl.getParameter(testGl.VERSION);
+            const renderer = testGl.getParameter(testGl.RENDERER);
+            return Boolean(version && renderer);
+        } catch (error) {
+            return false;
+        }
+    })();
+
+    if (!canWebGL) {
+        showWebGLWarning("WebGL is not available in this browser/session.");
+        return;
+    }
 
     const gl =
         canvas.getContext("webgl2", { antialias: true, alpha: true }) ||
@@ -130,6 +149,11 @@ import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
         showWebGLWarning("WebGL is not available in this browser/session.");
         return;
     }
+
+    canvas.addEventListener("webglcontextlost", (event) => {
+        event.preventDefault();
+        showWebGLWarning("WebGL context lost. Please reload the page.");
+    });
 
     let renderer = null;
     try {
