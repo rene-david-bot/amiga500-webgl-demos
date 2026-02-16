@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Retro Drum Machine — 16-step sequencer in Dave's Retro Corner." />
+    <title>Retro Drum Machine · Dave's Retro Corner</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="machine">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <h1>Retro Drum Machine</h1>
+            <p class="subtitle">16-step sequencer</p>
+            <p class="lead">
+                Tap the grid to program a classic 4-voice beat. Hit play to loop —
+                it’s all procedural WebAudio.
+            </p>
+        </header>
+
+        <section class="controls">
+            <div class="control-row">
+                <button id="play" class="primary">Play</button>
+                <button id="clear" class="ghost">Clear</button>
+                <div class="tempo">
+                    <label for="tempo">Tempo <span id="tempo-value">120</span> BPM</label>
+                    <input id="tempo" type="range" min="80" max="170" value="120" />
+                </div>
+            </div>
+            <div class="status" id="status">Audio off — press Play.</div>
+        </section>
+
+        <section class="grid" id="grid"></section>
+
+        <section class="tips">
+            <div class="tips-title">Quick tips</div>
+            <ul>
+                <li>Try a classic pattern: kicks on 1/9, snares on 5/13.</li>
+                <li>Use hats on every other step for drive.</li>
+                <li>Tempo sweet spot: 120–140 BPM.</li>
+            </ul>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

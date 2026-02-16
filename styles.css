@@ -413,6 +413,61 @@ button:hover {
     font-weight: 700;
 }
 
+.lab {
+    margin-top: 3rem;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.lab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+}
+
+.lab-card {
+    display: grid;
+    gap: 0.6rem;
+    background: #0f1224;
+    border-radius: 12px;
+    border: 2px solid #1e234a;
+    padding: 1.4rem;
+    text-decoration: none;
+    color: var(--text);
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.6);
+    transition: transform 0.2s ease, border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lab-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(79, 210, 255, 0.7);
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.7);
+}
+
+.lab-title {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+}
+
+.lab-meta {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.lab-desc {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.95rem;
+}
+
+.lab-cta {
+    color: var(--success);
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
 .notes {
     margin-top: 3rem;
     padding: 2rem;
