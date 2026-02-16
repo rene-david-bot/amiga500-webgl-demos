@@ -638,44 +638,60 @@
         };
     }
 
-    function createFake3DFloor() {
-        return {
-            draw: (ctx, w, h, t) => {
-                const horizon = h * 0.35;
-                const skyGrad = ctx.createLinearGradient(0, 0, 0, horizon);
-                skyGrad.addColorStop(0, "#080814");
-                skyGrad.addColorStop(1, "#121a2e");
-                ctx.fillStyle = skyGrad;
-                ctx.fillRect(0, 0, w, horizon);
-                ctx.fillStyle = "#050509";
-                ctx.fillRect(0, horizon, w, h - horizon);
+function createFake3DFloor() {
+    return {
+        draw: (ctx, w, h, t) => {
+            const horizon = h * 0.35;
+            const skyGrad = ctx.createLinearGradient(0, 0, 0, horizon);
+            skyGrad.addColorStop(0, "#080814");
+            skyGrad.addColorStop(1, "#121a2e");
+            ctx.fillStyle = skyGrad;
+            ctx.fillRect(0, 0, w, horizon);
 
-                const gridColor = "rgba(90, 215, 255, 0.5)";
-                ctx.strokeStyle = gridColor;
-                ctx.lineWidth = 1;
+            ctx.fillStyle = "#050509";
+            ctx.fillRect(0, horizon, w, h - horizon);
 
-                const depthLines = 50;
-                const offset = (t * 0.25) % 1;
-                for (let i = 1; i <= depthLines; i += 1) {
-                    const p = ((i / depthLines) + offset) % 1;
-                    const y = horizon + (p * p) * (h - horizon);
+            const rows = 26;
+            const cols = 20;
+            const offset = (t * 0.35) % 1;
+            const dark = "#0a0a14";
+            const light = "#2b5bff";
+
+            for (let r = 0; r < rows; r += 1) {
+                let p0 = r / rows + offset;
+                let p1 = (r + 1) / rows + offset;
+                if (p0 > 1) p0 -= 1;
+                if (p1 > 1) p1 -= 1;
+                if (p1 <= p0) continue;
+
+                const y0 = horizon + (p0 * p0) * (h - horizon);
+                const y1 = horizon + (p1 * p1) * (h - horizon);
+
+                const scale0 = 0.18 + p0 * 0.92;
+                const scale1 = 0.18 + p1 * 0.92;
+                const half0 = (w * 0.5) * scale0;
+                const half1 = (w * 0.5) * scale1;
+
+                for (let c = -cols / 2; c < cols / 2; c += 1) {
+                    const x0 = w / 2 + (c / (cols / 2)) * half0;
+                    const x1 = w / 2 + ((c + 1) / (cols / 2)) * half0;
+                    const x2 = w / 2 + ((c + 1) / (cols / 2)) * half1;
+                    const x3 = w / 2 + (c / (cols / 2)) * half1;
+
+                    const parity = (r + c) & 1;
+                    ctx.fillStyle = parity === 0 ? dark : light;
                     ctx.beginPath();
-                    ctx.moveTo(0, y);
-                    ctx.lineTo(w, y);
-                    ctx.stroke();
+                    ctx.moveTo(x0, y0);
+                    ctx.lineTo(x1, y0);
+                    ctx.lineTo(x2, y1);
+                    ctx.lineTo(x3, y1);
+                    ctx.closePath();
+                    ctx.fill();
                 }
-
-                const cols = 14;
-                for (let i = -cols; i <= cols; i += 1) {
-                    const x = w / 2 + (i / cols) * w;
-                    ctx.beginPath();
-                    ctx.moveTo(w / 2, horizon);
-                    ctx.lineTo(x, h);
-                    ctx.stroke();
-                }
-            },
-        };
-    }
+            }
+        },
+    };
+}
 
     function createChiptune(button, status, hint) {
         let context = null;
