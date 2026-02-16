@@ -97,7 +97,7 @@ h1 {
 
 .subtitle {
     font-family: "Press Start 2P", monospace;
-    font-size: clamp(0.75rem, 1.8vw, 1.1rem);
+    font-size: clamp(1.2rem, 3.6vw, 2.2rem);
     color: var(--accent);
     letter-spacing: 0.08em;
     text-transform: uppercase;
