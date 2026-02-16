@@ -93,12 +93,13 @@
     const pauseBtn = document.getElementById("pause");
     const audioBtn = document.getElementById("audio-toggle");
     const audioStatus = document.getElementById("audio-status");
+    const audioHint = document.querySelector(".audio-hint");
 
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const chip = createChiptune(audioBtn, audioStatus);
+    const chip = createChiptune(audioBtn, audioStatus, audioHint);
     audioBtn?.addEventListener("click", chip.toggle);
 
     let currentIndex = 0;
@@ -650,7 +651,7 @@
         };
     }
 
-    function createChiptune(button, status) {
+    function createChiptune(button, status, hint) {
         let context = null;
         let master = null;
         let compressor = null;
@@ -866,6 +867,9 @@
         function updateUI() {
             if (!button || !status) return;
             button.textContent = desiredOn ? "Chiptune: On" : "Chiptune: Off";
+            if (hint) {
+                hint.classList.toggle("is-hidden", isPlaying);
+            }
             if (isPlaying) {
                 status.textContent = "Audio running — 140 BPM chiptune.";
             } else if (autoplayBlocked) {

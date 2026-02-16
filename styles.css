@@ -124,11 +124,25 @@ h1 {
     font-size: 0.6rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.audio-hint.is-hidden {
+    opacity: 0;
+    transform: translateX(6px);
+    pointer-events: none;
 }
 
 .audio-arrow {
-    font-size: 1.2rem;
+    display: inline-flex;
     animation: nudge 1.2s ease-in-out infinite;
+}
+
+.audio-arrow svg {
+    width: 32px;
+    height: 16px;
+    fill: var(--accent);
+    image-rendering: pixelated;
 }
 
 @keyframes nudge {
