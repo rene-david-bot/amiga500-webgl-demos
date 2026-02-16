@@ -10,7 +10,9 @@ const tracks = [
     { name: "Kick", color: "#4fe3ff", type: "kick" },
     { name: "Snare", color: "#ff6ad5", type: "snare" },
     { name: "Hat", color: "#7dffb1", type: "hat" },
+    { name: "Open Hat", color: "#6afff7", type: "openhat" },
     { name: "Clap", color: "#ffd166", type: "clap" },
+    { name: "Rim", color: "#ff9f3f", type: "rim" },
 ];
 
 const steps = 16;
@@ -43,6 +45,9 @@ function buildGrid() {
         for (let i = 0; i < steps; i += 1) {
             const step = document.createElement("button");
             step.className = "step";
+            if (i % 4 === 0) {
+                step.classList.add("beat");
+            }
             step.dataset.track = String(trackIndex);
             step.dataset.step = String(i);
             stepsWrap.appendChild(step);
@@ -136,6 +141,21 @@ function triggerHat(time) {
     source.stop(time + 0.06);
 }
 
+function triggerOpenHat(time) {
+    const source = audioCtx.createBufferSource();
+    source.buffer = getNoiseBuffer();
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = "highpass";
+    filter.frequency.setValueAtTime(7500, time);
+    filter.Q.value = 0.8;
+    const gain = audioCtx.createGain();
+    gain.gain.setValueAtTime(0.22, time);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.22);
+    source.connect(filter).connect(gain).connect(audioCtx.destination);
+    source.start(time);
+    source.stop(time + 0.24);
+}
+
 function triggerClap(time) {
     const bursts = [0, 0.012, 0.024, 0.036];
     bursts.forEach((offset) => {
@@ -153,6 +173,18 @@ function triggerClap(time) {
     });
 }
 
+function triggerRim(time) {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = "square";
+    osc.frequency.setValueAtTime(900, time);
+    gain.gain.setValueAtTime(0.2, time);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.05);
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start(time);
+    osc.stop(time + 0.06);
+}
+
 function playSound(trackType, time) {
     if (!audioCtx) return;
     switch (trackType) {
@@ -165,8 +197,14 @@ function playSound(trackType, time) {
         case "hat":
             triggerHat(time);
             break;
+        case "openhat":
+            triggerOpenHat(time);
+            break;
         case "clap":
             triggerClap(time);
+            break;
+        case "rim":
+            triggerRim(time);
             break;
         default:
             break;
@@ -253,7 +291,9 @@ function setDefaultPattern() {
     patterns[0][2][6] = true;
     patterns[0][2][10] = true;
     patterns[0][2][14] = true;
-    patterns[0][3][12] = true;
+    patterns[0][3][14] = true;
+    patterns[0][4][12] = true;
+    patterns[0][5][4] = true;
     renderBank();
 }
 

@@ -257,6 +257,11 @@ button:hover {
     transition: transform 0.15s ease, border 0.2s ease, background 0.2s ease;
 }
 
+.step.beat {
+    background: #090a1b;
+    border-color: #3b3f6f;
+}
+
 .step.on {
     background: #2331ff;
     border-color: #7b9bff;
@@ -274,8 +279,18 @@ button:hover {
 }
 
 .step.on[data-track="3"] {
+    background: #42d6ff;
+    border-color: #86e9ff;
+}
+
+.step.on[data-track="4"] {
     background: #ffd166;
     border-color: #ffe8a8;
+}
+
+.step.on[data-track="5"] {
+    background: #ff9f3f;
+    border-color: #ffd2a1;
 }
 
 .step.active::after {
