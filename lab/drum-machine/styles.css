@@ -150,6 +150,54 @@ button:hover {
     min-width: 220px;
 }
 
+.banks {
+    align-items: center;
+}
+
+.banks-label {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.bank-buttons {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.bank-button {
+    font: inherit;
+    border: 2px solid #3b3f6f;
+    background: #0f1226;
+    color: var(--text);
+    padding: 0.5rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.6);
+    transition: transform 0.2s ease, border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bank-button.is-active {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 10px rgba(79, 227, 255, 0.5);
+}
+
+.bank-button:hover {
+    transform: translateY(-1px);
+}
+
+.bank-hint {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
 .tempo label {
     font-family: "Press Start 2P", monospace;
     font-size: 0.55rem;

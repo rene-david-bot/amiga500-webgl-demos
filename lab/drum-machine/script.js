@@ -4,6 +4,7 @@ const clearBtn = document.getElementById("clear");
 const tempoSlider = document.getElementById("tempo");
 const tempoValue = document.getElementById("tempo-value");
 const statusEl = document.getElementById("status");
+const bankButtons = document.getElementById("bank-buttons");
 
 const tracks = [
     { name: "Kick", color: "#4fe3ff", type: "kick" },
@@ -13,7 +14,9 @@ const tracks = [
 ];
 
 const steps = 16;
-let pattern = tracks.map(() => Array(steps).fill(false));
+const bankCount = 4;
+let patterns = Array.from({ length: bankCount }, () => tracks.map(() => Array(steps).fill(false)));
+let currentBank = 0;
 let currentStep = 0;
 let tempo = Number(tempoSlider.value);
 let isPlaying = false;
@@ -71,14 +74,26 @@ function getNoiseBuffer() {
 function triggerKick(time) {
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
+    const click = audioCtx.createOscillator();
+    const clickGain = audioCtx.createGain();
+
     osc.type = "sine";
-    osc.frequency.setValueAtTime(140, time);
-    osc.frequency.exponentialRampToValueAtTime(50, time + 0.12);
+    osc.frequency.setValueAtTime(160, time);
+    osc.frequency.exponentialRampToValueAtTime(55, time + 0.2);
     gain.gain.setValueAtTime(0.9, time);
-    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.14);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.28);
+
+    click.type = "square";
+    click.frequency.setValueAtTime(800, time);
+    clickGain.gain.setValueAtTime(0.25, time);
+    clickGain.gain.exponentialRampToValueAtTime(0.0001, time + 0.02);
+
     osc.connect(gain).connect(audioCtx.destination);
+    click.connect(clickGain).connect(audioCtx.destination);
     osc.start(time);
-    osc.stop(time + 0.16);
+    osc.stop(time + 0.3);
+    click.start(time);
+    click.stop(time + 0.03);
 }
 
 function triggerSnare(time) {
@@ -86,23 +101,24 @@ function triggerSnare(time) {
     source.buffer = getNoiseBuffer();
     const filter = audioCtx.createBiquadFilter();
     filter.type = "bandpass";
-    filter.frequency.setValueAtTime(1800, time);
+    filter.frequency.setValueAtTime(1900, time);
+    filter.Q.value = 0.8;
     const gain = audioCtx.createGain();
-    gain.gain.setValueAtTime(0.5, time);
-    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.15);
+    gain.gain.setValueAtTime(0.55, time);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.2);
     source.connect(filter).connect(gain).connect(audioCtx.destination);
     source.start(time);
-    source.stop(time + 0.16);
+    source.stop(time + 0.22);
 
     const tone = audioCtx.createOscillator();
     const toneGain = audioCtx.createGain();
     tone.type = "triangle";
-    tone.frequency.setValueAtTime(200, time);
-    toneGain.gain.setValueAtTime(0.25, time);
-    toneGain.gain.exponentialRampToValueAtTime(0.0001, time + 0.12);
+    tone.frequency.setValueAtTime(180, time);
+    toneGain.gain.setValueAtTime(0.35, time);
+    toneGain.gain.exponentialRampToValueAtTime(0.0001, time + 0.18);
     tone.connect(toneGain).connect(audioCtx.destination);
     tone.start(time);
-    tone.stop(time + 0.14);
+    tone.stop(time + 0.2);
 }
 
 function triggerHat(time) {
@@ -110,17 +126,18 @@ function triggerHat(time) {
     source.buffer = getNoiseBuffer();
     const filter = audioCtx.createBiquadFilter();
     filter.type = "highpass";
-    filter.frequency.setValueAtTime(6500, time);
+    filter.frequency.setValueAtTime(8000, time);
+    filter.Q.value = 0.9;
     const gain = audioCtx.createGain();
-    gain.gain.setValueAtTime(0.2, time);
-    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.06);
+    gain.gain.setValueAtTime(0.18, time);
+    gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.05);
     source.connect(filter).connect(gain).connect(audioCtx.destination);
     source.start(time);
-    source.stop(time + 0.07);
+    source.stop(time + 0.06);
 }
 
 function triggerClap(time) {
-    const bursts = [0, 0.015, 0.03];
+    const bursts = [0, 0.012, 0.024, 0.036];
     bursts.forEach((offset) => {
         const source = audioCtx.createBufferSource();
         source.buffer = getNoiseBuffer();
@@ -128,11 +145,11 @@ function triggerClap(time) {
         filter.type = "bandpass";
         filter.frequency.setValueAtTime(1500, time + offset);
         const gain = audioCtx.createGain();
-        gain.gain.setValueAtTime(0.4, time + offset);
-        gain.gain.exponentialRampToValueAtTime(0.0001, time + offset + 0.08);
+        gain.gain.setValueAtTime(0.38, time + offset);
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + offset + 0.07);
         source.connect(filter).connect(gain).connect(audioCtx.destination);
         source.start(time + offset);
-        source.stop(time + offset + 0.09);
+        source.stop(time + offset + 0.08);
     });
 }
 
@@ -164,10 +181,29 @@ function updatePlayhead() {
     });
 }
 
+function renderBank() {
+    stepEls.flat().forEach((step) => step.classList.remove("on"));
+    patterns[currentBank].forEach((trackPattern, trackIndex) => {
+        trackPattern.forEach((on, stepIndex) => {
+            if (on) stepEls[trackIndex][stepIndex].classList.add("on");
+        });
+    });
+}
+
+function setActiveBank(bankIndex) {
+    currentBank = bankIndex;
+    if (bankButtons) {
+        Array.from(bankButtons.querySelectorAll(".bank-button")).forEach((btn) => {
+            btn.classList.toggle("is-active", Number(btn.dataset.bank) === bankIndex);
+        });
+    }
+    renderBank();
+}
+
 function tick() {
     const now = audioCtx ? audioCtx.currentTime : 0;
     tracks.forEach((track, trackIndex) => {
-        if (pattern[trackIndex][currentStep]) {
+        if (patterns[currentBank][trackIndex][currentStep]) {
             playSound(track.type, now + 0.01);
         }
     });
@@ -183,7 +219,7 @@ function start() {
     timer = setInterval(tick, interval);
     isPlaying = true;
     playBtn.textContent = "Pause";
-    statusEl.textContent = "Audio running — loop engaged.";
+    statusEl.textContent = "Audio running — 909‑style kit engaged.";
 }
 
 function stop() {
@@ -196,37 +232,34 @@ function stop() {
 }
 
 function toggleStep(trackIndex, stepIndex) {
-    pattern[trackIndex][stepIndex] = !pattern[trackIndex][stepIndex];
+    const bank = patterns[currentBank];
+    bank[trackIndex][stepIndex] = !bank[trackIndex][stepIndex];
     const stepEl = stepEls[trackIndex][stepIndex];
-    stepEl.classList.toggle("on", pattern[trackIndex][stepIndex]);
+    stepEl.classList.toggle("on", bank[trackIndex][stepIndex]);
 }
 
 function clearPattern() {
-    pattern = tracks.map(() => Array(steps).fill(false));
-    stepEls.flat().forEach((step) => step.classList.remove("on"));
+    patterns[currentBank] = tracks.map(() => Array(steps).fill(false));
+    renderBank();
 }
 
 function setDefaultPattern() {
-    clearPattern();
-    pattern[0][0] = true;
-    pattern[0][8] = true;
-    pattern[1][4] = true;
-    pattern[1][12] = true;
-    pattern[2][2] = true;
-    pattern[2][6] = true;
-    pattern[2][10] = true;
-    pattern[2][14] = true;
-    pattern[3][12] = true;
-
-    tracks.forEach((_, trackIndex) => {
-        pattern[trackIndex].forEach((on, stepIndex) => {
-            if (on) stepEls[trackIndex][stepIndex].classList.add("on");
-        });
-    });
+    patterns = Array.from({ length: bankCount }, () => tracks.map(() => Array(steps).fill(false)));
+    patterns[0][0][0] = true;
+    patterns[0][0][8] = true;
+    patterns[0][1][4] = true;
+    patterns[0][1][12] = true;
+    patterns[0][2][2] = true;
+    patterns[0][2][6] = true;
+    patterns[0][2][10] = true;
+    patterns[0][2][14] = true;
+    patterns[0][3][12] = true;
+    renderBank();
 }
 
 buildGrid();
 setDefaultPattern();
+setActiveBank(0);
 
 playBtn.addEventListener("click", () => {
     if (isPlaying) {
@@ -247,6 +280,15 @@ grid.addEventListener("click", (event) => {
     const stepIndex = Number(target.dataset.step);
     toggleStep(trackIndex, stepIndex);
 });
+
+if (bankButtons) {
+    bankButtons.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!target.classList.contains("bank-button")) return;
+        const bankIndex = Number(target.dataset.bank);
+        setActiveBank(bankIndex);
+    });
+}
 
 tempoSlider.addEventListener("input", (event) => {
     tempo = Number(event.target.value);
