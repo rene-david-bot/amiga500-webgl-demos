@@ -95,6 +95,14 @@ h1 {
     line-height: 1.25;
 }
 
+.subtitle {
+    font-family: "Press Start 2P", monospace;
+    font-size: clamp(0.75rem, 1.8vw, 1.1rem);
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
 .hero p {
     max-width: 740px;
     color: var(--muted);

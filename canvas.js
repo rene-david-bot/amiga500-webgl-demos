@@ -664,6 +664,7 @@
         let channels = [];
         let noiseBuffer = null;
         let autoplayBlocked = false;
+        let desiredOn = true;
     
         const bpm = 140;
         const stepsPerBeat = 4;
@@ -867,11 +868,13 @@
     
         function updateUI() {
             if (!button || !status) return;
-            button.textContent = isPlaying ? "Chiptune: On" : "Chiptune: Off";
+            button.textContent = desiredOn ? "Chiptune: On" : "Chiptune: Off";
             if (isPlaying) {
                 status.textContent = "Audio running — 140 BPM chiptune.";
             } else if (autoplayBlocked) {
                 status.textContent = "Autoplay blocked by browser — click to enable audio.";
+            } else if (desiredOn) {
+                status.textContent = "Starting audio...";
             } else {
                 status.textContent = "Audio off — click to enable.";
             }
@@ -884,6 +887,7 @@
                 await context.resume();
             } catch (err) {
                 autoplayBlocked = !fromUser;
+                isPlaying = false;
                 updateUI();
                 return false;
             }
@@ -908,13 +912,17 @@
     
         return {
             toggle: async () => {
-                if (!isPlaying) {
-                    await startAudio(true);
-                } else {
+                if (desiredOn) {
+                    desiredOn = false;
                     stopAudio();
+                } else {
+                    desiredOn = true;
+                    await startAudio(true);
                 }
             },
             autoplay: async () => {
+                desiredOn = true;
+                updateUI();
                 await startAudio(false);
             },
         };
