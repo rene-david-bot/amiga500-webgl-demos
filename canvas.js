@@ -100,9 +100,6 @@
 
     const chip = createChiptune(audioBtn, audioStatus);
     audioBtn?.addEventListener("click", chip.toggle);
-    window.addEventListener("load", () => {
-        chip.autoplay?.();
-    });
 
     let currentIndex = 0;
     let currentEffect = null;
@@ -664,7 +661,7 @@
         let channels = [];
         let noiseBuffer = null;
         let autoplayBlocked = false;
-        let desiredOn = true;
+        let desiredOn = false;
     
         const bpm = 140;
         const stepsPerBeat = 4;

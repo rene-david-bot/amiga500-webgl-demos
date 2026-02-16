@@ -21,9 +21,13 @@
             <div class="hero-actions">
                 <button id="cycle" class="primary">Auto‑cycle</button>
                 <button id="pause" class="ghost">Pause</button>
-                <button id="audio-toggle" class="ghost">Chiptune: On</button>
+                <button id="audio-toggle" class="ghost">Chiptune: Off</button>
+                <div class="audio-hint" aria-hidden="true">
+                    <span class="audio-arrow">⬅</span>
+                    <span>Enable chiptune</span>
+                </div>
             </div>
-            <div class="hero-meta" id="audio-status">Starting audio...</div>
+            <div class="hero-meta" id="audio-status">Audio off — click to enable.</div>
         </header>
 
         <section class="stage">
@@ -66,6 +70,6 @@
         </footer>
     </main>
 
-    <script src="canvas.js?v=20260216b"></script>
+    <script src="canvas.js?v=20260216c"></script>
 </body>
 </html>
