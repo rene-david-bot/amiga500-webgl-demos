@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Fira+Code:wght@400;600&display=swap");
 
 :root {
     --bg: #05040b;
@@ -282,11 +282,20 @@ button:hover {
     border-radius: 8px;
     max-height: 320px;
     overflow: auto;
-    font-family: "VT323", monospace;
-    font-size: 0.95rem;
-    line-height: 1.4;
+    font-family: "Fira Code", "JetBrains Mono", "Courier New", monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    letter-spacing: 0;
     color: #b7f3ff;
     white-space: pre;
+    tab-size: 2;
+    word-break: normal;
+    overflow-wrap: normal;
+    font-variant-ligatures: none;
+}
+
+.code-panel code {
+    display: block;
 }
 
 #demo-canvas {

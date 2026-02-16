@@ -111,17 +111,24 @@
 
     const formatCode = (raw) => {
         if (!raw) return "";
-        const lines = raw.split("\n");
-        if (lines.length <= 1) return raw.trim();
-        const indents = lines
-            .slice(1)
-            .filter((line) => line.trim().length)
-            .map((line) => line.match(/^\s*/)[0].length);
-        const minIndent = indents.length ? Math.min(...indents) : 0;
-        return lines
-            .map((line, idx) => (idx === 0 ? line.trim() : line.slice(minIndent)))
-            .join("\n")
-            .trim();
+        const lines = raw.replace(/\t/g, "  ").split("\n");
+        let indent = 0;
+        const out = [];
+        lines.forEach((line) => {
+            const trimmed = line.trim();
+            if (!trimmed) {
+                out.push("");
+                return;
+            }
+            if (/^[}\]]/.test(trimmed)) {
+                indent = Math.max(indent - 1, 0);
+            }
+            out.push(`${"  ".repeat(indent)}${trimmed}`);
+            if (/[{\[]$/.test(trimmed)) {
+                indent += 1;
+            }
+        });
+        return out.join("\n").trim();
     };
 
     const updateUI = (index) => {
