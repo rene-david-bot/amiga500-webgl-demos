@@ -94,6 +94,7 @@
     const audioBtn = document.getElementById("audio-toggle");
     const audioStatus = document.getElementById("audio-status");
     const audioHint = document.querySelector(".audio-hint");
+    const effectCode = document.getElementById("effect-code");
 
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -108,6 +109,21 @@
     let cycleTimer = null;
     const size = { width: 0, height: 0 };
 
+    const formatCode = (raw) => {
+        if (!raw) return "";
+        const lines = raw.split("\n");
+        if (lines.length <= 1) return raw.trim();
+        const indents = lines
+            .slice(1)
+            .filter((line) => line.trim().length)
+            .map((line) => line.match(/^\s*/)[0].length);
+        const minIndent = indents.length ? Math.min(...indents) : 0;
+        return lines
+            .map((line, idx) => (idx === 0 ? line.trim() : line.slice(minIndent)))
+            .join("\n")
+            .trim();
+    };
+
     const updateUI = (index) => {
         const effect = effects[index];
         stageTitle.textContent = effect.title;
@@ -115,6 +131,9 @@
         stageDesc.textContent = effect.effect;
         stageLink.href = effect.url;
         stageIndex.textContent = `${index + 1} / ${effects.length}`;
+        if (effectCode) {
+            effectCode.textContent = formatCode(effect.factory?.toString());
+        }
     };
 
     const setEffect = (index) => {

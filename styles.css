@@ -241,6 +241,12 @@ button:hover {
     font-weight: 700;
 }
 
+.stage-visual {
+    display: grid;
+    gap: 1.2rem;
+    align-content: start;
+}
+
 .canvas-wrap {
     position: relative;
     border-radius: 10px;
@@ -249,6 +255,38 @@ button:hover {
     min-height: 320px;
     border: 2px solid #2b2f5f;
     box-shadow: inset 0 0 0 2px #0a0a14;
+}
+
+.code-panel {
+    background: #0b1024;
+    border-radius: 10px;
+    border: 2px solid #1e234a;
+    padding: 1rem;
+    box-shadow: inset 0 0 0 2px #0a0a14;
+}
+
+.code-title {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--success);
+    margin-bottom: 0.6rem;
+}
+
+.code-panel pre {
+    margin: 0;
+    padding: 0.8rem;
+    background: #050509;
+    border: 2px solid #2b2f5f;
+    border-radius: 8px;
+    max-height: 320px;
+    overflow: auto;
+    font-family: "VT323", monospace;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #b7f3ff;
+    white-space: pre;
 }
 
 #demo-canvas {
