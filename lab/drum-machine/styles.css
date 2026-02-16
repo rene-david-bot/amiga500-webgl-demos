@@ -258,8 +258,12 @@ button:hover {
 }
 
 .step.beat {
-    background: #090a1b;
-    border-color: #3b3f6f;
+    background: #070812;
+    border-color: #2c3055;
+}
+
+.step.beat.on {
+    box-shadow: 0 0 10px rgba(91, 156, 255, 0.7);
 }
 
 .step.on {
