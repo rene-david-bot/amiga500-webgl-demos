@@ -1,14 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
+
 :root {
-    --bg: #050509;
-    --bg-soft: #0d0d16;
-    --panel: #10101a;
-    --text: #e6e6f0;
-    --muted: #9aa0b3;
-    --accent: #4fd2ff;
-    --accent-2: #ff4fd8;
-    --success: #86f7c0;
-    --border: rgba(255, 255, 255, 0.08);
-    --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    --bg: #05040b;
+    --bg-soft: #0d0f1f;
+    --panel: #11142b;
+    --text: #f0f1ff;
+    --muted: #9aa4d6;
+    --accent: #4fe3ff;
+    --accent-2: #ff6ad5;
+    --success: #7dffb1;
+    --border: rgba(255, 255, 255, 0.18);
+    --shadow: 0 6px 0 rgba(6, 8, 20, 0.8), 0 20px 40px rgba(0, 0, 0, 0.55);
 }
 
 * {
@@ -18,46 +20,83 @@
 }
 
 body {
-    font-family: "Inter", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "VT323", "Press Start 2P", monospace;
+    font-size: 20px;
     color: var(--text);
-    background: radial-gradient(circle at top, #101026 0%, var(--bg) 60%);
-    line-height: 1.6;
+    background-color: var(--bg);
+    background-image:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%),
+        linear-gradient(225deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%),
+        linear-gradient(45deg, rgba(0, 0, 0, 0.2) 25%, transparent 25%),
+        linear-gradient(315deg, rgba(0, 0, 0, 0.2) 25%, transparent 25%);
+    background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+    background-size: 8px 8px;
+    line-height: 1.55;
     min-height: 100vh;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.08) 0px,
+        rgba(255, 255, 255, 0.08) 1px,
+        rgba(0, 0, 0, 0.25) 2px,
+        rgba(0, 0, 0, 0.25) 3px
+    );
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .page {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 3rem 1.5rem 4rem;
+    padding: 2.5rem 1.5rem 4rem;
+    position: relative;
+    z-index: 1;
 }
 
 .hero {
-    padding: 2rem 0 3rem;
+    padding: 1.6rem 0 2.6rem;
     display: grid;
-    gap: 1.5rem;
+    gap: 1.2rem;
 }
 
 .badge {
     display: inline-flex;
     align-items: center;
-    padding: 0.35rem 0.75rem;
-    border-radius: 999px;
-    background: rgba(79, 210, 255, 0.12);
+    padding: 0.55rem 0.9rem;
+    border-radius: 6px;
+    background: #0c1125;
     color: var(--accent);
-    font-weight: 600;
+    border: 2px solid var(--accent);
+    font-family: "Press Start 2P", monospace;
+    font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    font-size: 0.75rem;
+    font-size: 0.6rem;
     width: fit-content;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.6);
+}
+
+h1,
+h2 {
+    font-family: "Press Start 2P", monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 h1 {
-    font-size: clamp(2.2rem, 4vw, 3.5rem);
-    line-height: 1.15;
+    font-size: clamp(1.8rem, 3.4vw, 2.9rem);
+    line-height: 1.25;
 }
 
 .hero p {
-    max-width: 720px;
+    max-width: 740px;
     color: var(--muted);
 }
 
@@ -69,32 +108,39 @@ h1 {
 
 button {
     font: inherit;
-    border: none;
+    border: 2px solid rgba(255, 255, 255, 0.6);
     cursor: pointer;
-    padding: 0.75rem 1.5rem;
-    border-radius: 10px;
+    padding: 0.7rem 1.4rem;
+    border-radius: 6px;
+    background: #161b35;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.7rem;
     transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.65);
 }
 
 button.primary {
-    background: linear-gradient(130deg, var(--accent), var(--accent-2));
+    background: linear-gradient(180deg, #9cf6ff 0%, #2b8bff 100%);
     color: #050509;
+    border-color: #d5fbff;
     font-weight: 700;
-    box-shadow: var(--shadow);
 }
 
 button.ghost {
-    background: transparent;
+    background: #0f1226;
     color: var(--text);
-    border: 1px solid var(--border);
+    border: 2px solid #3b3f6f;
 }
 
 button:hover {
     transform: translateY(-1px);
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.7);
 }
 
 .hero-meta {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--muted);
 }
 
@@ -103,10 +149,10 @@ button:hover {
     grid-template-columns: minmax(240px, 1fr) minmax(320px, 1.2fr);
     gap: 2rem;
     padding: 2rem;
-    background: var(--panel);
-    border-radius: 24px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
+    background: linear-gradient(145deg, #0c0f22, #15193a);
+    border-radius: 12px;
+    border: 2px solid #1e234a;
+    box-shadow: 0 0 0 2px #0b0f22 inset, var(--shadow);
 }
 
 .stage-info {
@@ -117,14 +163,14 @@ button:hover {
 
 .stage-label {
     color: var(--success);
-    font-weight: 600;
-    letter-spacing: 0.06em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
 }
 
 .stage-info h2 {
-    font-size: 2rem;
+    font-size: 1.6rem;
 }
 
 .stage-info p {
@@ -141,21 +187,24 @@ button:hover {
 .stage-links a {
     color: var(--accent);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .canvas-wrap {
     position: relative;
-    border-radius: 18px;
+    border-radius: 10px;
     overflow: hidden;
     background: #000;
     min-height: 320px;
+    border: 2px solid #2b2f5f;
+    box-shadow: inset 0 0 0 2px #0a0a14;
 }
 
 #demo-canvas {
     width: 100%;
     height: 100%;
     display: block;
+    image-rendering: pixelated;
 }
 
 .scanlines {
@@ -164,12 +213,12 @@ button:hover {
     inset: 0;
     background: repeating-linear-gradient(
         to bottom,
-        rgba(255, 255, 255, 0.05),
-        rgba(255, 255, 255, 0.05) 1px,
-        rgba(0, 0, 0, 0.05) 2px,
-        rgba(0, 0, 0, 0.05) 3px
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 1px,
+        rgba(0, 0, 0, 0.2) 2px,
+        rgba(0, 0, 0, 0.2) 3px
     );
-    opacity: 0.4;
+    opacity: 0.35;
     mix-blend-mode: screen;
 }
 
@@ -190,11 +239,11 @@ button:hover {
 .list {
     margin-top: 3rem;
     display: grid;
-    gap: 1.5rem;
+    gap: 1.4rem;
 }
 
 .section-title h2 {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     margin-bottom: 0.4rem;
 }
 
@@ -209,19 +258,21 @@ button:hover {
 }
 
 .demo-card {
-    background: var(--panel);
-    border-radius: 18px;
-    border: 1px solid var(--border);
+    background: #0f1224;
+    border-radius: 12px;
+    border: 2px solid #1e234a;
     padding: 1.2rem;
     display: grid;
     gap: 0.6rem;
     cursor: pointer;
-    transition: transform 0.2s ease, border 0.2s ease;
+    transition: transform 0.2s ease, border 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.6);
 }
 
 .demo-card:hover {
     transform: translateY(-3px);
-    border-color: rgba(79, 210, 255, 0.5);
+    border-color: rgba(79, 210, 255, 0.7);
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.7);
 }
 
 .demo-rank {
@@ -237,11 +288,11 @@ button:hover {
 
 .demo-meta {
     color: var(--muted);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
 }
 
 .demo-effect {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.7);
 }
 
@@ -256,15 +307,16 @@ button:hover {
 .demo-actions a {
     color: var(--accent);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .notes {
     margin-top: 3rem;
     padding: 2rem;
     background: var(--bg-soft);
-    border-radius: 20px;
-    border: 1px solid var(--border);
+    border-radius: 12px;
+    border: 2px solid #1e234a;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.6);
 }
 
 .notes ul {
@@ -281,7 +333,7 @@ button:hover {
     flex-direction: column;
     gap: 0.4rem;
     color: var(--muted);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
 }
 
 @media (max-width: 900px) {

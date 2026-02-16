@@ -100,6 +100,9 @@
 
     const chip = createChiptune(audioBtn, audioStatus);
     audioBtn?.addEventListener("click", chip.toggle);
+    window.addEventListener("load", () => {
+        chip.autoplay?.();
+    });
 
     let currentIndex = 0;
     let currentEffect = null;
@@ -545,11 +548,11 @@
             sctx.clearRect(0, 0, scrollCanvas.width, scrollCanvas.height);
             sctx.fillStyle = "#050509";
             sctx.fillRect(0, 0, scrollCanvas.width, scrollCanvas.height);
-            sctx.font = "bold 48px 'Trebuchet MS', sans-serif";
+            sctx.font = "bold 54px 'VT323', monospace";
             sctx.textBaseline = "middle";
-            sctx.fillStyle = "#7cf9ff";
-            sctx.shadowColor = "rgba(124, 249, 255, 0.8)";
-            sctx.shadowBlur = 12;
+            sctx.fillStyle = "#6bffea";
+            sctx.shadowColor = "rgba(107, 255, 234, 0.7)";
+            sctx.shadowBlur = 10;
             sctx.fillText(message, 20, scrollCanvas.height / 2 + 6);
         };
 
@@ -660,17 +663,22 @@
         let rafId = null;
         let channels = [];
         let noiseBuffer = null;
-
-        const bpm = 172;
+        let autoplayBlocked = false;
+    
+        const bpm = 140;
         const stepsPerBeat = 4;
         const stepTime = 60 / bpm / stepsPerBeat;
-
+    
         const notes = {
+            A1: 55.0,
+            B1: 61.74,
             C2: 65.41,
             D2: 73.42,
             E2: 82.41,
+            F2: 87.31,
             G2: 98.0,
             A2: 110.0,
+            B2: 123.47,
             C3: 130.81,
             D3: 146.83,
             E3: 164.81,
@@ -686,55 +694,84 @@
             A4: 440.0,
             B4: 493.88,
             C5: 523.25,
+            D5: 587.33,
+            E5: 659.25,
+            G5: 783.99,
         };
-
+    
         const bassPattern = [
-            notes.C2, null, notes.C2, null,
-            notes.G2, null, notes.A2, null,
-            notes.C2, null, notes.C2, null,
-            notes.E2, null, notes.G2, null,
+            notes.A2, null, null, null, notes.A2, null, notes.A2, null,
+            notes.A2, null, notes.E2, null, notes.G2, null, notes.E2, null,
+            notes.F2, null, null, null, notes.F2, null, notes.C2, null,
+            notes.F2, null, notes.A2, null, notes.C3, null, notes.A2, null,
+            notes.C2, null, null, null, notes.C2, null, notes.G2, null,
+            notes.C2, null, notes.E2, null, notes.G2, null, notes.E2, null,
+            notes.G2, null, null, null, notes.G2, null, notes.D2, null,
+            notes.G2, null, notes.B2, null, notes.D3, null, notes.B2, null,
         ];
+    
         const leadPattern = [
-            notes.C4, notes.D4, notes.E4, null,
-            notes.G4, notes.A4, notes.C5, null,
-            notes.E4, null, notes.D4, null,
-            notes.C4, null, notes.A3, null,
+            notes.A4, null, notes.C5, null, notes.E5, null, notes.C5, null,
+            notes.G4, null, notes.A4, null, notes.C5, null, notes.B4, null,
+            notes.A4, null, notes.C5, null, notes.E5, null, notes.D5, null,
+            notes.C5, null, notes.B4, null, notes.A4, null, notes.G4, null,
+            notes.C5, null, notes.E5, null, notes.G5, null, notes.E5, null,
+            notes.D5, null, notes.C5, null, notes.B4, null, notes.A4, null,
+            notes.G4, null, notes.A4, null, notes.B4, null, notes.C5, null,
+            notes.E5, null, notes.D5, null, notes.C5, null, notes.A4, null,
         ];
+    
         const arpPattern = [
+            notes.A3, notes.C4, notes.E4, notes.C4,
+            notes.A3, notes.C4, notes.E4, notes.C4,
+            notes.A3, notes.C4, notes.E4, notes.C4,
+            notes.A3, notes.C4, notes.E4, notes.C4,
+            notes.F3, notes.A3, notes.C4, notes.A3,
+            notes.F3, notes.A3, notes.C4, notes.A3,
+            notes.F3, notes.A3, notes.C4, notes.A3,
+            notes.F3, notes.A3, notes.C4, notes.A3,
             notes.C4, notes.E4, notes.G4, notes.E4,
-            notes.D4, notes.F4, notes.A4, notes.F4,
-            notes.E4, notes.G4, notes.B4, notes.G4,
-            notes.D4, notes.F4, notes.A4, notes.F4,
+            notes.C4, notes.E4, notes.G4, notes.E4,
+            notes.C4, notes.E4, notes.G4, notes.E4,
+            notes.C4, notes.E4, notes.G4, notes.E4,
+            notes.G3, notes.B3, notes.D4, notes.B3,
+            notes.G3, notes.B3, notes.D4, notes.B3,
+            notes.G3, notes.B3, notes.D4, notes.B3,
+            notes.G3, notes.B3, notes.D4, notes.B3,
         ];
-        const kickPattern = [1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1];
+    
+        const kickPattern = [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0];
         const snarePattern = [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0];
         const hatPattern = [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0];
-
+    
         function ensureContext() {
             if (context) return;
             context = new (window.AudioContext || window.webkitAudioContext)();
             master = context.createGain();
-            master.gain.value = 0.28;
-
+            master.gain.value = 0.24;
+    
             compressor = context.createDynamicsCompressor();
             compressor.threshold.value = -18;
-            compressor.knee.value = 24;
-            compressor.ratio.value = 6;
-            compressor.attack.value = 0.003;
-            compressor.release.value = 0.18;
-
+            compressor.knee.value = 22;
+            compressor.ratio.value = 5;
+            compressor.attack.value = 0.004;
+            compressor.release.value = 0.2;
+    
             master.connect(compressor).connect(context.destination);
-
+    
             channels = [
-                { type: "triangle", level: 0.1, pattern: bassPattern },
-                { type: "square", level: 0.075, pattern: leadPattern },
-                { type: "sawtooth", level: 0.05, pattern: arpPattern },
+                { type: "triangle", level: 0.13, pattern: bassPattern },
+                { type: "square", level: 0.09, pattern: leadPattern, detune: 6 },
+                { type: "square", level: 0.06, pattern: arpPattern, detune: -6 },
             ];
-
+    
             channels.forEach((channel) => {
                 const osc = context.createOscillator();
                 const gainNode = context.createGain();
                 osc.type = channel.type;
+                if (channel.detune) {
+                    osc.detune.value = channel.detune;
+                }
                 gainNode.gain.value = 0.0;
                 osc.connect(gainNode).connect(master);
                 osc.start();
@@ -742,7 +779,7 @@
                 channel.gainNode = gainNode;
             });
         }
-
+    
         function getNoiseBuffer() {
             if (noiseBuffer) return noiseBuffer;
             const duration = 0.5;
@@ -753,27 +790,27 @@
             }
             return noiseBuffer;
         }
-
+    
         function triggerKick(time) {
             const osc = context.createOscillator();
             const gain = context.createGain();
             osc.type = "sine";
-            osc.frequency.setValueAtTime(120, time);
-            osc.frequency.exponentialRampToValueAtTime(44, time + 0.12);
+            osc.frequency.setValueAtTime(130, time);
+            osc.frequency.exponentialRampToValueAtTime(46, time + 0.14);
             gain.gain.setValueAtTime(0.9, time);
-            gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.12);
+            gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.14);
             osc.connect(gain).connect(master);
             osc.start(time);
-            osc.stop(time + 0.14);
+            osc.stop(time + 0.16);
         }
-
+    
         function triggerNoise(time, type, gainValue, duration, freq) {
             const source = context.createBufferSource();
             source.buffer = getNoiseBuffer();
             const filter = context.createBiquadFilter();
             filter.type = type;
             filter.frequency.setValueAtTime(freq, time);
-            filter.Q.value = 0.8;
+            filter.Q.value = 0.9;
             const gain = context.createGain();
             gain.gain.setValueAtTime(gainValue, time);
             gain.gain.exponentialRampToValueAtTime(0.0001, time + duration);
@@ -781,10 +818,10 @@
             source.start(time);
             source.stop(time + duration);
         }
-
+    
         function scheduleStep(time, index) {
-            const accent = index % 4 === 0 ? 1.2 : 1.0;
-
+            const accent = index % 16 === 0 ? 1.25 : 1.0;
+    
             channels.forEach((channel) => {
                 const note = channel.pattern[index % channel.pattern.length];
                 const gainNode = channel.gainNode;
@@ -793,33 +830,33 @@
                     channel.osc.frequency.setValueAtTime(note, time);
                     gainNode.gain.setValueAtTime(0.0, time);
                     gainNode.gain.linearRampToValueAtTime(channel.level * accent, time + 0.01);
-                    gainNode.gain.exponentialRampToValueAtTime(0.0001, time + stepTime * 0.85);
+                    gainNode.gain.exponentialRampToValueAtTime(0.0001, time + stepTime * 0.9);
                 } else {
                     gainNode.gain.setValueAtTime(0.0, time);
                 }
             });
-
+    
             if (kickPattern[index % kickPattern.length]) {
                 triggerKick(time);
             }
             if (snarePattern[index % snarePattern.length]) {
-                triggerNoise(time, "bandpass", 0.35, 0.12, 1800);
+                triggerNoise(time, "bandpass", 0.35, 0.14, 1800);
             }
             if (hatPattern[index % hatPattern.length]) {
-                triggerNoise(time, "highpass", 0.12, 0.05, 6000);
+                triggerNoise(time, "highpass", 0.12, 0.05, 7000);
             }
         }
-
+    
         function scheduler() {
             const lookAhead = 0.12;
             while (nextTime < context.currentTime + lookAhead) {
                 scheduleStep(nextTime, step);
                 nextTime += stepTime;
-                step = (step + 1) % 16;
+                step = (step + 1) % 64;
             }
             rafId = requestAnimationFrame(scheduler);
         }
-
+    
         function stopAll() {
             channels.forEach((channel) => {
                 if (channel.gainNode) {
@@ -827,30 +864,58 @@
                 }
             });
         }
-
+    
         function updateUI() {
             if (!button || !status) return;
             button.textContent = isPlaying ? "Chiptune: On" : "Chiptune: Off";
-            status.textContent = isPlaying ? "Audio running (procedural WebAudio)." : "Audio off — click to enable.";
+            if (isPlaying) {
+                status.textContent = "Audio running — 140 BPM chiptune.";
+            } else if (autoplayBlocked) {
+                status.textContent = "Autoplay blocked by browser — click to enable audio.";
+            } else {
+                status.textContent = "Audio off — click to enable.";
+            }
         }
-
+    
+        async function startAudio(fromUser = false) {
+            ensureContext();
+            if (!context) return false;
+            try {
+                await context.resume();
+            } catch (err) {
+                autoplayBlocked = !fromUser;
+                updateUI();
+                return false;
+            }
+            autoplayBlocked = false;
+            if (!isPlaying) {
+                nextTime = context.currentTime + 0.05;
+                isPlaying = true;
+                scheduler();
+            }
+            updateUI();
+            return true;
+        }
+    
+        function stopAudio() {
+            isPlaying = false;
+            if (rafId) cancelAnimationFrame(rafId);
+            stopAll();
+            updateUI();
+        }
+    
         updateUI();
-
+    
         return {
             toggle: async () => {
-                ensureContext();
-                if (!context) return;
                 if (!isPlaying) {
-                    await context.resume();
-                    nextTime = context.currentTime + 0.05;
-                    isPlaying = true;
-                    scheduler();
+                    await startAudio(true);
                 } else {
-                    isPlaying = false;
-                    if (rafId) cancelAnimationFrame(rafId);
-                    stopAll();
+                    stopAudio();
                 }
-                updateUI();
+            },
+            autoplay: async () => {
+                await startAudio(false);
             },
         };
     }
