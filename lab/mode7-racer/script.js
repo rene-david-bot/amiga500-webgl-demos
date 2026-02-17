@@ -141,10 +141,15 @@ function update(dt) {
     state.playerX += steer * dt * (1.3 + state.speed / maxSpeed * 1.8);
     state.playerX = clamp(state.playerX, -1.2, 1.2);
 
-    // grass slowdown
+    // grass slowdown (progressive, cap at ~50 km/h)
     if (Math.abs(state.playerX) > 1.0) {
-        state.speed -= maxSpeed * 0.8 * dt;
-        state.speed = Math.max(0, state.speed);
+        const offroadCap = maxSpeed * (50 / 300);
+        if (state.speed > offroadCap) {
+            state.speed -= maxSpeed * 0.9 * dt;
+            if (state.speed < offroadCap) state.speed = offroadCap;
+        } else {
+            state.speed = Math.max(0, state.speed - maxSpeed * 0.1 * dt);
+        }
     }
 
     state.position += state.speed * dt;
@@ -256,55 +261,60 @@ function drawRoad() {
 function drawPlayer() {
     const baseY = state.height * 0.83;
     const x = state.width / 2 + state.playerX * 220;
-    const carW = 78;
-    const carH = 34;
-    const tilt = state.steer * 0.35;
+    const carW = 86;
+    const carH = 36;
+    const tilt = state.steer * 0.18; // radians-ish
 
     ctx.save();
     ctx.translate(x, baseY);
-    ctx.transform(1, 0, tilt * 0.15, 1, 0, 0);
+    ctx.rotate(tilt);
 
     // shadow
-    ctx.fillStyle = "rgba(0,0,0,0.4)";
-    ctx.fillRect(-carW / 2 + 8, carH * 0.6, carW - 16, 7);
+    ctx.fillStyle = "rgba(0,0,0,0.45)";
+    ctx.fillRect(-carW / 2 + 10, carH * 0.6, carW - 20, 7);
 
-    // body trapezoid
-    ctx.fillStyle = "#1f3a6d";
+    // main body (low + wide)
+    ctx.fillStyle = "#1c2f57";
     ctx.beginPath();
     ctx.moveTo(-carW / 2, -carH / 2);
     ctx.lineTo(carW / 2, -carH / 2);
-    ctx.lineTo(carW / 2 - 10, carH / 2);
-    ctx.lineTo(-carW / 2 + 10, carH / 2);
+    ctx.lineTo(carW / 2 - 12, carH / 2);
+    ctx.lineTo(-carW / 2 + 12, carH / 2);
     ctx.closePath();
     ctx.fill();
 
-    // roof
-    ctx.fillStyle = "#16284e";
+    // rear wing
+    ctx.fillStyle = "#0d1730";
+    ctx.fillRect(-carW / 2 + 4, -carH / 2 - 4, carW - 8, 4);
+
+    // cockpit
+    ctx.fillStyle = "#0f1f3d";
     ctx.beginPath();
-    ctx.moveTo(-carW / 2 + 16, -carH / 2 + 6);
-    ctx.lineTo(carW / 2 - 16, -carH / 2 + 6);
-    ctx.lineTo(carW / 2 - 26, -carH / 2 + 16);
-    ctx.lineTo(-carW / 2 + 26, -carH / 2 + 16);
+    ctx.moveTo(-carW / 2 + 22, -carH / 2 + 6);
+    ctx.lineTo(carW / 2 - 22, -carH / 2 + 6);
+    ctx.lineTo(carW / 2 - 30, -carH / 2 + 18);
+    ctx.lineTo(-carW / 2 + 30, -carH / 2 + 18);
     ctx.closePath();
     ctx.fill();
 
     // windshield
-    ctx.fillStyle = "#48d6ff";
-    ctx.fillRect(-carW / 4, -carH / 2 + 8, carW / 2, 10);
+    ctx.fillStyle = "#52e1ff";
+    ctx.fillRect(-carW / 4, -carH / 2 + 9, carW / 2, 10);
 
-    // front splitter
-    ctx.fillStyle = "#0b0f1a";
-    ctx.fillRect(-carW / 2 + 6, carH / 2 - 4, carW - 12, 4);
+    // side intakes
+    ctx.fillStyle = "#13224a";
+    ctx.fillRect(-carW / 2 + 8, -carH / 2 + 14, 14, 10);
+    ctx.fillRect(carW / 2 - 22, -carH / 2 + 14, 14, 10);
 
     // wheels
     ctx.fillStyle = "#0b0f1a";
-    ctx.fillRect(-carW / 2 + 4, carH / 2 - 6, 14, 6);
-    ctx.fillRect(carW / 2 - 18, carH / 2 - 6, 14, 6);
+    ctx.fillRect(-carW / 2 + 4, carH / 2 - 6, 16, 6);
+    ctx.fillRect(carW / 2 - 20, carH / 2 - 6, 16, 6);
 
-    // tail lights
-    ctx.fillStyle = "#ff5555";
-    ctx.fillRect(-carW / 2 + 8, -carH / 2 + 3, 10, 4);
-    ctx.fillRect(carW / 2 - 18, -carH / 2 + 3, 10, 4);
+    // rear lights
+    ctx.fillStyle = "#ff4d4d";
+    ctx.fillRect(-carW / 2 + 10, -carH / 2 + 2, 10, 4);
+    ctx.fillRect(carW / 2 - 20, -carH / 2 + 2, 10, 4);
 
     // center stripe
     ctx.fillStyle = "#f4f4f4";
