@@ -141,6 +141,17 @@ function drawRoad() {
         const segment = Math.floor((state.distance + z) / ROAD.segmentLength);
         const even = segment % 2 === 0;
 
+        const leftEdge = center - roadHalf - rumble;
+        const rightEdge = center + roadHalf + rumble;
+        if (leftEdge > 0) {
+            ctx.fillStyle = even ? "#3a1f2b" : "#2a1822";
+            ctx.fillRect(0, y, leftEdge, 1);
+        }
+        if (rightEdge < state.width) {
+            ctx.fillStyle = even ? "#3a1f2b" : "#2a1822";
+            ctx.fillRect(rightEdge, y, state.width - rightEdge, 1);
+        }
+
         ctx.fillStyle = even ? "#5a2f44" : "#3a2431";
         ctx.fillRect(center - roadHalf - rumble, y, rumble, 1);
         ctx.fillRect(center + roadHalf, y, rumble, 1);
