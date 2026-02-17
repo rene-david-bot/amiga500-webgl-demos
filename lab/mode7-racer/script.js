@@ -23,11 +23,48 @@ const keys = {
 };
 
 const ROAD = {
-    width: 1600,
-    segmentLength: 260,
-    rumbleWidth: 0.08,
-    laneWidth: 0.07,
+    textureWidth: 512,
+    textureHeight: 512,
+    roadWidth: 210,
+    rumbleWidth: 30,
+    laneWidth: 10,
 };
+
+const roadTexture = document.createElement("canvas");
+roadTexture.width = ROAD.textureWidth;
+roadTexture.height = ROAD.textureHeight;
+const tctx = roadTexture.getContext("2d");
+
+function buildRoadTexture() {
+    const w = roadTexture.width;
+    const h = roadTexture.height;
+    const roadLeft = Math.floor((w - ROAD.roadWidth) / 2);
+    const roadRight = roadLeft + ROAD.roadWidth;
+
+    for (let y = 0; y < h; y++) {
+        const band = Math.floor(y / 8) % 2 === 0;
+        tctx.fillStyle = band ? "#143726" : "#0f2c1f";
+        tctx.fillRect(0, y, w, 1);
+
+        const rumbleBand = Math.floor(y / 6) % 2 === 0;
+        tctx.fillStyle = rumbleBand ? "#a7375b" : "#f6d552";
+        tctx.fillRect(roadLeft - ROAD.rumbleWidth, y, ROAD.rumbleWidth, 1);
+        tctx.fillRect(roadRight, y, ROAD.rumbleWidth, 1);
+
+        const roadBand = Math.floor(y / 4) % 2 === 0;
+        tctx.fillStyle = roadBand ? "#4b5058" : "#3f444c";
+        tctx.fillRect(roadLeft, y, ROAD.roadWidth, 1);
+
+        if (y % 28 < 10) {
+            tctx.fillStyle = "rgba(220, 220, 240, 0.7)";
+            tctx.fillRect(roadLeft + ROAD.roadWidth / 2 - ROAD.laneWidth / 2, y, ROAD.laneWidth, 1);
+            tctx.fillRect(roadLeft + ROAD.roadWidth * 0.2 - ROAD.laneWidth / 2, y, ROAD.laneWidth, 1);
+            tctx.fillRect(roadLeft + ROAD.roadWidth * 0.8 - ROAD.laneWidth / 2, y, ROAD.laneWidth, 1);
+        }
+    }
+}
+
+buildRoadTexture();
 
 function resize() {
     const rect = canvas.getBoundingClientRect();
@@ -61,9 +98,9 @@ function update(dt) {
 
     const steer = (keys.left ? -1 : 0) + (keys.right ? 1 : 0);
     state.playerX += steer * dt * (1.1 + state.speed * 1.6);
-    state.playerX = clamp(state.playerX, -1.1, 1.1);
+    state.playerX = clamp(state.playerX, -1.0, 1.0);
 
-    const drift = curveAt(state.distance + 1600) * 0.0012 * (0.3 + state.speed);
+    const drift = curveAt(state.distance + 1600) * 0.0009 * (0.3 + state.speed);
     state.playerX -= drift;
 
     const offRoad = Math.abs(state.playerX) > 1.0;
@@ -71,7 +108,7 @@ function update(dt) {
         state.speed *= 0.985;
     }
 
-    state.distance += state.speed * dt * 900;
+    state.distance += state.speed * dt * 220;
 
     if (state.distance - state.lastLapDistance > 12000) {
         state.lap += 1;
@@ -102,69 +139,25 @@ function drawSky() {
 }
 
 function drawRoad() {
-    const yStart = state.horizon;
+    const yStart = state.horizon + 1;
     const yEnd = state.height;
-    const roadMax = state.width * 0.42;
-    const roadMin = state.width * 0.012;
-    const depth = 8200;
-
-    const ground = ctx.createLinearGradient(0, yStart, 0, yEnd);
-    ground.addColorStop(0, "#1a3527");
-    ground.addColorStop(1, "#07120c");
-    ctx.fillStyle = ground;
-    ctx.fillRect(0, yStart, state.width, yEnd - yStart);
+    const camHeight = 120;
+    const texW = roadTexture.width;
+    const texH = roadTexture.height;
 
     for (let y = yStart; y < yEnd; y++) {
-        const p = (y - yStart) / (yEnd - yStart); // 0..1
-        const p2 = p * p;
-        const p3 = p2 * p;
-        const z = p * depth;
-        const curve = curveAt(state.distance + z);
+        const dy = y - yStart + 1;
+        const perspective = camHeight / dy;
+        const curve = curveAt(state.distance + dy * 60);
+        const lateral = curve * 320 - state.playerX * 220;
 
-        let roadHalf = roadMin + (roadMax - roadMin) * p3;
-        let rumble = roadHalf * ROAD.rumbleWidth;
-        const maxHalf = state.width * 0.45;
-        if (roadHalf + rumble > maxHalf) {
-            roadHalf = maxHalf / (1 + ROAD.rumbleWidth);
-            rumble = roadHalf * ROAD.rumbleWidth;
-        }
-        const lane = roadHalf * ROAD.laneWidth;
+        let lineWidth = texW * perspective;
+        lineWidth = Math.min(lineWidth, state.width * 2.0);
 
-        let center =
-            state.width / 2 +
-            curve * 180 * (1 - p) -
-            state.playerX * (120 * (1 - p * 0.4));
+        const lineX = (state.width - lineWidth) / 2 + lateral * perspective;
+        const srcY = ((state.distance * 0.6 + dy * 8) % texH + texH) % texH;
 
-        const margin = roadHalf + rumble + 8;
-        center = clamp(center, margin, state.width - margin);
-
-        const segment = Math.floor((state.distance + z) / ROAD.segmentLength);
-        const even = segment % 2 === 0;
-
-        const leftEdge = center - roadHalf - rumble;
-        const rightEdge = center + roadHalf + rumble;
-        if (leftEdge > 0) {
-            ctx.fillStyle = even ? "#3a1f2b" : "#2a1822";
-            ctx.fillRect(0, y, leftEdge, 1);
-        }
-        if (rightEdge < state.width) {
-            ctx.fillStyle = even ? "#3a1f2b" : "#2a1822";
-            ctx.fillRect(rightEdge, y, state.width - rightEdge, 1);
-        }
-
-        ctx.fillStyle = even ? "#5a2f44" : "#3a2431";
-        ctx.fillRect(center - roadHalf - rumble, y, rumble, 1);
-        ctx.fillRect(center + roadHalf, y, rumble, 1);
-
-        ctx.fillStyle = even ? "#4c5058" : "#42464f";
-        ctx.fillRect(center - roadHalf, y, roadHalf * 2, 1);
-
-        if (segment % 3 === 0) {
-            ctx.fillStyle = "rgba(220, 220, 240, 0.6)";
-            ctx.fillRect(center - lane / 2, y, lane, 1);
-            ctx.fillRect(center - roadHalf * 0.35 - lane / 2, y, lane, 1);
-            ctx.fillRect(center + roadHalf * 0.35 - lane / 2, y, lane, 1);
-        }
+        ctx.drawImage(roadTexture, 0, srcY, texW, 1, lineX, y, lineWidth, 1);
     }
 }
 
