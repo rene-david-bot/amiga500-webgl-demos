@@ -31,8 +31,8 @@ const config = {
 const cameraDepth = 1 / Math.tan((config.fov / 2) * (Math.PI / 180));
 
 const colors = {
-    light: { road: "#6b6b6b", grass: "#3f7f3f", rumble: "#d44", lane: "#fff" },
-    dark: { road: "#5e5e5e", grass: "#366f36", rumble: "#b22", lane: "#ccc" },
+    light: { road: "#6b6b6b", grass: "#2f5c2f", rumble: "#d44", lane: "#fff" },
+    dark: { road: "#5e5e5e", grass: "#2f5c2f", rumble: "#b22", lane: "#ccc" },
 };
 
 let segments = [];
@@ -78,14 +78,14 @@ function addRoad(enter, hold, leave, curve, hill) {
 function buildTrack() {
     segments = [];
     lastY = 0;
-    addRoad(30, 30, 30, 0, 0);
-    addRoad(20, 40, 20, 0.5, 0);
-    addRoad(20, 40, 20, -0.6, 0);
-    addRoad(20, 30, 20, 0, 0.5);
-    addRoad(20, 30, 20, 0, -0.5);
-    addRoad(20, 40, 20, 0.4, 0.2);
-    addRoad(20, 40, 20, -0.4, 0.1);
-    addRoad(40, 60, 40, 0, 0);
+    addRoad(60, 80, 60, 0, 0);
+    addRoad(40, 80, 40, 0.25, 0);
+    addRoad(40, 80, 40, -0.25, 0);
+    addRoad(40, 60, 40, 0, 0.3);
+    addRoad(40, 60, 40, 0, -0.3);
+    addRoad(60, 100, 60, 0.18, 0.15);
+    addRoad(60, 100, 60, -0.18, 0.1);
+    addRoad(80, 120, 80, 0, 0);
     trackLength = segments.length * config.segmentLength;
 }
 
@@ -121,7 +121,7 @@ function project(p, cameraX, cameraY, cameraZ) {
 
     p.screen.scale = cameraDepth / dz;
     p.screen.x = Math.round((state.width / 2) + (p.screen.scale * p.camera.x * state.width / 2));
-    p.screen.y = Math.round((state.height / 2) - (p.screen.scale * p.camera.y * state.height / 2));
+    p.screen.y = Math.round(state.horizon - (p.screen.scale * p.camera.y * state.height / 2));
     p.screen.w = Math.round(p.screen.scale * config.roadWidth * state.width / 2);
 }
 
