@@ -95,9 +95,11 @@ function buildTrack() {
 buildTrack();
 
 const carSprites = {
-    left: new Image(),
+    leftHard: new Image(),
+    leftSoft: new Image(),
     straight: new Image(),
-    right: new Image(),
+    rightSoft: new Image(),
+    rightHard: new Image(),
     ready: false,
     loaded: 0,
 };
@@ -105,14 +107,19 @@ const carSprites = {
 function loadCarSprites() {
     const done = () => {
         carSprites.loaded += 1;
-        if (carSprites.loaded >= 3) carSprites.ready = true;
+        if (carSprites.loaded >= 5) carSprites.ready = true;
     };
-    carSprites.left.onload = done;
-    carSprites.right.onload = done;
+    carSprites.leftHard.onload = done;
+    carSprites.leftSoft.onload = done;
+    carSprites.rightSoft.onload = done;
+    carSprites.rightHard.onload = done;
     carSprites.straight.onload = done;
-    carSprites.left.src = "assets/car_left.png";
-    carSprites.right.src = "assets/car_right.png";
+
+    carSprites.leftHard.src = "assets/car_left_hard.png";
+    carSprites.leftSoft.src = "assets/car_left_soft.png";
     carSprites.straight.src = "assets/car_straight.png";
+    carSprites.rightSoft.src = "assets/car_right_soft.png";
+    carSprites.rightHard.src = "assets/car_right_hard.png";
 }
 
 loadCarSprites();
@@ -292,10 +299,12 @@ function drawPlayer() {
 
     if (carSprites.ready) {
         let sprite = carSprites.straight;
-        if (state.steer < -0.2) sprite = carSprites.left;
-        else if (state.steer > 0.2) sprite = carSprites.right;
+        if (state.steer < -0.55) sprite = carSprites.leftHard;
+        else if (state.steer < -0.2) sprite = carSprites.leftSoft;
+        else if (state.steer > 0.55) sprite = carSprites.rightHard;
+        else if (state.steer > 0.2) sprite = carSprites.rightSoft;
 
-        const scale = 1.45;
+        const scale = 2.0;
         const w = sprite.width * scale;
         const h = sprite.height * scale;
 
