@@ -111,22 +111,23 @@ function drawRoad() {
     for (let y = yStart; y < yEnd; y++) {
         const p = (y - yStart) / (yEnd - yStart); // 0..1
         const p2 = p * p;
+        const p3 = p2 * p;
         const z = p * depth;
         const curve = curveAt(state.distance + z);
 
-        const roadHalf = roadMin + (roadMax - roadMin) * p2;
+        const roadHalf = roadMin + (roadMax - roadMin) * p3;
         const rumble = roadHalf * ROAD.rumbleWidth;
         const lane = roadHalf * ROAD.laneWidth;
 
         const center =
             state.width / 2 +
             curve * 260 * (1 - p) -
-            state.playerX * (220 * (1 - p * 0.2));
+            state.playerX * (160 * (1 - p * 0.2));
 
         const segment = Math.floor((state.distance + z) / ROAD.segmentLength);
         const even = segment % 2 === 0;
 
-        ctx.fillStyle = even ? "#0c3d24" : "#0a2d1b";
+        ctx.fillStyle = even ? "#1b0f2f" : "#120b24";
         ctx.fillRect(0, y, state.width, 1);
 
         ctx.fillStyle = even ? "#c23655" : "#f7e25f";
