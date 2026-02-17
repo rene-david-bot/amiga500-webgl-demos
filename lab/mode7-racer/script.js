@@ -78,15 +78,15 @@ function addRoad(enter, hold, leave, curve, hill) {
 function buildTrack() {
     segments = [];
     lastY = 0;
-    addRoad(140, 220, 140, 0, 0);     // long straight
-    addRoad(80, 160, 80, 0.25, 0);    // gentle right
-    addRoad(120, 200, 120, 0, 0);
-    addRoad(80, 160, 80, -0.25, 0);   // gentle left
-    addRoad(80, 160, 80, 0, 0.35);    // hill
-    addRoad(80, 160, 80, 0, -0.35);
-    addRoad(100, 180, 100, 0.18, 0.12);
-    addRoad(100, 180, 100, -0.18, 0.1);
-    addRoad(160, 240, 160, 0, 0);     // long straight
+    addRoad(100, 160, 100, 0, 0);      // straight
+    addRoad(60, 120, 60, 0.6, 0);      // right
+    addRoad(80, 140, 80, 0, 0);
+    addRoad(60, 120, 60, -0.6, 0);     // left
+    addRoad(80, 140, 80, 0.35, 0.2);   // right hill
+    addRoad(80, 140, 80, -0.35, -0.2); // left hill
+    addRoad(60, 120, 60, 0.5, 0);      // right
+    addRoad(60, 120, 60, -0.5, 0);     // left
+    addRoad(120, 200, 120, 0, 0);      // straight
     trackLength = segments.length * config.segmentLength;
 }
 
@@ -127,10 +127,10 @@ function project(p, cameraX, cameraY, cameraZ) {
 }
 
 function update(dt) {
-    const maxSpeed = config.segmentLength * 6;
-    const accel = keys.up ? maxSpeed * 0.5 : 0;
-    const brake = keys.down ? maxSpeed * 0.7 : 0;
-    const drag = maxSpeed * 0.3;
+    const maxSpeed = config.segmentLength * 12;
+    const accel = keys.up ? maxSpeed * 0.65 : 0;
+    const brake = keys.down ? maxSpeed * 0.8 : 0;
+    const drag = maxSpeed * 0.25;
 
     state.speed += (accel - brake - drag * (state.speed / maxSpeed)) * dt;
     state.speed = clamp(state.speed, 0, maxSpeed);
@@ -143,7 +143,7 @@ function update(dt) {
     if (state.position >= trackLength) state.position -= trackLength;
     if (state.position < 0) state.position += trackLength;
 
-    const kmh = Math.round((state.speed / maxSpeed) * 220);
+    const kmh = Math.round((state.speed / maxSpeed) * 320);
     speedEl.textContent = kmh;
     gearEl.textContent = kmh < 5 ? "N" : kmh < 40 ? "1" : kmh < 80 ? "2" : kmh < 120 ? "3" : kmh < 170 ? "4" : "5";
 
