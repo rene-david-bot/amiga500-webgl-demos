@@ -94,6 +94,29 @@ function buildTrack() {
 
 buildTrack();
 
+const carSprites = {
+    left: new Image(),
+    straight: new Image(),
+    right: new Image(),
+    ready: false,
+    loaded: 0,
+};
+
+function loadCarSprites() {
+    const done = () => {
+        carSprites.loaded += 1;
+        if (carSprites.loaded >= 3) carSprites.ready = true;
+    };
+    carSprites.left.onload = done;
+    carSprites.right.onload = done;
+    carSprites.straight.onload = done;
+    carSprites.left.src = "assets/car_left.png";
+    carSprites.right.src = "assets/car_right.png";
+    carSprites.straight.src = "assets/car_straight.png";
+}
+
+loadCarSprites();
+
 function resize() {
     const rect = canvas.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
@@ -266,66 +289,28 @@ function drawRoad() {
 function drawPlayer() {
     const baseY = state.height * 0.83;
     const x = state.width / 2 + state.playerX * 220;
-    const carW = 86;
-    const carH = 36;
-    const tilt = state.steer * 0.18; // radians-ish
 
-    ctx.save();
-    ctx.translate(x, baseY);
-    ctx.rotate(tilt);
+    if (carSprites.ready) {
+        let sprite = carSprites.straight;
+        if (state.steer < -0.2) sprite = carSprites.left;
+        else if (state.steer > 0.2) sprite = carSprites.right;
 
-    // shadow
-    ctx.fillStyle = "rgba(0,0,0,0.45)";
-    ctx.fillRect(-carW / 2 + 10, carH * 0.6, carW - 20, 7);
+        const scale = 1.45;
+        const w = sprite.width * scale;
+        const h = sprite.height * scale;
 
-    // main body (low + wide)
+        ctx.save();
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(sprite, x - w / 2, baseY - h / 2 + 6, w, h);
+        ctx.restore();
+        return;
+    }
+
+    // fallback simple car
     ctx.fillStyle = "#1c2f57";
-    ctx.beginPath();
-    ctx.moveTo(-carW / 2, -carH / 2);
-    ctx.lineTo(carW / 2, -carH / 2);
-    ctx.lineTo(carW / 2 - 12, carH / 2);
-    ctx.lineTo(-carW / 2 + 12, carH / 2);
-    ctx.closePath();
-    ctx.fill();
-
-    // rear wing
-    ctx.fillStyle = "#0d1730";
-    ctx.fillRect(-carW / 2 + 4, -carH / 2 - 4, carW - 8, 4);
-
-    // cockpit
-    ctx.fillStyle = "#0f1f3d";
-    ctx.beginPath();
-    ctx.moveTo(-carW / 2 + 22, -carH / 2 + 6);
-    ctx.lineTo(carW / 2 - 22, -carH / 2 + 6);
-    ctx.lineTo(carW / 2 - 30, -carH / 2 + 18);
-    ctx.lineTo(-carW / 2 + 30, -carH / 2 + 18);
-    ctx.closePath();
-    ctx.fill();
-
-    // windshield
+    ctx.fillRect(x - 30, baseY - 14, 60, 28);
     ctx.fillStyle = "#52e1ff";
-    ctx.fillRect(-carW / 4, -carH / 2 + 9, carW / 2, 10);
-
-    // side intakes
-    ctx.fillStyle = "#13224a";
-    ctx.fillRect(-carW / 2 + 8, -carH / 2 + 14, 14, 10);
-    ctx.fillRect(carW / 2 - 22, -carH / 2 + 14, 14, 10);
-
-    // wheels
-    ctx.fillStyle = "#0b0f1a";
-    ctx.fillRect(-carW / 2 + 4, carH / 2 - 6, 16, 6);
-    ctx.fillRect(carW / 2 - 20, carH / 2 - 6, 16, 6);
-
-    // rear lights
-    ctx.fillStyle = "#ff4d4d";
-    ctx.fillRect(-carW / 2 + 10, -carH / 2 + 2, 10, 4);
-    ctx.fillRect(carW / 2 - 20, -carH / 2 + 2, 10, 4);
-
-    // center stripe
-    ctx.fillStyle = "#f4f4f4";
-    ctx.fillRect(-3, -carH / 2, 6, carH);
-
-    ctx.restore();
+    ctx.fillRect(x - 12, baseY - 10, 24, 12);
 }
 
 // Audio
