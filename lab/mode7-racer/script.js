@@ -23,12 +23,10 @@ const keys = {
 };
 
 const ROAD = {
-    width: 2200,
-    cameraHeight: 1000,
-    cameraDepth: 0.8,
-    segmentLength: 220,
+    width: 1600,
+    segmentLength: 260,
     rumbleWidth: 0.12,
-    laneWidth: 0.06,
+    laneWidth: 0.08,
 };
 
 function resize() {
@@ -51,8 +49,8 @@ function clamp(v, min, max) {
 
 function curveAt(z) {
     return (
-        Math.sin((z + state.distance) * 0.00055) * 0.9 +
-        Math.sin((z + state.distance) * 0.0012 + 1.7) * 0.35
+        Math.sin(z * 0.00055) * 0.9 +
+        Math.sin(z * 0.0012 + 1.7) * 0.35
     );
 }
 
@@ -65,7 +63,7 @@ function update(dt) {
     state.playerX += steer * dt * (1.1 + state.speed * 1.6);
     state.playerX = clamp(state.playerX, -1.1, 1.1);
 
-    const drift = curveAt(state.distance) * 0.0015 * (0.3 + state.speed);
+    const drift = curveAt(state.distance + 1600) * 0.0012 * (0.3 + state.speed);
     state.playerX -= drift;
 
     const offRoad = Math.abs(state.playerX) > 1.0;
@@ -104,18 +102,28 @@ function drawSky() {
 }
 
 function drawRoad() {
-    const camDepth = state.height * ROAD.cameraDepth;
-    for (let y = state.horizon; y < state.height; y++) {
-        const perspective = camDepth / (y - state.horizon + 1);
-        const z = perspective * ROAD.cameraHeight;
-        const curve = curveAt(z);
-        const roadHalf = perspective * ROAD.width;
+    const yStart = state.horizon;
+    const yEnd = state.height;
+    const roadMax = state.width * 0.58;
+    const roadMin = state.width * 0.02;
+    const depth = 8000;
+
+    for (let y = yStart; y < yEnd; y++) {
+        const p = (y - yStart) / (yEnd - yStart); // 0..1
+        const p2 = p * p;
+        const z = p * depth;
+        const curve = curveAt(state.distance + z);
+
+        const roadHalf = roadMin + (roadMax - roadMin) * p2;
         const rumble = roadHalf * ROAD.rumbleWidth;
         const lane = roadHalf * ROAD.laneWidth;
 
-        const center = state.width / 2 + curve * roadHalf * 1.6 - state.playerX * roadHalf * 1.3;
+        const center =
+            state.width / 2 +
+            curve * 260 * (1 - p) -
+            state.playerX * (220 * (1 - p * 0.2));
 
-        const segment = Math.floor((z + state.distance) / ROAD.segmentLength);
+        const segment = Math.floor((state.distance + z) / ROAD.segmentLength);
         const even = segment % 2 === 0;
 
         ctx.fillStyle = even ? "#0c3d24" : "#0a2d1b";
