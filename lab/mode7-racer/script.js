@@ -9,63 +9,87 @@ const state = {
     width: 0,
     height: 0,
     horizon: 0,
-    distance: 0,
+    position: 0,
     speed: 0,
     playerX: 0,
     lap: 1,
     lastLapDistance: 0,
 };
 
-const keys = {
-    left: false,
-    right: false,
-    up: false,
-    down: false,
+const keys = { left: false, right: false, up: false, down: false };
+
+const config = {
+    segmentLength: 200,
+    rumbleLength: 3,
+    roadWidth: 2000,
+    lanes: 3,
+    cameraHeight: 1000,
+    fov: 70,
+    drawDistance: 240,
 };
 
-const ROAD = {
-    textureWidth: 512,
-    textureHeight: 512,
-    roadWidth: 200,
-    rumbleWidth: 22,
-    laneWidth: 6,
+const cameraDepth = 1 / Math.tan((config.fov / 2) * (Math.PI / 180));
+
+const colors = {
+    light: { road: "#6b6b6b", grass: "#3f7f3f", rumble: "#d44", lane: "#fff" },
+    dark: { road: "#5e5e5e", grass: "#366f36", rumble: "#b22", lane: "#ccc" },
 };
 
-const roadTexture = document.createElement("canvas");
-roadTexture.width = ROAD.textureWidth;
-roadTexture.height = ROAD.textureHeight;
-const tctx = roadTexture.getContext("2d");
+let segments = [];
+let trackLength = 0;
+let lastY = 0;
 
-function buildRoadTexture() {
-    const w = roadTexture.width;
-    const h = roadTexture.height;
-    const roadLeft = Math.floor((w - ROAD.roadWidth) / 2);
-    const roadRight = roadLeft + ROAD.roadWidth;
-
-    for (let y = 0; y < h; y++) {
-        const grassBand = Math.floor(y / 8) % 2 === 0;
-        tctx.fillStyle = grassBand ? "#153728" : "#0f2b1f";
-        tctx.fillRect(0, y, w, 1);
-
-        const rumbleBand = Math.floor(y / 6) % 2 === 0;
-        tctx.fillStyle = rumbleBand ? "#c0435f" : "#f7d85a";
-        tctx.fillRect(roadLeft - ROAD.rumbleWidth, y, ROAD.rumbleWidth, 1);
-        tctx.fillRect(roadRight, y, ROAD.rumbleWidth, 1);
-
-        const roadBand = Math.floor(y / 4) % 2 === 0;
-        tctx.fillStyle = roadBand ? "#4b5058" : "#3f444c";
-        tctx.fillRect(roadLeft, y, ROAD.roadWidth, 1);
-
-        if (y % 28 < 10) {
-            tctx.fillStyle = "rgba(220, 220, 240, 0.8)";
-            tctx.fillRect(roadLeft + ROAD.roadWidth / 2 - ROAD.laneWidth / 2, y, ROAD.laneWidth, 1);
-            tctx.fillRect(roadLeft + ROAD.roadWidth * 0.2 - ROAD.laneWidth / 2, y, ROAD.laneWidth, 1);
-            tctx.fillRect(roadLeft + ROAD.roadWidth * 0.8 - ROAD.laneWidth / 2, y, ROAD.laneWidth, 1);
-        }
-    }
+function easeIn(a, b, p) {
+    return a + (b - a) * p * p;
 }
 
-buildRoadTexture();
+function easeOut(a, b, p) {
+    return a + (b - a) * (1 - (1 - p) * (1 - p));
+}
+
+function easeInOut(a, b, p) {
+    return a + (b - a) * ((-Math.cos(p * Math.PI) / 2) + 0.5);
+}
+
+function addSegment(curve, y) {
+    const n = segments.length;
+    segments.push({
+        index: n,
+        p1: { world: { x: 0, y: lastY, z: n * config.segmentLength }, camera: {}, screen: {} },
+        p2: { world: { x: 0, y, z: (n + 1) * config.segmentLength }, camera: {}, screen: {} },
+        curve,
+        color: Math.floor(n / config.rumbleLength) % 2 ? colors.dark : colors.light,
+    });
+    lastY = y;
+}
+
+function addRoad(enter, hold, leave, curve, hill) {
+    const startY = lastY;
+    const endY = lastY + hill * config.segmentLength;
+    const total = enter + hold + leave;
+    for (let n = 0; n < enter; n++)
+        addSegment(easeIn(0, curve, n / enter), easeInOut(startY, endY, n / total));
+    for (let n = 0; n < hold; n++)
+        addSegment(curve, easeInOut(startY, endY, (enter + n) / total));
+    for (let n = 0; n < leave; n++)
+        addSegment(easeOut(curve, 0, n / leave), easeInOut(startY, endY, (enter + hold + n) / total));
+}
+
+function buildTrack() {
+    segments = [];
+    lastY = 0;
+    addRoad(30, 30, 30, 0, 0);
+    addRoad(20, 40, 20, 0.5, 0);
+    addRoad(20, 40, 20, -0.6, 0);
+    addRoad(20, 30, 20, 0, 0.5);
+    addRoad(20, 30, 20, 0, -0.5);
+    addRoad(20, 40, 20, 0.4, 0.2);
+    addRoad(20, 40, 20, -0.4, 0.1);
+    addRoad(40, 60, 40, 0, 0);
+    trackLength = segments.length * config.segmentLength;
+}
+
+buildTrack();
 
 function resize() {
     const rect = canvas.getBoundingClientRect();
@@ -85,46 +109,47 @@ function clamp(v, min, max) {
     return Math.max(min, Math.min(max, v));
 }
 
-function curveAt(z) {
-    return (
-        Math.sin(z * 0.00055) * 0.9 +
-        Math.sin(z * 0.0012 + 1.7) * 0.35
-    );
+function findSegment(z) {
+    return segments[Math.floor(z / config.segmentLength) % segments.length];
+}
+
+function project(p, cameraX, cameraY, cameraZ) {
+    const dz = p.world.z - cameraZ;
+    p.camera.x = p.world.x - cameraX;
+    p.camera.y = p.world.y - cameraY;
+    p.camera.z = dz;
+
+    p.screen.scale = cameraDepth / dz;
+    p.screen.x = Math.round((state.width / 2) + (p.screen.scale * p.camera.x * state.width / 2));
+    p.screen.y = Math.round((state.height / 2) - (p.screen.scale * p.camera.y * state.height / 2));
+    p.screen.w = Math.round(p.screen.scale * config.roadWidth * state.width / 2);
 }
 
 function update(dt) {
-    const maxSpeed = 1.5;
-    const accel = keys.up ? 1.2 : 0;
-    const brake = keys.down ? 1.8 : 0;
-    const drag = 0.9;
+    const maxSpeed = config.segmentLength * 6;
+    const accel = keys.up ? maxSpeed * 0.5 : 0;
+    const brake = keys.down ? maxSpeed * 0.7 : 0;
+    const drag = maxSpeed * 0.3;
 
-    state.speed += (accel - brake - drag * state.speed) * dt;
+    state.speed += (accel - brake - drag * (state.speed / maxSpeed)) * dt;
     state.speed = clamp(state.speed, 0, maxSpeed);
 
     const steer = (keys.left ? -1 : 0) + (keys.right ? 1 : 0);
-    state.playerX += steer * dt * (1.0 + state.speed * 1.2);
-    state.playerX = clamp(state.playerX, -1.0, 1.0);
+    state.playerX += steer * dt * (1.2 + state.speed / maxSpeed * 1.6);
+    state.playerX = clamp(state.playerX, -1, 1);
 
-    const drift = curveAt(state.distance + 1200) * 0.0008 * (0.3 + state.speed);
-    state.playerX -= drift;
-
-    if (Math.abs(state.playerX) > 0.95) {
-        state.speed *= 0.985;
-    }
-
-    state.distance += state.speed * dt * 320;
-
-    if (state.distance - state.lastLapDistance > 12000) {
-        state.lap += 1;
-        state.lastLapDistance = state.distance;
-        const lapEl = document.getElementById("lap");
-        if (lapEl) lapEl.textContent = state.lap;
-    }
+    state.position += state.speed * dt;
+    if (state.position >= trackLength) state.position -= trackLength;
+    if (state.position < 0) state.position += trackLength;
 
     const kmh = Math.round((state.speed / maxSpeed) * 220);
     speedEl.textContent = kmh;
-    const gear = kmh < 5 ? "N" : kmh < 40 ? "1" : kmh < 80 ? "2" : kmh < 120 ? "3" : kmh < 170 ? "4" : "5";
-    gearEl.textContent = gear;
+    gearEl.textContent = kmh < 5 ? "N" : kmh < 40 ? "1" : kmh < 80 ? "2" : kmh < 120 ? "3" : kmh < 170 ? "4" : "5";
+
+    if (audio.playing) {
+        const target = 80 + (state.speed / maxSpeed) * 240;
+        audio.engine.frequency.setTargetAtTime(target, audio.ctx.currentTime, 0.05);
+    }
 }
 
 function drawSky() {
@@ -142,57 +167,102 @@ function drawSky() {
     ctx.fill();
 }
 
+function drawPolygon(color, x1, y1, x2, y2, x3, y3, x4, y4) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.lineTo(x3, y3);
+    ctx.lineTo(x4, y4);
+    ctx.closePath();
+    ctx.fill();
+}
+
+function drawSegment(seg, p1, p2) {
+    const rumble1 = p1.w * 0.12;
+    const rumble2 = p2.w * 0.12;
+    const laneCount = config.lanes;
+
+    ctx.fillStyle = seg.color.grass;
+    ctx.fillRect(0, p2.y, state.width, p1.y - p2.y);
+
+    drawPolygon(seg.color.rumble, p1.x - p1.w - rumble1, p1.y, p1.x - p1.w, p1.y, p2.x - p2.w, p2.y, p2.x - p2.w - rumble2, p2.y);
+    drawPolygon(seg.color.rumble, p1.x + p1.w + rumble1, p1.y, p1.x + p1.w, p1.y, p2.x + p2.w, p2.y, p2.x + p2.w + rumble2, p2.y);
+
+    drawPolygon(seg.color.road, p1.x - p1.w, p1.y, p1.x + p1.w, p1.y, p2.x + p2.w, p2.y, p2.x - p2.w, p2.y);
+
+    if (seg.index % 6 < 3) {
+        const laneW1 = (p1.w * 2) / laneCount;
+        const laneW2 = (p2.w * 2) / laneCount;
+        const lineW1 = p1.w * 0.02;
+        const lineW2 = p2.w * 0.02;
+        for (let lane = 1; lane < laneCount; lane++) {
+            const lanex1 = p1.x - p1.w + laneW1 * lane;
+            const lanex2 = p2.x - p2.w + laneW2 * lane;
+            drawPolygon(seg.color.lane, lanex1 - lineW1 / 2, p1.y, lanex1 + lineW1 / 2, p1.y, lanex2 + lineW2 / 2, p2.y, lanex2 - lineW2 / 2, p2.y);
+        }
+    }
+}
+
 function drawRoad() {
-    const yStart = state.horizon + 2;
-    const yEnd = state.height;
-    const camHeight = 70;
-    const texW = roadTexture.width;
-    const texH = roadTexture.height;
+    const baseSegment = findSegment(state.position);
+    const baseIndex = baseSegment.index;
+    const playerY = baseSegment.p1.world.y + config.cameraHeight;
+    let x = 0;
+    let dx = 0;
+    let maxY = state.height;
 
-    for (let y = yStart; y < yEnd; y++) {
-        const dy = y - yStart + 1;
-        const perspective = camHeight / dy;
-        const curve = curveAt(state.distance + dy * 80);
-        const lateral = (curve * 260 - state.playerX * 240) * perspective;
+    for (let n = 0; n < config.drawDistance; n++) {
+        const seg = segments[(baseIndex + n) % segments.length];
+        const looped = seg.index < baseIndex;
+        const z1 = seg.index * config.segmentLength + (looped ? trackLength : 0);
+        const z2 = z1 + config.segmentLength;
 
-        let lineWidth = texW * perspective;
-        lineWidth = Math.min(lineWidth, state.width * 1.4);
+        seg.p1.world.z = z1;
+        seg.p2.world.z = z2;
+        seg.p1.world.x = x;
+        seg.p2.world.x = x + dx;
 
-        const lineX = (state.width - lineWidth) / 2 + lateral;
-        const srcY = ((-state.distance * 0.8 + dy * 10) % texH + texH) % texH;
+        project(seg.p1, state.playerX * config.roadWidth, playerY, state.position);
+        project(seg.p2, state.playerX * config.roadWidth, playerY, state.position);
 
-        ctx.drawImage(roadTexture, 0, srcY, texW, 1, lineX, y, lineWidth, 1);
+        x += dx;
+        dx += seg.curve;
+
+        if (seg.p1.screen.y >= maxY) continue;
+        drawSegment(seg, seg.p1.screen, seg.p2.screen);
+        maxY = seg.p2.screen.y;
     }
 }
 
 function drawPlayer() {
     const baseY = state.height * 0.83;
-    const x = state.width / 2 + state.playerX * 80;
-    const carW = 46;
-    const carH = 22;
+    const x = state.width / 2 + state.playerX * 200;
+    const carW = 58;
+    const carH = 26;
 
     ctx.save();
     ctx.translate(x, baseY);
 
     ctx.fillStyle = "rgba(0,0,0,0.35)";
-    ctx.fillRect(-carW / 2 + 4, carH * 0.55, carW - 8, 6);
+    ctx.fillRect(-carW / 2 + 6, carH * 0.55, carW - 12, 6);
 
-    ctx.fillStyle = "#23345e";
+    ctx.fillStyle = "#2a3d6b";
     ctx.fillRect(-carW / 2, -carH / 2, carW, carH);
 
-    ctx.fillStyle = "#1a253f";
-    ctx.fillRect(-carW / 2 + 6, -carH / 2 + 4, carW - 12, 6);
+    ctx.fillStyle = "#1e2c4e";
+    ctx.fillRect(-carW / 2 + 6, -carH / 2 + 4, carW - 12, 7);
 
     ctx.fillStyle = "#3bd1ff";
-    ctx.fillRect(-carW / 4, -carH / 2 + 6, carW / 2, 8);
+    ctx.fillRect(-carW / 4, -carH / 2 + 6, carW / 2, 9);
 
     ctx.fillStyle = "#0b0f1a";
-    ctx.fillRect(-carW / 2 + 4, carH / 2 - 4, 10, 4);
-    ctx.fillRect(carW / 2 - 14, carH / 2 - 4, 10, 4);
+    ctx.fillRect(-carW / 2 + 5, carH / 2 - 4, 12, 4);
+    ctx.fillRect(carW / 2 - 17, carH / 2 - 4, 12, 4);
 
     ctx.fillStyle = "#ff6b6b";
-    ctx.fillRect(-carW / 2 + 6, -carH / 2 + 2, 6, 3);
-    ctx.fillRect(carW / 2 - 12, -carH / 2 + 2, 6, 3);
+    ctx.fillRect(-carW / 2 + 8, -carH / 2 + 2, 7, 3);
+    ctx.fillRect(carW / 2 - 15, -carH / 2 + 2, 7, 3);
 
     ctx.restore();
 }
@@ -201,10 +271,11 @@ function drawPlayer() {
 const audio = {
     ctx: null,
     master: null,
-    timer: null,
+    engine: null,
     playing: false,
+    timer: null,
     step: 0,
-    tempo: 118,
+    tempo: 120,
 };
 
 function initAudio() {
@@ -213,6 +284,13 @@ function initAudio() {
     audio.master = audio.ctx.createGain();
     audio.master.gain.value = 0.18;
     audio.master.connect(audio.ctx.destination);
+
+    audio.engine = audio.ctx.createOscillator();
+    audio.engine.type = "sawtooth";
+    const engineGain = audio.ctx.createGain();
+    engineGain.gain.value = 0.12;
+    audio.engine.connect(engineGain).connect(audio.master);
+    audio.engine.start();
 }
 
 function playNote(midi, duration, gain, type) {
@@ -237,9 +315,7 @@ function audioStep() {
     const root = 57; // A3
     const note = root + scale[step % scale.length];
     playNote(note, 0.12, 0.12, "square");
-    if (step % 4 === 0) {
-        playNote(root - 12, 0.16, 0.14, "triangle");
-    }
+    if (step % 4 === 0) playNote(root - 12, 0.16, 0.14, "triangle");
 }
 
 function startAudio() {
