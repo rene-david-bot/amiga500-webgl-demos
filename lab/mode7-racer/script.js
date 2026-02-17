@@ -95,11 +95,9 @@ function buildTrack() {
 buildTrack();
 
 const carSprites = {
-    leftHard: new Image(),
-    leftSoft: new Image(),
+    left: new Image(),
     straight: new Image(),
-    rightSoft: new Image(),
-    rightHard: new Image(),
+    right: new Image(),
     ready: false,
     loaded: 0,
 };
@@ -107,19 +105,15 @@ const carSprites = {
 function loadCarSprites() {
     const done = () => {
         carSprites.loaded += 1;
-        if (carSprites.loaded >= 5) carSprites.ready = true;
+        if (carSprites.loaded >= 3) carSprites.ready = true;
     };
-    carSprites.leftHard.onload = done;
-    carSprites.leftSoft.onload = done;
-    carSprites.rightSoft.onload = done;
-    carSprites.rightHard.onload = done;
+    carSprites.left.onload = done;
+    carSprites.right.onload = done;
     carSprites.straight.onload = done;
 
-    carSprites.leftHard.src = "assets/car_left_hard.png";
-    carSprites.leftSoft.src = "assets/car_left_soft.png";
+    carSprites.left.src = "assets/car_left.png";
+    carSprites.right.src = "assets/car_right.png";
     carSprites.straight.src = "assets/car_straight.png";
-    carSprites.rightSoft.src = "assets/car_right_soft.png";
-    carSprites.rightHard.src = "assets/car_right_hard.png";
 }
 
 loadCarSprites();
@@ -299,18 +293,16 @@ function drawPlayer() {
 
     if (carSprites.ready) {
         let sprite = carSprites.straight;
-        if (state.steer < -0.55) sprite = carSprites.leftHard;
-        else if (state.steer < -0.2) sprite = carSprites.leftSoft;
-        else if (state.steer > 0.55) sprite = carSprites.rightHard;
-        else if (state.steer > 0.2) sprite = carSprites.rightSoft;
+        if (state.steer < -0.25) sprite = carSprites.left;
+        else if (state.steer > 0.25) sprite = carSprites.right;
 
-        const scale = 2.0;
+        const scale = 1.7;
         const w = sprite.width * scale;
         const h = sprite.height * scale;
 
         ctx.save();
         ctx.imageSmoothingEnabled = false;
-        ctx.drawImage(sprite, x - w / 2, baseY - h / 2 + 6, w, h);
+        ctx.drawImage(sprite, x - w / 2, baseY - h / 2 + 10, w, h);
         ctx.restore();
         return;
     }
