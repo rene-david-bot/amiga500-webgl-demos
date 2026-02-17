@@ -13,6 +13,7 @@ const state = {
     speed: 0,
     playerX: 0,
     steer: 0,
+    offroadTime: 0,
     lap: 1,
     lastLapDistance: 0,
 };
@@ -143,13 +144,17 @@ function update(dt) {
 
     // grass slowdown (progressive, cap at ~50 km/h)
     if (Math.abs(state.playerX) > 1.0) {
+        state.offroadTime += dt;
         const offroadCap = maxSpeed * (50 / 300);
         if (state.speed > offroadCap) {
-            state.speed -= maxSpeed * 0.9 * dt;
+            const decel = maxSpeed * (0.15 + state.offroadTime * 0.35);
+            state.speed -= decel * dt;
             if (state.speed < offroadCap) state.speed = offroadCap;
         } else {
-            state.speed = Math.max(0, state.speed - maxSpeed * 0.1 * dt);
+            state.speed = Math.max(0, state.speed - maxSpeed * 0.08 * dt);
         }
+    } else {
+        state.offroadTime = 0;
     }
 
     state.position += state.speed * dt;
