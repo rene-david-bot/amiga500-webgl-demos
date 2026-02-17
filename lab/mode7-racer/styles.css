@@ -62,11 +62,28 @@ h1 {
 
 .hud {
     display: flex;
-    gap: 20px;
+    gap: 14px;
     flex-wrap: wrap;
+    align-items: center;
     padding: 8px 4px 16px;
     color: var(--accent);
     font-size: 0.95rem;
+}
+
+.audio-toggle {
+    margin-left: auto;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid rgba(98, 245, 255, 0.45);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.audio-toggle.is-on {
+    color: #ffe08a;
+    border-color: #ffe08a;
 }
 
 .hud-item span {
