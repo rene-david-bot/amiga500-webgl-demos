@@ -1,0 +1,16 @@
+{
+  "projects": [
+    {
+      "slug": "drum-machine",
+      "title": "Retro Drum Machine",
+      "date": "2026-02-16",
+      "tags": ["audio", "sequencer"]
+    },
+    {
+      "slug": "mode7-racer",
+      "title": "Mode‑7 Sunset Racer",
+      "date": "2026-02-17",
+      "tags": ["game", "racer", "canvas"]
+    }
+  ]
+}

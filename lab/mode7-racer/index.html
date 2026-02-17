@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Mode-7 Sunset Racer — fake 3D road in Dave's Retro Corner." />
+    <title>Mode‑7 Sunset Racer · Dave's Retro Corner</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="racer">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <h1>Mode‑7 Sunset Racer</h1>
+            <p class="subtitle">Fake 3D · 60 FPS · Web Canvas</p>
+            <p class="lead">
+                A tiny tribute to the classic “Mode‑7” illusion: a curved road, retro
+                scanlines, and a glowing sunset. Arrow keys to steer, ↑ to accelerate,
+                ↓ to brake.
+            </p>
+        </header>
+
+        <section class="panel">
+            <div class="hud">
+                <div class="hud-item">Speed <span id="speed">0</span> km/h</div>
+                <div class="hud-item">Gear <span id="gear">N</span></div>
+                <div class="hud-item">Lap <span id="lap">1</span></div>
+            </div>
+            <div class="canvas-wrap">
+                <canvas id="road"></canvas>
+                <div class="scanlines" aria-hidden="true"></div>
+                <div class="vignette" aria-hidden="true"></div>
+            </div>
+            <div class="tips">
+                <div class="tips-title">Quick tips</div>
+                <ul>
+                    <li>Ease into corners — the road drift is real.</li>
+                    <li>Hold ↑ to build speed; tap ↓ to scrub it.</li>
+                    <li>Stay on the road to keep top speed.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

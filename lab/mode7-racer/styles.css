@@ -1,0 +1,128 @@
+:root {
+    color-scheme: dark;
+    font-family: "IBM Plex Mono", "Fira Code", "JetBrains Mono", monospace;
+    --bg: #0b0f1a;
+    --panel: #141b2a;
+    --panel-glow: rgba(0, 255, 210, 0.12);
+    --accent: #62f5ff;
+    --accent-2: #ff9bff;
+    --text: #e7f0ff;
+    --muted: #94a3c7;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: radial-gradient(circle at top, #1a2541, #0b0f1a 55%, #05070f 100%);
+    color: var(--text);
+}
+
+.racer {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 32px 20px 48px;
+}
+
+.hero {
+    margin-bottom: 24px;
+}
+
+.back {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+h1 {
+    margin: 12px 0 4px;
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.subtitle {
+    color: var(--accent-2);
+    margin: 0 0 12px;
+}
+
+.lead {
+    color: var(--muted);
+    max-width: 700px;
+    line-height: 1.6;
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid rgba(120, 160, 255, 0.2);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 0 40px var(--panel-glow);
+}
+
+.hud {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 8px 4px 16px;
+    color: var(--accent);
+    font-size: 0.95rem;
+}
+
+.hud-item span {
+    color: var(--text);
+    font-weight: 700;
+}
+
+.canvas-wrap {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(100, 200, 255, 0.25);
+}
+
+#road {
+    width: 100%;
+    height: 520px;
+    display: block;
+    background: #0d1220;
+}
+
+.scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.2) 0px,
+        rgba(0, 0, 0, 0.2) 1px,
+        rgba(0, 0, 0, 0) 2px,
+        rgba(0, 0, 0, 0) 4px
+    );
+    mix-blend-mode: multiply;
+    pointer-events: none;
+}
+
+.vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 55%, rgba(0, 0, 0, 0.55));
+    pointer-events: none;
+}
+
+.tips {
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.tips-title {
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+@media (max-width: 640px) {
+    #road {
+        height: 360px;
+    }
+}
