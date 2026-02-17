@@ -20,12 +20,12 @@ const keys = { left: false, right: false, up: false, down: false };
 
 const config = {
     segmentLength: 200,
-    rumbleLength: 4,
-    roadWidth: 1500,
+    rumbleLength: 3,
+    roadWidth: 1200,
     lanes: 2,
     cameraHeight: 1000,
-    fov: 74,
-    drawDistance: 300,
+    fov: 60,
+    drawDistance: 220,
 };
 
 const cameraDepth = 1 / Math.tan((config.fov / 2) * (Math.PI / 180));
@@ -229,9 +229,19 @@ function drawRoad() {
         x += dx;
         dx += seg.curve;
 
-        if (seg.p1.screen.y >= maxY) continue;
-        drawSegment(seg, seg.p1.screen, seg.p2.screen);
-        maxY = seg.p2.screen.y;
+        const p1 = seg.p1.screen;
+        const p2 = seg.p2.screen;
+
+        if (p2.y >= p1.y) continue;
+        if (p2.y >= maxY) continue;
+        if (p1.y < state.horizon && p2.y < state.horizon) continue;
+
+        const p1y = Math.max(p1.y, state.horizon);
+        const p2y = Math.max(p2.y, state.horizon);
+        if (p1y <= p2y) continue;
+
+        drawSegment(seg, { x: p1.x, y: p1y, w: p1.w }, { x: p2.x, y: p2y, w: p2.w });
+        maxY = p2y;
     }
 }
 
