@@ -20,19 +20,19 @@ const keys = { left: false, right: false, up: false, down: false };
 
 const config = {
     segmentLength: 200,
-    rumbleLength: 6,
-    roadWidth: 1700,
+    rumbleLength: 4,
+    roadWidth: 1500,
     lanes: 2,
-    cameraHeight: 1200,
-    fov: 72,
-    drawDistance: 280,
+    cameraHeight: 1000,
+    fov: 74,
+    drawDistance: 300,
 };
 
 const cameraDepth = 1 / Math.tan((config.fov / 2) * (Math.PI / 180));
 
 const colors = {
-    light: { road: "#6a6a6a", grass: "#2a6b2a", rumble: "#e24545", lane: "#ffffff" },
-    dark: { road: "#5b5b5b", grass: "#256125", rumble: "#f0f0f0", lane: "#dcdcdc" },
+    light: { road: "#6c6c6c", grass: "#3c8f3c", rumble: "#f2f2f2", lane: "#ffffff" },
+    dark: { road: "#616161", grass: "#377c37", rumble: "#d44", lane: "#e0e0e0" },
 };
 
 let segments = [];
@@ -78,15 +78,15 @@ function addRoad(enter, hold, leave, curve, hill) {
 function buildTrack() {
     segments = [];
     lastY = 0;
-    addRoad(120, 200, 120, 0, 0);     // long straight
-    addRoad(60, 140, 60, 0.35, 0);    // gentle right
-    addRoad(80, 160, 80, 0, 0);
-    addRoad(60, 140, 60, -0.35, 0);   // gentle left
-    addRoad(60, 120, 60, 0, 0.45);    // hill
-    addRoad(60, 120, 60, 0, -0.45);
-    addRoad(60, 140, 60, 0.25, 0.15);
-    addRoad(60, 140, 60, -0.25, 0.1);
     addRoad(140, 220, 140, 0, 0);     // long straight
+    addRoad(80, 160, 80, 0.25, 0);    // gentle right
+    addRoad(120, 200, 120, 0, 0);
+    addRoad(80, 160, 80, -0.25, 0);   // gentle left
+    addRoad(80, 160, 80, 0, 0.35);    // hill
+    addRoad(80, 160, 80, 0, -0.35);
+    addRoad(100, 180, 100, 0.18, 0.12);
+    addRoad(100, 180, 100, -0.18, 0.1);
+    addRoad(160, 240, 160, 0, 0);     // long straight
     trackLength = segments.length * config.segmentLength;
 }
 
@@ -100,7 +100,7 @@ function resize() {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     state.width = rect.width;
     state.height = rect.height;
-    state.horizon = rect.height * 0.47;
+    state.horizon = rect.height * 0.44;
 }
 
 window.addEventListener("resize", resize);
@@ -192,16 +192,15 @@ function drawSegment(seg, p1, p2) {
 
     drawPolygon(seg.color.road, p1.x - p1.w, p1.y, p1.x + p1.w, p1.y, p2.x + p2.w, p2.y, p2.x - p2.w, p2.y);
 
-    if (seg.index % 12 < 3) {
+    if (seg.index % 10 < 4) {
         const laneW1 = (p1.w * 2) / laneCount;
         const laneW2 = (p2.w * 2) / laneCount;
-        const lineW1 = p1.w * 0.014;
-        const lineW2 = p2.w * 0.014;
-        for (let lane = 1; lane < laneCount; lane++) {
-            const lanex1 = p1.x - p1.w + laneW1 * lane;
-            const lanex2 = p2.x - p2.w + laneW2 * lane;
-            drawPolygon(seg.color.lane, lanex1 - lineW1 / 2, p1.y, lanex1 + lineW1 / 2, p1.y, lanex2 + lineW2 / 2, p2.y, lanex2 - lineW2 / 2, p2.y);
-        }
+        const lineW1 = p1.w * 0.012;
+        const lineW2 = p2.w * 0.012;
+        const lane = 1;
+        const lanex1 = p1.x - p1.w + laneW1 * lane;
+        const lanex2 = p2.x - p2.w + laneW2 * lane;
+        drawPolygon(seg.color.lane, lanex1 - lineW1 / 2, p1.y, lanex1 + lineW1 / 2, p1.y, lanex2 + lineW2 / 2, p2.y, lanex2 - lineW2 / 2, p2.y);
     }
 }
 
