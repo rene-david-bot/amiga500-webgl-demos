@@ -25,8 +25,8 @@ const keys = {
 const ROAD = {
     width: 1600,
     segmentLength: 260,
-    rumbleWidth: 0.12,
-    laneWidth: 0.08,
+    rumbleWidth: 0.08,
+    laneWidth: 0.07,
 };
 
 function resize() {
@@ -104,9 +104,15 @@ function drawSky() {
 function drawRoad() {
     const yStart = state.horizon;
     const yEnd = state.height;
-    const roadMax = state.width * 0.46;
+    const roadMax = state.width * 0.42;
     const roadMin = state.width * 0.012;
     const depth = 8200;
+
+    const ground = ctx.createLinearGradient(0, yStart, 0, yEnd);
+    ground.addColorStop(0, "#1a3527");
+    ground.addColorStop(1, "#07120c");
+    ctx.fillStyle = ground;
+    ctx.fillRect(0, yStart, state.width, yEnd - yStart);
 
     for (let y = yStart; y < yEnd; y++) {
         const p = (y - yStart) / (yEnd - yStart); // 0..1
@@ -115,8 +121,13 @@ function drawRoad() {
         const z = p * depth;
         const curve = curveAt(state.distance + z);
 
-        const roadHalf = roadMin + (roadMax - roadMin) * p3;
-        const rumble = roadHalf * ROAD.rumbleWidth;
+        let roadHalf = roadMin + (roadMax - roadMin) * p3;
+        let rumble = roadHalf * ROAD.rumbleWidth;
+        const maxHalf = state.width * 0.45;
+        if (roadHalf + rumble > maxHalf) {
+            roadHalf = maxHalf / (1 + ROAD.rumbleWidth);
+            rumble = roadHalf * ROAD.rumbleWidth;
+        }
         const lane = roadHalf * ROAD.laneWidth;
 
         let center =
@@ -129,18 +140,6 @@ function drawRoad() {
 
         const segment = Math.floor((state.distance + z) / ROAD.segmentLength);
         const even = segment % 2 === 0;
-
-        const baseR = 18 - p * 10 + (even ? 6 : 0);
-        const baseG = 44 - p * 22 + (even ? 8 : 0);
-        const baseB = 34 - p * 18 + (even ? 6 : 0);
-        const grass = `rgb(${Math.max(0, baseR)}, ${Math.max(0, baseG)}, ${Math.max(0, baseB)})`;
-
-        const leftEdge = center - roadHalf - rumble;
-        const rightEdge = center + roadHalf + rumble;
-
-        ctx.fillStyle = grass;
-        if (leftEdge > 0) ctx.fillRect(0, y, leftEdge, 1);
-        if (rightEdge < state.width) ctx.fillRect(rightEdge, y, state.width - rightEdge, 1);
 
         ctx.fillStyle = even ? "#5a2f44" : "#3a2431";
         ctx.fillRect(center - roadHalf - rumble, y, rumble, 1);
