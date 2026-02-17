@@ -104,15 +104,9 @@ function drawSky() {
 function drawRoad() {
     const yStart = state.horizon;
     const yEnd = state.height;
-    const roadMax = state.width * 0.52;
-    const roadMin = state.width * 0.018;
+    const roadMax = state.width * 0.46;
+    const roadMin = state.width * 0.012;
     const depth = 8200;
-
-    const ground = ctx.createLinearGradient(0, yStart, 0, yEnd);
-    ground.addColorStop(0, "#173025");
-    ground.addColorStop(1, "#07120c");
-    ctx.fillStyle = ground;
-    ctx.fillRect(0, yStart, state.width, yEnd - yStart);
 
     for (let y = yStart; y < yEnd; y++) {
         const p = (y - yStart) / (yEnd - yStart); // 0..1
@@ -125,13 +119,28 @@ function drawRoad() {
         const rumble = roadHalf * ROAD.rumbleWidth;
         const lane = roadHalf * ROAD.laneWidth;
 
-        const center =
+        let center =
             state.width / 2 +
-            curve * 200 * (1 - p) -
-            state.playerX * (140 * (1 - p * 0.4));
+            curve * 180 * (1 - p) -
+            state.playerX * (120 * (1 - p * 0.4));
+
+        const margin = roadHalf + rumble + 8;
+        center = clamp(center, margin, state.width - margin);
 
         const segment = Math.floor((state.distance + z) / ROAD.segmentLength);
         const even = segment % 2 === 0;
+
+        const baseR = 18 - p * 10 + (even ? 6 : 0);
+        const baseG = 44 - p * 22 + (even ? 8 : 0);
+        const baseB = 34 - p * 18 + (even ? 6 : 0);
+        const grass = `rgb(${Math.max(0, baseR)}, ${Math.max(0, baseG)}, ${Math.max(0, baseB)})`;
+
+        const leftEdge = center - roadHalf - rumble;
+        const rightEdge = center + roadHalf + rumble;
+
+        ctx.fillStyle = grass;
+        if (leftEdge > 0) ctx.fillRect(0, y, leftEdge, 1);
+        if (rightEdge < state.width) ctx.fillRect(rightEdge, y, state.width - rightEdge, 1);
 
         ctx.fillStyle = even ? "#5a2f44" : "#3a2431";
         ctx.fillRect(center - roadHalf - rumble, y, rumble, 1);
@@ -141,7 +150,7 @@ function drawRoad() {
         ctx.fillRect(center - roadHalf, y, roadHalf * 2, 1);
 
         if (segment % 3 === 0) {
-            ctx.fillStyle = "rgba(220, 220, 240, 0.55)";
+            ctx.fillStyle = "rgba(220, 220, 240, 0.6)";
             ctx.fillRect(center - lane / 2, y, lane, 1);
             ctx.fillRect(center - roadHalf * 0.35 - lane / 2, y, lane, 1);
             ctx.fillRect(center + roadHalf * 0.35 - lane / 2, y, lane, 1);
