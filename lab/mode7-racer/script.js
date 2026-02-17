@@ -78,15 +78,15 @@ function addRoad(enter, hold, leave, curve, hill) {
 function buildTrack() {
     segments = [];
     lastY = 0;
-    addRoad(100, 160, 100, 0, 0);      // straight
-    addRoad(60, 120, 60, 0.6, 0);      // right
-    addRoad(80, 140, 80, 0, 0);
-    addRoad(60, 120, 60, -0.6, 0);     // left
-    addRoad(80, 140, 80, 0.35, 0.2);   // right hill
-    addRoad(80, 140, 80, -0.35, -0.2); // left hill
-    addRoad(60, 120, 60, 0.5, 0);      // right
-    addRoad(60, 120, 60, -0.5, 0);     // left
-    addRoad(120, 200, 120, 0, 0);      // straight
+    addRoad(40, 60, 40, 0, 0);         // straight
+    addRoad(40, 80, 40, 1.0, 0);       // right
+    addRoad(40, 60, 40, 0, 0);
+    addRoad(40, 80, 40, -1.0, 0);      // left
+    addRoad(40, 80, 40, 0.7, 0);       // right
+    addRoad(40, 80, 40, -0.7, 0);      // left
+    addRoad(50, 90, 50, 0.6, 0.2);     // right hill
+    addRoad(50, 90, 50, -0.6, -0.2);   // left hill
+    addRoad(60, 100, 60, 0, 0);        // straight
     trackLength = segments.length * config.segmentLength;
 }
 
@@ -127,10 +127,10 @@ function project(p, cameraX, cameraY, cameraZ) {
 }
 
 function update(dt) {
-    const maxSpeed = config.segmentLength * 12;
-    const accel = keys.up ? maxSpeed * 0.65 : 0;
-    const brake = keys.down ? maxSpeed * 0.8 : 0;
-    const drag = maxSpeed * 0.25;
+    const maxSpeed = config.segmentLength * 22;
+    const accel = keys.up ? maxSpeed * 0.9 : 0;
+    const brake = keys.down ? maxSpeed * 1.0 : 0;
+    const drag = maxSpeed * 0.15;
 
     state.speed += (accel - brake - drag * (state.speed / maxSpeed)) * dt;
     state.speed = clamp(state.speed, 0, maxSpeed);
@@ -143,7 +143,7 @@ function update(dt) {
     if (state.position >= trackLength) state.position -= trackLength;
     if (state.position < 0) state.position += trackLength;
 
-    const kmh = Math.round((state.speed / maxSpeed) * 320);
+    const kmh = Math.round((state.speed / maxSpeed) * 420);
     speedEl.textContent = kmh;
     gearEl.textContent = kmh < 5 ? "N" : kmh < 40 ? "1" : kmh < 80 ? "2" : kmh < 120 ? "3" : kmh < 170 ? "4" : "5";
 
@@ -227,7 +227,7 @@ function drawRoad() {
         project(seg.p2, state.playerX * config.roadWidth, playerY, state.position);
 
         x += dx;
-        dx += seg.curve;
+        dx += seg.curve * 1.4;
 
         const p1 = seg.p1.screen;
         const p2 = seg.p2.screen;
@@ -247,32 +247,46 @@ function drawRoad() {
 
 function drawPlayer() {
     const baseY = state.height * 0.83;
-    const x = state.width / 2 + state.playerX * 200;
-    const carW = 58;
-    const carH = 26;
+    const x = state.width / 2 + state.playerX * 220;
+    const carW = 72;
+    const carH = 30;
 
     ctx.save();
     ctx.translate(x, baseY);
 
-    ctx.fillStyle = "rgba(0,0,0,0.35)";
-    ctx.fillRect(-carW / 2 + 6, carH * 0.55, carW - 12, 6);
+    // shadow
+    ctx.fillStyle = "rgba(0,0,0,0.4)";
+    ctx.fillRect(-carW / 2 + 8, carH * 0.55, carW - 16, 6);
 
-    ctx.fillStyle = "#2a3d6b";
+    // body
+    ctx.fillStyle = "#1f3a6d";
     ctx.fillRect(-carW / 2, -carH / 2, carW, carH);
 
-    ctx.fillStyle = "#1e2c4e";
-    ctx.fillRect(-carW / 2 + 6, -carH / 2 + 4, carW - 12, 7);
+    // roof
+    ctx.fillStyle = "#16284e";
+    ctx.fillRect(-carW / 2 + 10, -carH / 2 + 6, carW - 20, 8);
 
-    ctx.fillStyle = "#3bd1ff";
-    ctx.fillRect(-carW / 4, -carH / 2 + 6, carW / 2, 9);
+    // windshield
+    ctx.fillStyle = "#48d6ff";
+    ctx.fillRect(-carW / 4, -carH / 2 + 8, carW / 2, 10);
 
+    // front splitter
     ctx.fillStyle = "#0b0f1a";
-    ctx.fillRect(-carW / 2 + 5, carH / 2 - 4, 12, 4);
-    ctx.fillRect(carW / 2 - 17, carH / 2 - 4, 12, 4);
+    ctx.fillRect(-carW / 2 + 6, carH / 2 - 4, carW - 12, 4);
 
-    ctx.fillStyle = "#ff6b6b";
-    ctx.fillRect(-carW / 2 + 8, -carH / 2 + 2, 7, 3);
-    ctx.fillRect(carW / 2 - 15, -carH / 2 + 2, 7, 3);
+    // wheels
+    ctx.fillStyle = "#0b0f1a";
+    ctx.fillRect(-carW / 2 + 4, carH / 2 - 6, 14, 6);
+    ctx.fillRect(carW / 2 - 18, carH / 2 - 6, 14, 6);
+
+    // tail lights
+    ctx.fillStyle = "#ff5555";
+    ctx.fillRect(-carW / 2 + 8, -carH / 2 + 3, 10, 4);
+    ctx.fillRect(carW / 2 - 18, -carH / 2 + 3, 10, 4);
+
+    // center stripe
+    ctx.fillStyle = "#f4f4f4";
+    ctx.fillRect(-3, -carH / 2, 6, carH);
 
     ctx.restore();
 }
