@@ -20,19 +20,19 @@ const keys = { left: false, right: false, up: false, down: false };
 
 const config = {
     segmentLength: 200,
-    rumbleLength: 3,
-    roadWidth: 2000,
-    lanes: 3,
-    cameraHeight: 1000,
-    fov: 70,
-    drawDistance: 240,
+    rumbleLength: 5,
+    roadWidth: 2400,
+    lanes: 2,
+    cameraHeight: 1400,
+    fov: 58,
+    drawDistance: 260,
 };
 
 const cameraDepth = 1 / Math.tan((config.fov / 2) * (Math.PI / 180));
 
 const colors = {
-    light: { road: "#6b6b6b", grass: "#2f5c2f", rumble: "#d44", lane: "#fff" },
-    dark: { road: "#5e5e5e", grass: "#2f5c2f", rumble: "#b22", lane: "#ccc" },
+    light: { road: "#6b6b6b", grass: "#2a5a2a", rumble: "#d44", lane: "#fff" },
+    dark: { road: "#5f5f5f", grass: "#2a5a2a", rumble: "#f7d85a", lane: "#e6e6e6" },
 };
 
 let segments = [];
@@ -78,14 +78,15 @@ function addRoad(enter, hold, leave, curve, hill) {
 function buildTrack() {
     segments = [];
     lastY = 0;
-    addRoad(60, 80, 60, 0, 0);
-    addRoad(40, 80, 40, 0.25, 0);
-    addRoad(40, 80, 40, -0.25, 0);
-    addRoad(40, 60, 40, 0, 0.3);
-    addRoad(40, 60, 40, 0, -0.3);
-    addRoad(60, 100, 60, 0.18, 0.15);
-    addRoad(60, 100, 60, -0.18, 0.1);
-    addRoad(80, 120, 80, 0, 0);
+    addRoad(80, 140, 80, 0, 0);     // long straight
+    addRoad(60, 120, 60, 0.25, 0);  // gentle right
+    addRoad(80, 140, 80, 0, 0);
+    addRoad(60, 120, 60, -0.25, 0); // gentle left
+    addRoad(60, 100, 60, 0, 0.35);  // small hill
+    addRoad(60, 100, 60, 0, -0.35);
+    addRoad(60, 120, 60, 0.18, 0.15);
+    addRoad(60, 120, 60, -0.18, 0.1);
+    addRoad(100, 160, 100, 0, 0);  // long straight
     trackLength = segments.length * config.segmentLength;
 }
 
@@ -191,11 +192,11 @@ function drawSegment(seg, p1, p2) {
 
     drawPolygon(seg.color.road, p1.x - p1.w, p1.y, p1.x + p1.w, p1.y, p2.x + p2.w, p2.y, p2.x - p2.w, p2.y);
 
-    if (seg.index % 6 < 3) {
+    if (seg.index % 10 < 4) {
         const laneW1 = (p1.w * 2) / laneCount;
         const laneW2 = (p2.w * 2) / laneCount;
-        const lineW1 = p1.w * 0.02;
-        const lineW2 = p2.w * 0.02;
+        const lineW1 = p1.w * 0.018;
+        const lineW2 = p2.w * 0.018;
         for (let lane = 1; lane < laneCount; lane++) {
             const lanex1 = p1.x - p1.w + laneW1 * lane;
             const lanex2 = p2.x - p2.w + laneW2 * lane;
