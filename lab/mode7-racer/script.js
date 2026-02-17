@@ -105,8 +105,11 @@ function drawRoad() {
     const yStart = state.horizon;
     const yEnd = state.height;
     const roadMax = state.width * 0.58;
-    const roadMin = state.width * 0.02;
-    const depth = 8000;
+    const roadMin = state.width * 0.015;
+    const depth = 8200;
+
+    const grassTop = [20, 36, 30];
+    const grassBottom = [6, 16, 12];
 
     for (let y = yStart; y < yEnd; y++) {
         const p = (y - yStart) / (yEnd - yStart); // 0..1
@@ -121,24 +124,27 @@ function drawRoad() {
 
         const center =
             state.width / 2 +
-            curve * 260 * (1 - p) -
-            state.playerX * (160 * (1 - p * 0.2));
+            curve * 200 * (1 - p) -
+            state.playerX * (140 * (1 - p * 0.4));
 
         const segment = Math.floor((state.distance + z) / ROAD.segmentLength);
         const even = segment % 2 === 0;
 
-        ctx.fillStyle = even ? "#1b0f2f" : "#120b24";
+        const gR = Math.round(grassTop[0] + (grassBottom[0] - grassTop[0]) * p);
+        const gG = Math.round(grassTop[1] + (grassBottom[1] - grassTop[1]) * p);
+        const gB = Math.round(grassTop[2] + (grassBottom[2] - grassTop[2]) * p);
+        ctx.fillStyle = `rgb(${gR}, ${gG}, ${gB})`;
         ctx.fillRect(0, y, state.width, 1);
 
-        ctx.fillStyle = even ? "#c23655" : "#f7e25f";
+        ctx.fillStyle = even ? "#5a2f44" : "#3a2431";
         ctx.fillRect(center - roadHalf - rumble, y, rumble, 1);
         ctx.fillRect(center + roadHalf, y, rumble, 1);
 
-        ctx.fillStyle = even ? "#4c4f55" : "#585b61";
+        ctx.fillStyle = even ? "#4c5058" : "#42464f";
         ctx.fillRect(center - roadHalf, y, roadHalf * 2, 1);
 
         if (segment % 3 === 0) {
-            ctx.fillStyle = "rgba(230, 230, 255, 0.85)";
+            ctx.fillStyle = "rgba(220, 220, 240, 0.65)";
             ctx.fillRect(center - lane / 2, y, lane, 1);
             ctx.fillRect(center - roadHalf * 0.35 - lane / 2, y, lane, 1);
             ctx.fillRect(center + roadHalf * 0.35 - lane / 2, y, lane, 1);
