@@ -12,6 +12,7 @@ const state = {
     position: 0,
     speed: 0,
     playerX: 0,
+    steer: 0,
     lap: 1,
     lastLapDistance: 0,
 };
@@ -127,28 +128,35 @@ function project(p, cameraX, cameraY, cameraZ) {
 }
 
 function update(dt) {
-    const maxSpeed = config.segmentLength * 22;
-    const accel = keys.up ? maxSpeed * 0.9 : 0;
-    const brake = keys.down ? maxSpeed * 1.0 : 0;
-    const drag = maxSpeed * 0.15;
+    const maxSpeed = config.segmentLength * 40;
+    const accel = keys.up ? maxSpeed * 1.1 : 0;
+    const brake = keys.down ? maxSpeed * 1.4 : 0;
+    const drag = maxSpeed * 0.18;
 
     state.speed += (accel - brake - drag * (state.speed / maxSpeed)) * dt;
     state.speed = clamp(state.speed, 0, maxSpeed);
 
     const steer = (keys.left ? -1 : 0) + (keys.right ? 1 : 0);
-    state.playerX += steer * dt * (1.2 + state.speed / maxSpeed * 1.6);
-    state.playerX = clamp(state.playerX, -1, 1);
+    state.steer = steer;
+    state.playerX += steer * dt * (1.3 + state.speed / maxSpeed * 1.8);
+    state.playerX = clamp(state.playerX, -1.2, 1.2);
+
+    // grass slowdown
+    if (Math.abs(state.playerX) > 1.0) {
+        state.speed -= maxSpeed * 0.8 * dt;
+        state.speed = Math.max(0, state.speed);
+    }
 
     state.position += state.speed * dt;
     if (state.position >= trackLength) state.position -= trackLength;
     if (state.position < 0) state.position += trackLength;
 
-    const kmh = Math.round((state.speed / maxSpeed) * 420);
+    const kmh = Math.round((state.speed / maxSpeed) * 300);
     speedEl.textContent = kmh;
     gearEl.textContent = kmh < 5 ? "N" : kmh < 40 ? "1" : kmh < 80 ? "2" : kmh < 120 ? "3" : kmh < 170 ? "4" : "5";
 
     if (audio.playing) {
-        const target = 80 + (state.speed / maxSpeed) * 240;
+        const target = 90 + (state.speed / maxSpeed) * 280;
         audio.engine.frequency.setTargetAtTime(target, audio.ctx.currentTime, 0.05);
     }
 }
@@ -248,23 +256,37 @@ function drawRoad() {
 function drawPlayer() {
     const baseY = state.height * 0.83;
     const x = state.width / 2 + state.playerX * 220;
-    const carW = 72;
-    const carH = 30;
+    const carW = 78;
+    const carH = 34;
+    const tilt = state.steer * 0.35;
 
     ctx.save();
     ctx.translate(x, baseY);
+    ctx.transform(1, 0, tilt * 0.15, 1, 0, 0);
 
     // shadow
     ctx.fillStyle = "rgba(0,0,0,0.4)";
-    ctx.fillRect(-carW / 2 + 8, carH * 0.55, carW - 16, 6);
+    ctx.fillRect(-carW / 2 + 8, carH * 0.6, carW - 16, 7);
 
-    // body
+    // body trapezoid
     ctx.fillStyle = "#1f3a6d";
-    ctx.fillRect(-carW / 2, -carH / 2, carW, carH);
+    ctx.beginPath();
+    ctx.moveTo(-carW / 2, -carH / 2);
+    ctx.lineTo(carW / 2, -carH / 2);
+    ctx.lineTo(carW / 2 - 10, carH / 2);
+    ctx.lineTo(-carW / 2 + 10, carH / 2);
+    ctx.closePath();
+    ctx.fill();
 
     // roof
     ctx.fillStyle = "#16284e";
-    ctx.fillRect(-carW / 2 + 10, -carH / 2 + 6, carW - 20, 8);
+    ctx.beginPath();
+    ctx.moveTo(-carW / 2 + 16, -carH / 2 + 6);
+    ctx.lineTo(carW / 2 - 16, -carH / 2 + 6);
+    ctx.lineTo(carW / 2 - 26, -carH / 2 + 16);
+    ctx.lineTo(-carW / 2 + 26, -carH / 2 + 16);
+    ctx.closePath();
+    ctx.fill();
 
     // windshield
     ctx.fillStyle = "#48d6ff";
