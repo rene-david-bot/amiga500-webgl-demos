@@ -20,19 +20,19 @@ const keys = { left: false, right: false, up: false, down: false };
 
 const config = {
     segmentLength: 200,
-    rumbleLength: 5,
-    roadWidth: 2400,
+    rumbleLength: 6,
+    roadWidth: 1700,
     lanes: 2,
-    cameraHeight: 1400,
-    fov: 58,
-    drawDistance: 260,
+    cameraHeight: 1200,
+    fov: 72,
+    drawDistance: 280,
 };
 
 const cameraDepth = 1 / Math.tan((config.fov / 2) * (Math.PI / 180));
 
 const colors = {
-    light: { road: "#6b6b6b", grass: "#2a5a2a", rumble: "#d44", lane: "#fff" },
-    dark: { road: "#5f5f5f", grass: "#2a5a2a", rumble: "#f7d85a", lane: "#e6e6e6" },
+    light: { road: "#6a6a6a", grass: "#2a6b2a", rumble: "#e24545", lane: "#ffffff" },
+    dark: { road: "#5b5b5b", grass: "#256125", rumble: "#f0f0f0", lane: "#dcdcdc" },
 };
 
 let segments = [];
@@ -78,15 +78,15 @@ function addRoad(enter, hold, leave, curve, hill) {
 function buildTrack() {
     segments = [];
     lastY = 0;
-    addRoad(80, 140, 80, 0, 0);     // long straight
-    addRoad(60, 120, 60, 0.25, 0);  // gentle right
-    addRoad(80, 140, 80, 0, 0);
-    addRoad(60, 120, 60, -0.25, 0); // gentle left
-    addRoad(60, 100, 60, 0, 0.35);  // small hill
-    addRoad(60, 100, 60, 0, -0.35);
-    addRoad(60, 120, 60, 0.18, 0.15);
-    addRoad(60, 120, 60, -0.18, 0.1);
-    addRoad(100, 160, 100, 0, 0);  // long straight
+    addRoad(120, 200, 120, 0, 0);     // long straight
+    addRoad(60, 140, 60, 0.35, 0);    // gentle right
+    addRoad(80, 160, 80, 0, 0);
+    addRoad(60, 140, 60, -0.35, 0);   // gentle left
+    addRoad(60, 120, 60, 0, 0.45);    // hill
+    addRoad(60, 120, 60, 0, -0.45);
+    addRoad(60, 140, 60, 0.25, 0.15);
+    addRoad(60, 140, 60, -0.25, 0.1);
+    addRoad(140, 220, 140, 0, 0);     // long straight
     trackLength = segments.length * config.segmentLength;
 }
 
@@ -192,11 +192,11 @@ function drawSegment(seg, p1, p2) {
 
     drawPolygon(seg.color.road, p1.x - p1.w, p1.y, p1.x + p1.w, p1.y, p2.x + p2.w, p2.y, p2.x - p2.w, p2.y);
 
-    if (seg.index % 10 < 4) {
+    if (seg.index % 12 < 3) {
         const laneW1 = (p1.w * 2) / laneCount;
         const laneW2 = (p2.w * 2) / laneCount;
-        const lineW1 = p1.w * 0.018;
-        const lineW2 = p2.w * 0.018;
+        const lineW1 = p1.w * 0.014;
+        const lineW2 = p2.w * 0.014;
         for (let lane = 1; lane < laneCount; lane++) {
             const lanex1 = p1.x - p1.w + laneW1 * lane;
             const lanex2 = p2.x - p2.w + laneW2 * lane;
