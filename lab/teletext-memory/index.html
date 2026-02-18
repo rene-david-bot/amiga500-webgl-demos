@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Teletext Memory Match — a retro puzzle of pixel cards and scanlines." />
+    <title>Teletext Memory Match</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="screen">
+        <header class="hero">
+            <div class="badge">Teletext · 1980s Puzzle</div>
+            <h1>Teletext Memory Match</h1>
+            <p class="subtitle">Flip pixel cards, spot pairs, and clear the board with style.</p>
+        </header>
+
+        <section class="panel">
+            <div class="controls">
+                <div class="stats">
+                    <div class="stat">
+                        <span class="label">Moves</span>
+                        <span id="moves">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">Time</span>
+                        <span id="time">00:00</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">Pairs</span>
+                        <span id="pairs">0/8</span>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button id="new-game" class="btn primary">New Game</button>
+                    <button id="sound-toggle" class="btn ghost">Sound: Off</button>
+                </div>
+            </div>
+
+            <div class="message" id="message" aria-live="polite">Flip two cards to begin.</div>
+
+            <div class="grid" id="grid" aria-label="Memory card grid"></div>
+        </section>
+
+        <footer class="footer">
+            <p>Tip: Memorize the corners first. Teletext was all about patterns.</p>
+        </footer>
+
+        <div class="scanlines" aria-hidden="true"></div>
+        <div class="glow" aria-hidden="true"></div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -11,6 +11,12 @@
       "title": "Mode‑7 Sunset Racer",
       "date": "2026-02-17",
       "tags": ["game", "racer", "canvas"]
+    },
+    {
+      "slug": "teletext-memory",
+      "title": "Teletext Memory Match",
+      "date": "2026-02-18",
+      "tags": ["puzzle", "teletext", "game"]
     }
   ]
 }
