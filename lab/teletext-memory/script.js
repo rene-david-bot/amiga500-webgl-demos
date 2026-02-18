@@ -19,6 +19,15 @@ let started = false;
 let soundEnabled = false;
 let audioContext = null;
 
+async function ensureAudio() {
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: 'interactive' });
+    }
+    if (audioContext.state === 'suspended') {
+        await audioContext.resume();
+    }
+}
+
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i -= 1) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -60,8 +69,9 @@ function stopTimer() {
     }
 }
 
-function playTone(freq, duration = 0.08, type = 'square', gainLevel = 0.04) {
+function playTone(freq, duration = 0.08, type = 'square', gainLevel = 0.08) {
     if (!soundEnabled || !audioContext) return;
+    audioContext.resume().catch(() => {});
     const osc = audioContext.createOscillator();
     const gain = audioContext.createGain();
     osc.type = type;
@@ -84,7 +94,7 @@ function handleMatch() {
     firstCard.classList.add('matched');
     secondCard.classList.add('matched');
     matches += 1;
-    playTone(880, 0.12, 'square', 0.05);
+    playTone(880, 0.12, 'square', 0.12);
     resetBoard();
 
     if (matches === symbols.length) {
@@ -97,7 +107,7 @@ function handleMatch() {
 }
 
 function handleMiss() {
-    playTone(160, 0.12, 'sawtooth', 0.04);
+    playTone(160, 0.12, 'sawtooth', 0.1);
     lockBoard = true;
     setMessage('No match. Try a new pair.', 'warn');
     setTimeout(() => {
@@ -113,7 +123,7 @@ function flipCard(card) {
 
     startTimer();
     card.classList.add('flipped');
-    playTone(520, 0.05, 'square', 0.03);
+    playTone(520, 0.06, 'square', 0.08);
 
     if (!firstCard) {
         firstCard = card;
@@ -163,15 +173,10 @@ function resetGame() {
 }
 
 soundToggle.addEventListener('click', async () => {
-    if (!audioContext) {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    }
-    if (audioContext.state === 'suspended') {
-        await audioContext.resume();
-    }
+    await ensureAudio();
     soundEnabled = !soundEnabled;
     soundToggle.textContent = `Sound: ${soundEnabled ? 'On' : 'Off'}`;
-    playTone(740, 0.08, 'square', 0.05);
+    playTone(740, 0.1, 'square', 0.12);
 });
 
 newGameBtn.addEventListener('click', resetGame);
