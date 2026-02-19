@@ -1,0 +1,188 @@
+:root {
+    color-scheme: dark;
+    --bg: #0b101a;
+    --panel: #141b2b;
+    --panel-2: #0f1524;
+    --accent: #ffcc4d;
+    --text: #e8f0ff;
+    --muted: #9aa7c7;
+    --line: rgba(255, 255, 255, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #1a2240 0%, #0b101a 55%, #090d16 100%);
+    color: var(--text);
+    font-family: "Courier New", "Lucida Console", monospace;
+    letter-spacing: 0.02em;
+}
+
+.screen {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+}
+
+.hero {
+    margin-bottom: 32px;
+}
+
+.back {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.badge {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(255, 204, 77, 0.08);
+}
+
+h1 {
+    margin: 16px 0 8px;
+    font-size: 2.2rem;
+}
+
+.subtitle {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+}
+
+.panel {
+    background: linear-gradient(160deg, var(--panel) 0%, var(--panel-2) 100%);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.control label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 6px;
+}
+
+.control input,
+.control select {
+    width: 100%;
+    background: #0c1220;
+    border: 1px solid var(--line);
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.btn {
+    border: 1px solid transparent;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s ease, border 0.2s ease;
+    font-family: inherit;
+}
+
+.btn.primary {
+    background: var(--accent);
+    color: #1d1b10;
+}
+
+.btn.ghost {
+    background: transparent;
+    border-color: var(--line);
+    color: var(--text);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.canvas-wrap {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #05070f;
+    padding: 18px;
+}
+
+#postcard {
+    width: 100%;
+    max-width: 640px;
+    display: block;
+    margin: 0 auto;
+    image-rendering: pixelated;
+    border-radius: 12px;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.12), 0 18px 30px rgba(0, 0, 0, 0.45);
+}
+
+.scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 2px,
+        rgba(0, 0, 0, 0) 2px,
+        rgba(0, 0, 0, 0) 4px
+    );
+    mix-blend-mode: soft-light;
+    pointer-events: none;
+}
+
+.status {
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.footer {
+    margin-top: 28px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 720px) {
+    .screen {
+        padding: 36px 18px 56px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .panel {
+        padding: 20px;
+    }
+}

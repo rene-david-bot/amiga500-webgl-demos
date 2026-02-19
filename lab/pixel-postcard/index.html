@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Pixel Postcard Printer — design a tiny 8-bit postcard and print it to PNG." />
+    <title>Pixel Postcard Printer</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="screen">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">1989 · Pixel Travel Desk</div>
+            <h1>Pixel Postcard Printer</h1>
+            <p class="subtitle">Design a tiny 8‑bit postcard, hit print, and grab a PNG.</p>
+        </header>
+
+        <section class="panel">
+            <div class="controls">
+                <div class="control">
+                    <label for="theme">Theme</label>
+                    <select id="theme">
+                        <option value="sunset">Sunset Drive</option>
+                        <option value="ocean">Ocean Glow</option>
+                        <option value="neon">Neon Night</option>
+                        <option value="forest">Forest Mist</option>
+                    </select>
+                </div>
+                <div class="control">
+                    <label for="location">Location</label>
+                    <input id="location" type="text" value="Dresden" maxlength="22" />
+                </div>
+                <div class="control">
+                    <label for="tagline">Tagline</label>
+                    <input id="tagline" type="text" value="Wish you were here" maxlength="28" />
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button id="print" class="btn primary">Print</button>
+                <button id="download" class="btn ghost">Download PNG</button>
+                <button id="sound" class="btn ghost">Sound: Off</button>
+            </div>
+
+            <div class="canvas-wrap">
+                <canvas id="postcard" width="256" height="160" aria-label="Pixel postcard preview"></canvas>
+                <div class="scanlines" aria-hidden="true"></div>
+            </div>
+
+            <div class="status" id="status">Printer ready. Try a new theme and hit Print.</div>
+        </section>
+
+        <footer class="footer">
+            <p>Tip: Keep it short for crisp pixel lettering.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
