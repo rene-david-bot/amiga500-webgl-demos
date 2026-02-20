@@ -119,6 +119,7 @@ canvas {
     height: auto;
     display: block;
     image-rendering: pixelated;
+    touch-action: none;
 }
 
 .scanlines {

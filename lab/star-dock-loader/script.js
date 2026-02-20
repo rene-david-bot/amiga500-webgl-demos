@@ -27,6 +27,8 @@ const state = {
     lastTime: 0,
     pointerX: WIDTH / 2,
     usePointer: false,
+    pointerDown: false,
+    pointerType: 'mouse',
     soundOn: false
 };
 
@@ -153,7 +155,11 @@ function updatePods(dt) {
 function updatePlayer(dt) {
     if (state.usePointer) {
         const target = Math.max(30, Math.min(WIDTH - 30, state.pointerX));
-        player.x += (target - player.x) * 0.18;
+        if (state.pointerDown && state.pointerType === 'touch') {
+            player.x = target;
+        } else {
+            player.x += (target - player.x) * 0.18;
+        }
     } else {
         if (keys.left) player.x -= player.speed * (dt / 1000);
         if (keys.right) player.x += player.speed * (dt / 1000);
@@ -320,6 +326,7 @@ window.addEventListener('keyup', (event) => {
 });
 
 canvas.addEventListener('pointermove', (event) => {
+    if (event.pointerType === 'touch') event.preventDefault();
     const rect = canvas.getBoundingClientRect();
     state.pointerX = ((event.clientX - rect.left) / rect.width) * WIDTH;
     state.usePointer = true;
@@ -328,9 +335,30 @@ canvas.addEventListener('pointermove', (event) => {
 canvas.addEventListener('pointerdown', (event) => {
     initAudio();
     if (!state.running) startGame();
+    state.pointerDown = true;
+    state.pointerType = event.pointerType || 'mouse';
+    canvas.setPointerCapture(event.pointerId);
     const rect = canvas.getBoundingClientRect();
     state.pointerX = ((event.clientX - rect.left) / rect.width) * WIDTH;
     state.usePointer = true;
+});
+
+canvas.addEventListener('pointerup', (event) => {
+    state.pointerDown = false;
+    try {
+        canvas.releasePointerCapture(event.pointerId);
+    } catch (err) {
+        // no-op
+    }
+});
+
+canvas.addEventListener('pointercancel', (event) => {
+    state.pointerDown = false;
+    try {
+        canvas.releasePointerCapture(event.pointerId);
+    } catch (err) {
+        // no-op
+    }
 });
 
 startBtn.addEventListener('click', () => {
