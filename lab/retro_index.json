@@ -39,6 +39,17 @@
         "canvas",
         "postcard"
       ]
+    },
+    {
+      "slug": "star-dock-loader",
+      "title": "Star Dock Loader",
+      "date": "2026-02-20",
+      "tags": [
+        "game",
+        "arcade",
+        "canvas",
+        "audio"
+      ]
     }
   ]
 }

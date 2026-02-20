@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Star Dock Loader — catch cargo pods, dodge scrap, survive the shift." />
+    <title>Star Dock Loader</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="screen">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">1987 · Orbital Dock 3</div>
+            <h1>Star Dock Loader</h1>
+            <p class="subtitle">Catch cargo pods, dodge scrap, and keep the station fed.</p>
+        </header>
+
+        <section class="panel">
+            <div class="hud">
+                <div class="hud-item">
+                    <span class="label">Score</span>
+                    <span id="score" class="value">00000</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">Combo</span>
+                    <span id="combo" class="value">x0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">Lives</span>
+                    <span id="lives" class="value">3</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">Best</span>
+                    <span id="best" class="value">00000</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">Shift</span>
+                    <span id="time" class="value">01:00</span>
+                </div>
+            </div>
+
+            <div class="canvas-wrap">
+                <canvas id="game" width="480" height="300" aria-label="Star Dock Loader game"></canvas>
+                <div class="scanlines" aria-hidden="true"></div>
+            </div>
+
+            <div class="controls">
+                <button id="start" class="btn primary">Start Shift</button>
+                <button id="sound" class="btn ghost">Sound: Off</button>
+                <button id="reset" class="btn ghost">Reset</button>
+            </div>
+
+            <div class="tips">
+                <p>Controls: ←/→ or A/D · Mouse/touch to steer · Catch blue pods, dodge red scrap.</p>
+            </div>
+            <div class="status" id="status">Dock ready. Hit Start Shift.</div>
+        </section>
+
+        <footer class="footer">
+            <p>Tip: Keep combos alive for bonus pay.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
