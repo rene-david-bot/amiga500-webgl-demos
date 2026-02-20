@@ -103,6 +103,7 @@ h1 {
     height: 520px;
     display: block;
     background: #0d1220;
+    touch-action: none;
 }
 
 .scanlines {

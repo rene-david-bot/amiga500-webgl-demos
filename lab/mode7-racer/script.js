@@ -13,6 +13,9 @@ const state = {
     speed: 0,
     playerX: 0,
     steer: 0,
+    pointerX: 0,
+    pointerDown: false,
+    pointerType: "mouse",
     offroadTime: 0,
     lap: 1,
     lastLapDistance: 0,
@@ -154,17 +157,27 @@ function project(p, cameraX, cameraY, cameraZ) {
 
 function update(dt) {
     const maxSpeed = config.segmentLength * 40;
-    const accel = keys.up ? maxSpeed * 1.1 : 0;
+    const throttle = keys.up || (state.pointerDown && state.pointerType === "touch");
+    const accel = throttle ? maxSpeed * 1.1 : 0;
     const brake = keys.down ? maxSpeed * 1.4 : 0;
     const drag = maxSpeed * 0.18;
 
     state.speed += (accel - brake - drag * (state.speed / maxSpeed)) * dt;
     state.speed = clamp(state.speed, 0, maxSpeed);
 
-    const steer = (keys.left ? -1 : 0) + (keys.right ? 1 : 0);
+    let steer = (keys.left ? -1 : 0) + (keys.right ? 1 : 0);
+
+    if (state.pointerDown) {
+        const target = ((state.pointerX / state.width) - 0.5) * 2.4;
+        const clamped = clamp(target, -1.2, 1.2);
+        state.playerX = clamped;
+        steer = clamp(clamped / 1.2, -1, 1);
+    } else {
+        state.playerX += steer * dt * (1.3 + state.speed / maxSpeed * 1.8);
+        state.playerX = clamp(state.playerX, -1.2, 1.2);
+    }
+
     state.steer = steer;
-    state.playerX += steer * dt * (1.3 + state.speed / maxSpeed * 1.8);
-    state.playerX = clamp(state.playerX, -1.2, 1.2);
 
     // grass slowdown (progressive, cap at ~50 km/h)
     if (Math.abs(state.playerX) > 1.0) {
@@ -423,6 +436,40 @@ if (audioBtn) {
     audioBtn.addEventListener("click", () => toggleAudio());
     updateAudioLabel();
 }
+
+canvas.addEventListener("pointermove", (event) => {
+    if (event.pointerType === "touch") event.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+    state.pointerX = event.clientX - rect.left;
+});
+
+canvas.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "touch") event.preventDefault();
+    if (!audio.playing) startAudio();
+    state.pointerDown = true;
+    state.pointerType = event.pointerType || "mouse";
+    canvas.setPointerCapture(event.pointerId);
+    const rect = canvas.getBoundingClientRect();
+    state.pointerX = event.clientX - rect.left;
+});
+
+canvas.addEventListener("pointerup", (event) => {
+    state.pointerDown = false;
+    try {
+        canvas.releasePointerCapture(event.pointerId);
+    } catch (err) {
+        // no-op
+    }
+});
+
+canvas.addEventListener("pointercancel", (event) => {
+    state.pointerDown = false;
+    try {
+        canvas.releasePointerCapture(event.pointerId);
+    } catch (err) {
+        // no-op
+    }
+});
 
 canvas.addEventListener("click", () => {
     if (!audio.playing) startAudio();
