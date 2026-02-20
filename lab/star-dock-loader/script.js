@@ -155,7 +155,7 @@ function updatePods(dt) {
 function updatePlayer(dt) {
     if (state.usePointer) {
         const target = Math.max(30, Math.min(WIDTH - 30, state.pointerX));
-        if (state.pointerDown && state.pointerType === 'touch') {
+        if (state.pointerDown) {
             player.x = target;
         } else {
             player.x += (target - player.x) * 0.18;
@@ -340,6 +340,8 @@ canvas.addEventListener('pointerdown', (event) => {
     canvas.setPointerCapture(event.pointerId);
     const rect = canvas.getBoundingClientRect();
     state.pointerX = ((event.clientX - rect.left) / rect.width) * WIDTH;
+    const target = Math.max(30, Math.min(WIDTH - 30, state.pointerX));
+    player.x = target;
     state.usePointer = true;
 });
 
