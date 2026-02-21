@@ -50,6 +50,17 @@
         "canvas",
         "audio"
       ]
+    },
+    {
+      "slug": "crt-typing-range",
+      "title": "CRT Typing Range",
+      "date": "2026-02-21",
+      "tags": [
+        "training",
+        "typing",
+        "terminal",
+        "audio"
+      ]
     }
   ]
 }

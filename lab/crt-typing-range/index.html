@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="CRT Typing Range — train your reflexes on a green-phosphor terminal." />
+    <title>CRT Typing Range</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="screen">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">Training · 1980s Terminal</div>
+            <h1>CRT Typing Range</h1>
+            <p class="subtitle">Lock on, type fast, and keep your streak alive.</p>
+        </header>
+
+        <section class="panel">
+            <div class="controls">
+                <div class="stats">
+                    <div class="stat">
+                        <span class="label">Time</span>
+                        <span id="time">60s</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">WPM</span>
+                        <span id="wpm">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">Accuracy</span>
+                        <span id="accuracy">100%</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">Streak</span>
+                        <span id="streak">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">Words</span>
+                        <span id="words">0</span>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button id="start" class="btn primary">Start Session</button>
+                    <button id="reset" class="btn ghost">New Session</button>
+                    <button id="sound" class="btn ghost">Sound: Off</button>
+                    <label class="select">
+                        <span>Difficulty</span>
+                        <select id="difficulty">
+                            <option value="short">Short</option>
+                            <option value="medium">Medium</option>
+                            <option value="long">Long</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <div class="status" id="status" aria-live="polite">Press Start or begin typing to arm the range.</div>
+
+            <div class="range">
+                <div class="range-label">Target</div>
+                <div id="target" class="target"></div>
+                <div class="range-label">Input</div>
+                <div id="typed" class="typed">
+                    <span class="caret">█</span>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Tip: Keep your eyes on the target line. The cursor will follow.</p>
+        </footer>
+
+        <div class="scanlines" aria-hidden="true"></div>
+        <div class="glow" aria-hidden="true"></div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
