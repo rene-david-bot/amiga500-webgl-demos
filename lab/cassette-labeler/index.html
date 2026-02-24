@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Cassette Label Studio — design a retro mixtape label and export a PNG." />
+    <title>Cassette Label Studio</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="screen">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">Tool · 1987 Tape Desk</div>
+            <h1>Cassette Label Studio</h1>
+            <p class="subtitle">Build a crisp mixtape label, then print it to PNG.</p>
+        </header>
+
+        <section class="panel">
+            <div class="controls">
+                <label class="field">
+                    <span>Title</span>
+                    <input id="title" type="text" maxlength="22" value="Night Drive Vol. 2" />
+                </label>
+                <label class="field">
+                    <span>Artist</span>
+                    <input id="artist" type="text" maxlength="22" value="DJ Prisma" />
+                </label>
+                <label class="field">
+                    <span>Side A</span>
+                    <input id="sideA" type="text" maxlength="18" value="City Lights" />
+                </label>
+                <label class="field">
+                    <span>Side B</span>
+                    <input id="sideB" type="text" maxlength="18" value="Midnight Run" />
+                </label>
+                <label class="field">
+                    <span>Catalog</span>
+                    <input id="catalog" type="text" maxlength="10" value="ND-024" />
+                </label>
+                <label class="field">
+                    <span>Label Style</span>
+                    <select id="style">
+                        <option value="sunburst">Sunburst Neon</option>
+                        <option value="grid">Graphite Grid</option>
+                        <option value="slate">Slate Mono</option>
+                        <option value="citrus">Citrus Pop</option>
+                        <option value="ocean">Ocean Drift</option>
+                    </select>
+                </label>
+                <label class="field">
+                    <span>Tape Type</span>
+                    <select id="tapeType">
+                        <option value="Type I">Type I · Normal</option>
+                        <option value="Type II">Type II · Chrome</option>
+                        <option value="Type IV">Type IV · Metal</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="buttons">
+                <button id="print" class="btn primary">Print Label</button>
+                <button id="download" class="btn ghost">Download PNG</button>
+                <button id="sound" class="btn ghost">Sound: Off</button>
+            </div>
+
+            <div class="canvas-wrap">
+                <canvas id="cassette" width="720" height="420" aria-label="Cassette label preview"></canvas>
+                <div class="scanlines" aria-hidden="true"></div>
+            </div>
+
+            <div class="status" id="status">Ready to print. Tweak the fields and hit Print.</div>
+        </section>
+
+        <footer class="footer">
+            <p>Tip: Short titles make the label look extra crisp.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

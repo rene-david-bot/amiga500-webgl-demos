@@ -61,6 +61,17 @@
         "terminal",
         "audio"
       ]
+    },
+    {
+      "slug": "cassette-labeler",
+      "title": "Cassette Label Studio",
+      "date": "2026-02-24",
+      "tags": [
+        "tool",
+        "design",
+        "canvas",
+        "audio"
+      ]
     }
   ]
 }
