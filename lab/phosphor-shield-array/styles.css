@@ -1,0 +1,221 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
+
+:root {
+    color-scheme: dark;
+    font-family: "VT323", "Press Start 2P", monospace;
+    background-color: #03060c;
+    --bg: #03060c;
+    --panel: rgba(6, 12, 24, 0.92);
+    --accent: #8df6ff;
+    --accent-2: #ffb062;
+    --text: #e9f7ff;
+    --muted: #9fb4c8;
+    --border: rgba(141, 246, 255, 0.26);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    background: radial-gradient(circle at top, rgba(141, 246, 255, 0.15), transparent 55%),
+        linear-gradient(150deg, #03060c 0%, #0a1424 55%, #03060c 100%);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.06) 0px,
+        rgba(255, 255, 255, 0.06) 1px,
+        transparent 2px,
+        transparent 4px
+    );
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+.screen {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.back {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.badge {
+    align-self: flex-start;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.4rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: "Press Start 2P", monospace;
+}
+
+.subtitle {
+    margin: 0;
+    color: var(--muted);
+    max-width: 640px;
+    font-size: 1.1rem;
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 26px;
+    display: grid;
+    grid-template-columns: minmax(240px, 0.9fr) minmax(320px, 1.1fr);
+    gap: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+}
+
+.panel-info {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.instructions ul {
+    margin: 8px 0 0 18px;
+    color: var(--muted);
+    display: grid;
+    gap: 6px;
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+}
+
+.btn {
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-family: inherit;
+    font-size: 0.98rem;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn.primary {
+    background: linear-gradient(135deg, #8df6ff, #5dd4ff);
+    color: #00121a;
+    box-shadow: 0 10px 20px rgba(141, 246, 255, 0.2);
+}
+
+.btn.ghost {
+    background: rgba(6, 16, 28, 0.9);
+    color: var(--text);
+    border-color: rgba(141, 246, 255, 0.35);
+}
+
+.readouts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+}
+
+.readout {
+    border: 1px solid rgba(141, 246, 255, 0.2);
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: rgba(6, 16, 30, 0.7);
+}
+
+.label {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.7rem;
+    color: var(--muted);
+}
+
+.status {
+    font-size: 0.95rem;
+    color: var(--muted);
+}
+
+.canvas-wrap {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(141, 246, 255, 0.3);
+    background: #02040a;
+    min-height: 420px;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+}
+
+.scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.05),
+        rgba(255, 255, 255, 0.05) 1px,
+        transparent 2px,
+        transparent 4px
+    );
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+.footer {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 860px) {
+    .panel {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+}

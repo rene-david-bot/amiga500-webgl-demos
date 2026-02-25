@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Phosphor Shield Array — spin the shield ring to block incoming blips." />
+    <title>Phosphor Shield Array</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="screen">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">Arcade · Defense Ring</div>
+            <h1>Phosphor Shield Array</h1>
+            <p class="subtitle">Spin the shield ring to deflect incoming blips and keep the core alive.</p>
+        </header>
+
+        <section class="panel">
+            <div class="panel-info">
+                <div class="instructions">
+                    <p><strong>How it works</strong></p>
+                    <ul>
+                        <li>Rotate the shield with A/D or the arrow keys.</li>
+                        <li>Mouse or touch to aim instantly around the ring.</li>
+                        <li>Block incoming blips — three core hits ends the shift.</li>
+                    </ul>
+                </div>
+
+                <div class="controls">
+                    <button id="start" class="btn primary">Start Shift</button>
+                    <button id="pause" class="btn ghost">Pause</button>
+                    <button id="reset" class="btn ghost">Reset</button>
+                    <button id="sound" class="btn ghost">Sound: Off</button>
+                </div>
+
+                <div class="readouts">
+                    <div class="readout">
+                        <span class="label">Score</span>
+                        <span id="score">0</span>
+                    </div>
+                    <div class="readout">
+                        <span class="label">Wave</span>
+                        <span id="wave">1</span>
+                    </div>
+                    <div class="readout">
+                        <span class="label">Integrity</span>
+                        <span id="lives">3</span>
+                    </div>
+                    <div class="readout">
+                        <span class="label">Best</span>
+                        <span id="best">0</span>
+                    </div>
+                </div>
+
+                <div class="status" id="status">Shield offline. Start the shift to power up the array.</div>
+            </div>
+
+            <div class="panel-board">
+                <div class="canvas-wrap">
+                    <canvas id="shield" width="720" height="560" aria-label="Shield array"></canvas>
+                    <div class="scanlines" aria-hidden="true"></div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Tip: As waves climb, blips move faster — keep the shield moving.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
