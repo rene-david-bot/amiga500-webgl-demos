@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Flux Tube Relay — rotate the tubes to route power from Source to Core." />
+    <title>Flux Tube Relay</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="screen">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">Puzzle · Power Station</div>
+            <h1>Flux Tube Relay</h1>
+            <p class="subtitle">Rotate the tubes to route power from Source to Core.</p>
+        </header>
+
+        <section class="panel">
+            <div class="panel-info">
+                <div class="instructions">
+                    <p><strong>How it works</strong></p>
+                    <ul>
+                        <li>Click any tube to rotate it clockwise.</li>
+                        <li>Connect the blue Source to the amber Core.</li>
+                        <li>Scramble for a new layout anytime.</li>
+                    </ul>
+                </div>
+
+                <div class="buttons">
+                    <button id="scramble" class="btn primary">Scramble</button>
+                    <button id="reset" class="btn ghost">Reset Alignment</button>
+                    <button id="sound" class="btn ghost">Sound: Off</button>
+                </div>
+
+                <div class="legend">
+                    <span class="chip source">Source</span>
+                    <span class="chip core">Core</span>
+                </div>
+
+                <div class="status" id="status">Signal offline. Rotate tubes to route power.</div>
+            </div>
+
+            <div class="panel-board">
+                <div class="canvas-wrap">
+                    <canvas id="relay" width="720" height="560" aria-label="Flux tube relay board"></canvas>
+                    <div class="scanlines" aria-hidden="true"></div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Tip: Follow the glow — the signal highlights connected tubes.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

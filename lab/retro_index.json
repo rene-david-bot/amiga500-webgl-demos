@@ -72,6 +72,17 @@
         "canvas",
         "audio"
       ]
+    },
+    {
+      "slug": "flux-tube-relay",
+      "title": "Flux Tube Relay",
+      "date": "2026-02-25",
+      "tags": [
+        "puzzle",
+        "logic",
+        "grid",
+        "audio"
+      ]
     }
   ]
 }
