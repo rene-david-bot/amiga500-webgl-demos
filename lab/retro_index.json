@@ -129,6 +129,17 @@
         "canvas",
         "audio"
       ]
+    },
+    {
+      "slug": "byte-buddy",
+      "title": "Byte Buddy Station",
+      "date": "2026-02-25",
+      "tags": [
+        "pet",
+        "sim",
+        "audio",
+        "retro"
+      ]
     }
   ]
 }

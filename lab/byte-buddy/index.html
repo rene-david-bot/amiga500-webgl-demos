@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Byte Buddy Station — keep your tiny synth critter happy with snacks, play, and recharge cycles." />
+    <title>Byte Buddy Station</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="screen">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">Pet Sim · Pocket Console</div>
+            <h1>Byte Buddy Station</h1>
+            <p class="subtitle">Keep your tiny synth critter happy with snacks, play, and recharge cycles.</p>
+        </header>
+
+        <section class="deck">
+            <div class="device">
+                <div class="screen-bezel">
+                    <canvas id="pet-canvas" width="320" height="240" aria-label="Byte Buddy display"></canvas>
+                    <div class="scanlines" aria-hidden="true"></div>
+                </div>
+                <div class="screen-meta">
+                    <div class="status" id="status">Byte Buddy booting…</div>
+                    <div class="mood" id="mood">Mood: Curious</div>
+                    <div class="cycle" id="cycle">Cycle 0000</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-label">Hunger</div>
+                        <div class="stat-bar"><span id="stat-hunger"></span></div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Joy</div>
+                        <div class="stat-bar"><span id="stat-joy"></span></div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Energy</div>
+                        <div class="stat-bar"><span id="stat-energy"></span></div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button id="feed" class="btn primary">Feed</button>
+                    <button id="play" class="btn">Play</button>
+                    <button id="tune" class="btn">Tune</button>
+                    <button id="recharge" class="btn">Recharge</button>
+                </div>
+
+                <div class="utility">
+                    <button id="sound" class="btn ghost">Sound: Off</button>
+                    <button id="reset" class="btn ghost">Reset</button>
+                </div>
+
+                <div class="tips">
+                    <p><strong>Tips</strong></p>
+                    <ul>
+                        <li>Short play sessions keep energy balanced.</li>
+                        <li>Recharge restores energy but lowers hunger.</li>
+                        <li>Tune gives a quick morale boost.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Byte Buddy loves steady rhythms — keep the stats above 40 for a cheerful mood.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
