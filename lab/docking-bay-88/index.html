@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Docking Bay 88 — a retro thruster docking trainer." />
+    <title>Docking Bay 88</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="screen">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">Arcade · Docking Sim</div>
+            <h1>Docking Bay 88</h1>
+            <p class="subtitle">Feather the thrusters, match the angle, and kiss the pad.</p>
+        </header>
+
+        <section class="panel">
+            <div class="panel-info">
+                <div class="instructions">
+                    <p><strong>How to fly</strong></p>
+                    <ul>
+                        <li>Rotate: <span>←</span>/<span>→</span> or <span>A</span>/<span>D</span></li>
+                        <li>Thrust: <span>↑</span> or <span>W</span> (burns fuel)</li>
+                        <li>Brake: <span>↓</span> or <span>S</span></li>
+                        <li>Dock gently inside the bay to score.</li>
+                    </ul>
+                </div>
+
+                <div class="hud" aria-live="polite">
+                    <div class="hud-item">
+                        <div class="label">Speed</div>
+                        <div class="value" id="speed">0.00</div>
+                    </div>
+                    <div class="hud-item">
+                        <div class="label">Angle</div>
+                        <div class="value" id="angle">0°</div>
+                    </div>
+                    <div class="hud-item">
+                        <div class="label">Fuel</div>
+                        <div class="value" id="fuel">100%</div>
+                    </div>
+                    <div class="hud-item">
+                        <div class="label">Time</div>
+                        <div class="value" id="time">0.0s</div>
+                    </div>
+                    <div class="hud-item">
+                        <div class="label">Docked</div>
+                        <div class="value" id="dock-count">0</div>
+                    </div>
+                    <div class="hud-item">
+                        <div class="label">Best</div>
+                        <div class="value" id="best-time">--</div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button id="launch" class="btn primary">Launch</button>
+                    <button id="reset" class="btn ghost">Reset Timer</button>
+                    <button id="sound" class="btn ghost">Sound: Off</button>
+                </div>
+
+                <div class="dock-rules">
+                    <p><strong>Docking criteria</strong></p>
+                    <ul>
+                        <li>Speed &lt; 0.60</li>
+                        <li>Angle within 20° of the bay</li>
+                        <li>Stay inside the glowing pad</li>
+                    </ul>
+                </div>
+
+                <div class="touch" aria-label="Touch controls">
+                    <button class="touch-btn" data-action="left">⟵ Rotate</button>
+                    <button class="touch-btn" data-action="thrust">▲ Thrust</button>
+                    <button class="touch-btn" data-action="right">Rotate ⟶</button>
+                    <button class="touch-btn" data-action="brake">▼ Brake</button>
+                </div>
+
+                <div class="status" id="status">Docking Bay 88 online. Launch to begin.</div>
+            </div>
+
+            <div class="panel-board">
+                <div class="canvas-wrap">
+                    <canvas id="dock" width="760" height="520" aria-label="Docking Bay 88 simulation"></canvas>
+                    <div class="scanlines" aria-hidden="true"></div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Tip: Glide in with tiny taps. Overcorrecting burns fuel fast.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

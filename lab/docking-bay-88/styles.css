@@ -1,0 +1,250 @@
+:root {
+    color-scheme: dark;
+    --bg: #06080f;
+    --panel: #111a2f;
+    --panel-2: #0c1324;
+    --neon: #67f7ff;
+    --neon-2: #8aa7ff;
+    --hot: #ff6b7a;
+    --ink: #e1ebff;
+    --muted: #93a4c8;
+    --shadow: rgba(5, 8, 16, 0.85);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Courier New", "Lucida Console", monospace;
+    background: radial-gradient(circle at top, #1c2748 0%, #0b0f1f 60%, #05070f 100%);
+    color: var(--ink);
+}
+
+.screen {
+    min-height: 100vh;
+    padding: 40px 20px 60px;
+    display: grid;
+    gap: 28px;
+    justify-items: center;
+}
+
+.hero {
+    width: min(980px, 100%);
+    display: grid;
+    gap: 8px;
+    text-align: center;
+}
+
+.back {
+    justify-self: start;
+    text-decoration: none;
+    color: var(--neon);
+    font-size: 0.95rem;
+}
+
+.badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid rgba(103, 247, 255, 0.4);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--neon);
+    justify-self: center;
+    background: rgba(12, 18, 33, 0.6);
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.subtitle {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+}
+
+.panel {
+    width: min(980px, 100%);
+    background: linear-gradient(135deg, rgba(14, 20, 40, 0.95), rgba(8, 12, 24, 0.95));
+    border: 1px solid rgba(138, 167, 255, 0.45);
+    border-radius: 18px;
+    padding: 22px;
+    display: grid;
+    gap: 20px;
+    box-shadow: 0 20px 40px var(--shadow);
+}
+
+.panel-info {
+    display: grid;
+    gap: 16px;
+}
+
+.instructions ul,
+.dock-rules ul {
+    margin: 8px 0 0;
+    padding-left: 18px;
+    color: var(--muted);
+}
+
+.instructions span {
+    color: var(--neon);
+}
+
+.hud {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 10px;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+}
+
+.hud-item {
+    background: var(--panel-2);
+    border: 1px solid rgba(103, 247, 255, 0.15);
+    border-radius: 12px;
+    padding: 8px 10px;
+    display: grid;
+    gap: 6px;
+}
+
+.label {
+    color: var(--muted);
+    letter-spacing: 0.14em;
+}
+
+.value {
+    font-size: 1.05rem;
+    color: var(--neon);
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btn {
+    font-family: inherit;
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(103, 247, 255, 0.4);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.btn.primary {
+    background: linear-gradient(135deg, rgba(103, 247, 255, 0.25), rgba(138, 167, 255, 0.2));
+    color: var(--neon);
+    border-color: rgba(103, 247, 255, 0.75);
+}
+
+.btn.ghost {
+    color: var(--muted);
+}
+
+.btn:focus-visible,
+.touch-btn:focus-visible {
+    outline: 2px solid var(--neon);
+    outline-offset: 2px;
+}
+
+.dock-rules {
+    background: rgba(11, 16, 30, 0.7);
+    border: 1px solid rgba(138, 167, 255, 0.35);
+    border-radius: 12px;
+    padding: 10px 12px;
+}
+
+.touch {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+    gap: 8px;
+}
+
+.touch-btn {
+    border: 1px solid rgba(103, 247, 255, 0.35);
+    background: rgba(9, 13, 24, 0.9);
+    color: var(--neon);
+    border-radius: 10px;
+    padding: 10px 12px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: inherit;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+}
+
+.status {
+    text-align: center;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(15, 22, 42, 0.8);
+    border: 1px solid rgba(138, 167, 255, 0.3);
+    color: var(--neon-2);
+}
+
+.panel-board {
+    display: flex;
+    justify-content: center;
+}
+
+.canvas-wrap {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(103, 247, 255, 0.2);
+    background: #060912;
+}
+
+canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    image-rendering: pixelated;
+    touch-action: none;
+}
+
+.scanlines {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.04),
+        rgba(255, 255, 255, 0.04) 1px,
+        rgba(0, 0, 0, 0.12) 2px,
+        rgba(0, 0, 0, 0.12) 3px
+    );
+    mix-blend-mode: screen;
+    opacity: 0.6;
+}
+
+.footer {
+    text-align: center;
+    color: var(--muted);
+}
+
+@media (min-width: 900px) {
+    .panel {
+        grid-template-columns: minmax(260px, 1fr) minmax(420px, 1.4fr);
+        align-items: center;
+    }
+
+    .panel-board {
+        justify-content: flex-end;
+    }
+}
+
+@media (max-width: 700px) {
+    .touch {
+        grid-template-columns: 1fr;
+    }
+}

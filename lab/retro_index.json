@@ -117,6 +117,18 @@
         "sfx",
         "retro"
       ]
+    },
+    {
+      "slug": "docking-bay-88",
+      "title": "Docking Bay 88",
+      "date": "2026-02-25",
+      "tags": [
+        "arcade",
+        "docking",
+        "simulation",
+        "canvas",
+        "audio"
+      ]
     }
   ]
 }
