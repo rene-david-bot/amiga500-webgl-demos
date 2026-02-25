@@ -1,0 +1,198 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
+
+:root {
+    color-scheme: dark;
+    font-family: "VT323", "Press Start 2P", monospace;
+    background-color: #02060a;
+    --bg: #02060a;
+    --panel: rgba(5, 14, 12, 0.9);
+    --accent: #54ffb5;
+    --accent-2: #5dd4ff;
+    --text: #e6fff5;
+    --muted: #8fd0bb;
+    --border: rgba(84, 255, 181, 0.22);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    background: radial-gradient(circle at top, rgba(64, 255, 188, 0.18), transparent 55%),
+        linear-gradient(150deg, #02060a 0%, #08151b 55%, #02060a 100%);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.06) 0px,
+        rgba(255, 255, 255, 0.06) 1px,
+        transparent 2px,
+        transparent 4px
+    );
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+.screen {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.back {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.badge {
+    align-self: flex-start;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.4rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: "Press Start 2P", monospace;
+}
+
+.subtitle {
+    margin: 0;
+    color: var(--muted);
+    max-width: 640px;
+    font-size: 1.1rem;
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 26px;
+    display: grid;
+    grid-template-columns: minmax(240px, 0.9fr) minmax(320px, 1.1fr);
+    gap: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+}
+
+.panel-info {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.instructions ul {
+    margin: 8px 0 0 18px;
+    color: var(--muted);
+    display: grid;
+    gap: 6px;
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+}
+
+.btn {
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-family: inherit;
+    font-size: 0.98rem;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn.primary {
+    background: linear-gradient(135deg, #38f8a0, #73ffd6);
+    color: #00120d;
+    box-shadow: 0 10px 20px rgba(56, 248, 160, 0.2);
+}
+
+.btn.ghost {
+    background: rgba(6, 20, 18, 0.9);
+    color: var(--text);
+    border-color: rgba(84, 255, 181, 0.35);
+}
+
+.status {
+    font-size: 0.95rem;
+    color: var(--muted);
+}
+
+.canvas-wrap {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(84, 255, 181, 0.3);
+    background: #010307;
+    min-height: 420px;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+}
+
+.scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.05),
+        rgba(255, 255, 255, 0.05) 1px,
+        transparent 2px,
+        transparent 4px
+    );
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+.footer {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 860px) {
+    .panel {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+}

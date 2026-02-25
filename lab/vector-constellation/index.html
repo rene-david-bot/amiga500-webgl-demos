@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Vector Constellation Plotter — draw retro constellations on a green vector scope." />
+    <title>Vector Constellation Plotter</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="screen">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">Art · Vector Scope</div>
+            <h1>Vector Constellation Plotter</h1>
+            <p class="subtitle">Plot glowing constellations on a 1985 vector monitor.</p>
+        </header>
+
+        <section class="panel">
+            <div class="panel-info">
+                <div class="instructions">
+                    <p><strong>How to use</strong></p>
+                    <ul>
+                        <li>Click stars to connect them into a constellation.</li>
+                        <li>Keep clicking to chain new segments.</li>
+                        <li>Click the active star again to end the chain.</li>
+                    </ul>
+                </div>
+
+                <div class="controls">
+                    <button id="shuffle" class="btn primary">New Starfield</button>
+                    <button id="clear" class="btn ghost">Clear Lines</button>
+                    <button id="autoscan" class="btn ghost">Auto‑Scan: Off</button>
+                    <button id="sound" class="btn ghost">Sound: Off</button>
+                    <button id="save" class="btn ghost">Save PNG</button>
+                </div>
+
+                <div class="status" id="status">28 stars online. Awaiting your constellation.</div>
+            </div>
+
+            <div class="panel-board">
+                <div class="canvas-wrap">
+                    <canvas id="scope" width="900" height="620" aria-label="Vector constellation plotter"></canvas>
+                    <div class="scanlines" aria-hidden="true"></div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Tip: Let the scanline sweep for instant retro glow.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
