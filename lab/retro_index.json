@@ -106,6 +106,17 @@
         "audio",
         "canvas"
       ]
+    },
+    {
+      "slug": "sfx-forge",
+      "title": "8-Bit SFX Forge",
+      "date": "2026-02-25",
+      "tags": [
+        "audio",
+        "tool",
+        "sfx",
+        "retro"
+      ]
     }
   ]
 }

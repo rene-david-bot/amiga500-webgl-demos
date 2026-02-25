@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="8-Bit SFX Forge — craft arcade sound effects with retro knobs." />
+    <title>8‑Bit SFX Forge</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="screen">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">Audio Tool · Arcade SFX</div>
+            <h1>8‑Bit SFX Forge</h1>
+            <p class="subtitle">Craft zaps, coins, alarms, and power‑up stingers.</p>
+        </header>
+
+        <section class="panel">
+            <div class="controls">
+                <label class="field">
+                    <span>Wave</span>
+                    <select id="wave">
+                        <option value="square">Square</option>
+                        <option value="triangle">Triangle</option>
+                        <option value="sawtooth">Saw</option>
+                        <option value="noise">Noise</option>
+                    </select>
+                </label>
+                <label class="field">
+                    <span>Pitch</span>
+                    <input id="pitch" type="range" min="140" max="1200" value="680" data-display="pitchValue" />
+                    <em id="pitchValue" class="value">680 Hz</em>
+                </label>
+                <label class="field">
+                    <span>Sweep</span>
+                    <input id="sweep" type="range" min="-900" max="900" value="-380" data-display="sweepValue" />
+                    <em id="sweepValue" class="value">-380 Hz</em>
+                </label>
+                <label class="field">
+                    <span>Attack</span>
+                    <input id="attack" type="range" min="0.005" max="0.18" step="0.005" value="0.02" data-display="attackValue" />
+                    <em id="attackValue" class="value">0.02 s</em>
+                </label>
+                <label class="field">
+                    <span>Decay</span>
+                    <input id="decay" type="range" min="0.06" max="1.4" step="0.02" value="0.38" data-display="decayValue" />
+                    <em id="decayValue" class="value">0.38 s</em>
+                </label>
+                <label class="field">
+                    <span>Tone</span>
+                    <input id="tone" type="range" min="200" max="9000" step="50" value="2200" data-display="toneValue" />
+                    <em id="toneValue" class="value">2200 Hz</em>
+                </label>
+                <label class="field">
+                    <span>Crunch</span>
+                    <input id="crunch" type="range" min="0" max="1" step="0.05" value="0.45" data-display="crunchValue" />
+                    <em id="crunchValue" class="value">45%</em>
+                </label>
+            </div>
+
+            <div class="output">
+                <div class="buttons">
+                    <button id="play" class="btn primary">Play SFX</button>
+                    <button id="random" class="btn ghost">Randomize</button>
+                    <button id="sound" class="btn ghost">Sound: Off</button>
+                </div>
+                <div class="presets">
+                    <button class="btn tiny" data-preset="coin">Coin</button>
+                    <button class="btn tiny" data-preset="zap">Zap</button>
+                    <button class="btn tiny" data-preset="alarm">Alarm</button>
+                    <button class="btn tiny" data-preset="power">Power‑Up</button>
+                </div>
+                <div class="scope">
+                    <canvas id="scope" width="520" height="220" aria-label="Waveform scope"></canvas>
+                    <div class="scanlines" aria-hidden="true"></div>
+                </div>
+                <div class="status" id="status">Ready. Toggle sound to arm the forge.</div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Tip: Negative sweep = lasers. High crunch = crunchy coin pickups.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
