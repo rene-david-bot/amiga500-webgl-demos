@@ -140,6 +140,18 @@
         "audio",
         "retro"
       ]
+    },
+    {
+      "slug": "arcade-marquee",
+      "title": "Arcade Marquee Maker",
+      "date": "2026-02-26",
+      "tags": [
+        "tool",
+        "art",
+        "canvas",
+        "marquee",
+        "audio"
+      ]
     }
   ]
 }

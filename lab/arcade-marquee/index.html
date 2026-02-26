@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Arcade Marquee Maker — design a glowing dot-matrix banner and watch it scroll across a retro sign." />
+    <title>Arcade Marquee Maker</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="screen">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">Tool · Dot-matrix marquee</div>
+            <h1>Arcade Marquee Maker</h1>
+            <p class="subtitle">Design a glowing arcade banner and watch it scroll across a retro sign.</p>
+        </header>
+
+        <section class="deck">
+            <div class="marquee-panel">
+                <div class="marquee-bezel">
+                    <canvas id="marquee" width="512" height="128" aria-label="Dot-matrix marquee"></canvas>
+                    <div class="scanlines" aria-hidden="true"></div>
+                </div>
+                <div class="marquee-meta">
+                    <div class="status" id="status">Signal locked · 64 columns</div>
+                    <div class="hint">Try: INSERT COIN · HI SCORE CLUB · NEW HIGH SCORE</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="field">
+                    <label for="message">Marquee text</label>
+                    <input id="message" type="text" maxlength="48" value="INSERT COIN · HI SCORE CLUB" />
+                </div>
+
+                <div class="field">
+                    <label for="speed">Scroll speed <span id="speed-value">5</span></label>
+                    <input id="speed" type="range" min="1" max="12" value="5" />
+                </div>
+
+                <div class="field">
+                    <div class="label">Palette</div>
+                    <div class="palette">
+                        <button class="chip active" data-palette="neon">Neon</button>
+                        <button class="chip" data-palette="amber">Amber</button>
+                        <button class="chip" data-palette="ice">Ice</button>
+                    </div>
+                </div>
+
+                <div class="field toggles">
+                    <button id="sparkle" class="chip ghost">Sparkle: On</button>
+                    <button id="invert" class="chip ghost">Invert: Off</button>
+                </div>
+
+                <div class="field actions">
+                    <button id="random" class="btn">Random slogan</button>
+                    <button id="snapshot" class="btn ghost">Save PNG</button>
+                </div>
+
+                <div class="field actions">
+                    <button id="audio" class="btn ghost">Audio: Off</button>
+                    <button id="pause" class="btn ghost">Pause</button>
+                </div>
+
+                <div class="tips">
+                    <p><strong>Tips</strong></p>
+                    <ul>
+                        <li>Short phrases leave space for the glow to breathe.</li>
+                        <li>Enable sparkle for extra 1980s arcade shimmer.</li>
+                        <li>Export a PNG to use as a retro banner.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Best viewed at night with the speakers on low hum.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
