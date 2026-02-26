@@ -1,0 +1,245 @@
+:root {
+    color-scheme: dark;
+    --bg: #070a12;
+    --panel: #0f1522;
+    --panel-strong: #141d30;
+    --accent: #64f0ff;
+    --accent-soft: rgba(100, 240, 255, 0.2);
+    --glow: rgba(100, 240, 255, 0.4);
+    --text: #dfe7ff;
+    --muted: #90a0c4;
+    --warn: #ffd166;
+    --ok: #6bff6b;
+    font-size: 16px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Courier New", "Lucida Console", monospace;
+    background: radial-gradient(circle at top, #141b2f, #05070d 55%);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+.shell {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.back {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.badge {
+    display: inline-flex;
+    align-self: flex-start;
+    padding: 4px 10px;
+    border: 1px solid var(--accent-soft);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+}
+
+.subtitle {
+    color: var(--muted);
+    max-width: 520px;
+}
+
+.deck {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: 24px;
+}
+
+.monitor {
+    background: linear-gradient(180deg, rgba(20, 30, 55, 0.9), rgba(8, 12, 22, 0.9));
+    border: 1px solid rgba(100, 240, 255, 0.2);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 40px rgba(9, 26, 51, 0.8);
+}
+
+.scope-frame {
+    position: relative;
+    background: #04070f;
+    border-radius: 14px;
+    border: 2px solid rgba(100, 240, 255, 0.3);
+    padding: 10px;
+}
+
+#scope {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: radial-gradient(circle at 50% 30%, rgba(40, 60, 90, 0.35), transparent 60%);
+}
+
+.scanlines {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(10, 20, 40, 0.2) 0px,
+        rgba(10, 20, 40, 0.2) 2px,
+        rgba(10, 20, 40, 0) 3px,
+        rgba(10, 20, 40, 0) 6px
+    );
+    mix-blend-mode: screen;
+    opacity: 0.45;
+}
+
+.monitor-meta {
+    margin-top: 18px;
+    display: grid;
+    gap: 14px;
+}
+
+.status {
+    font-size: 0.95rem;
+    color: var(--warn);
+}
+
+.lock {
+    display: grid;
+    gap: 6px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+}
+
+.meter {
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(100, 240, 255, 0.08);
+    overflow: hidden;
+    border: 1px solid rgba(100, 240, 255, 0.2);
+}
+
+.meter-fill {
+    height: 100%;
+    width: 10%;
+    background: linear-gradient(90deg, rgba(255, 209, 102, 0.6), rgba(107, 255, 107, 0.9));
+    box-shadow: 0 0 12px rgba(107, 255, 107, 0.6);
+    transition: width 0.2s ease;
+}
+
+.decoded {
+    background: rgba(10, 18, 33, 0.75);
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(100, 240, 255, 0.15);
+}
+
+.decoded-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+}
+
+.decoded-text {
+    margin-top: 6px;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+}
+
+.controls {
+    background: var(--panel);
+    border: 1px solid rgba(100, 240, 255, 0.15);
+    border-radius: 20px;
+    padding: 20px;
+    display: grid;
+    gap: 18px;
+}
+
+.field {
+    display: grid;
+    gap: 8px;
+}
+
+label {
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent);
+}
+
+.toggles,
+.actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn,
+.chip {
+    border-radius: 999px;
+    border: 1px solid rgba(100, 240, 255, 0.35);
+    background: rgba(10, 16, 30, 0.8);
+    color: var(--text);
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover,
+.chip:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 12px rgba(100, 240, 255, 0.2);
+}
+
+.ghost {
+    background: transparent;
+    color: var(--accent);
+}
+
+.tips {
+    border-top: 1px dashed rgba(100, 240, 255, 0.2);
+    padding-top: 12px;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+.tips ul {
+    padding-left: 18px;
+    margin: 6px 0 0;
+    display: grid;
+    gap: 6px;
+}
+
+.footer {
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-align: center;
+}
+
+@media (max-width: 960px) {
+    .deck {
+        grid-template-columns: 1fr;
+    }
+}

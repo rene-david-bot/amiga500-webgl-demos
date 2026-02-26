@@ -152,6 +152,17 @@
         "marquee",
         "audio"
       ]
+    },
+    {
+      "slug": "subspace-tuner",
+      "title": "Subspace Signal Tuner",
+      "date": "2026-02-26",
+      "tags": [
+        "puzzle",
+        "signal",
+        "audio",
+        "console"
+      ]
     }
   ]
 }
