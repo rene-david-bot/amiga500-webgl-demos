@@ -163,6 +163,17 @@
         "audio",
         "console"
       ]
+    },
+    {
+      "slug": "vhs-tracking-bay",
+      "title": "VHS Tracking Bay",
+      "date": "2026-02-26",
+      "tags": [
+        "tool",
+        "calibration",
+        "video",
+        "audio"
+      ]
     }
   ]
 }

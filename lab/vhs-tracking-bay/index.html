@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="VHS Tracking Bay — dial in the tracking knob, clear the snow, and lock the picture." />
+    <title>VHS Tracking Bay</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="shell">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">Tool · VHS calibration</div>
+            <h1>VHS Tracking Bay</h1>
+            <p class="subtitle">Dial in the tracking to clear the snow and lock the picture.</p>
+        </header>
+
+        <section class="deck">
+            <div class="monitor">
+                <div class="screen-frame">
+                    <canvas id="screen" width="540" height="320" aria-label="VHS monitor screen"></canvas>
+                    <div class="scanlines" aria-hidden="true"></div>
+                </div>
+                <div class="monitor-meta">
+                    <div class="status" id="status">Snowy picture · tracking drift</div>
+                    <div class="meter">
+                        <div class="meter-label">Tracking lock</div>
+                        <div class="meter-bar">
+                            <div class="meter-fill" id="meter"></div>
+                        </div>
+                    </div>
+                    <div class="readout">
+                        <span>Tracking offset</span>
+                        <strong id="offset-value">+0</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="field">
+                    <label for="tracking">Tracking knob</label>
+                    <input id="tracking" type="range" min="-50" max="50" step="1" value="0" />
+                </div>
+
+                <div class="field">
+                    <label for="age">Tape wear <span id="age-value">35</span>%</label>
+                    <input id="age" type="range" min="0" max="100" step="1" value="35" />
+                </div>
+
+                <div class="field toggles">
+                    <button id="audio" class="chip ghost">Audio: Off</button>
+                    <button id="clean" class="chip">Clean heads</button>
+                </div>
+
+                <div class="field actions">
+                    <button id="new-tape" class="btn">Load new tape</button>
+                    <button id="auto-track" class="btn ghost">Auto-track burst</button>
+                </div>
+
+                <div class="tips">
+                    <p><strong>Tracking tips</strong></p>
+                    <ul>
+                        <li>Move the knob in small steps until the shimmer slows.</li>
+                        <li>Tape wear adds noise; clean heads to reduce it briefly.</li>
+                        <li>Audio hiss fades as the picture stabilizes.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>All static, jitter, and hiss are generated in realtime — no external media.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
