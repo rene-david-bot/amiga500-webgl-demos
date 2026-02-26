@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Neon Parcel Sorter — route glowing parcels into the right bays during your arcade shift." />
+    <title>Neon Parcel Sorter</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="shell">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">Arcade · Sorting shift</div>
+            <h1>Neon Parcel Sorter</h1>
+            <p class="subtitle">Flip the gates, steer the glow, and keep the bays perfectly sorted.</p>
+        </header>
+
+        <section class="deck">
+            <div class="monitor">
+                <div class="screen-frame">
+                    <canvas id="sorter" width="640" height="360" aria-label="Parcel sorting monitor"></canvas>
+                    <div class="scanlines" aria-hidden="true"></div>
+                </div>
+                <div class="monitor-meta">
+                    <div class="status" id="status">Shift warming up · parcels inbound</div>
+                    <div class="metrics">
+                        <div class="metric">
+                            <span>Shift timer</span>
+                            <strong id="timer">60s</strong>
+                        </div>
+                        <div class="metric">
+                            <span>Sorted</span>
+                            <strong id="sorted">0</strong>
+                        </div>
+                        <div class="metric">
+                            <span>Accuracy</span>
+                            <strong id="accuracy">100%</strong>
+                        </div>
+                        <div class="metric">
+                            <span>Score</span>
+                            <strong id="score">0</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="field">
+                    <label>Gate toggles</label>
+                    <div class="toggles">
+                        <button class="chip" data-gate="0">Gate A: ◀</button>
+                        <button class="chip" data-gate="1">Gate B: ▶</button>
+                        <button class="chip" data-gate="2">Gate C: ◀</button>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Bay assignments</label>
+                    <div class="bays">
+                        <span class="bay ember">Ember Red → Left bay</span>
+                        <span class="bay ion">Ion Blue → Center bay</span>
+                        <span class="bay solar">Solar Yellow → Right bay</span>
+                    </div>
+                </div>
+
+                <div class="field toggles">
+                    <button id="audio" class="chip ghost">Audio: Off</button>
+                    <button id="reset" class="chip">Restart shift</button>
+                </div>
+
+                <div class="tips">
+                    <p><strong>Sorting tips</strong></p>
+                    <ul>
+                        <li>Flip gates just before a parcel reaches a junction.</li>
+                        <li>Streaks boost your score, misses drop accuracy fast.</li>
+                        <li>Use keys 1, 2, 3 to toggle gates instantly.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>All visuals and audio are generated live with Canvas + WebAudio.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

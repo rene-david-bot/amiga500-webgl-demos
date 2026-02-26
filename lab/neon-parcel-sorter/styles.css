@@ -1,0 +1,253 @@
+:root {
+    color-scheme: dark;
+    --bg: #06060d;
+    --panel: #0e1425;
+    --panel-strong: #151c34;
+    --accent: #ff7bdc;
+    --accent-soft: rgba(255, 123, 220, 0.18);
+    --text: #e6e9ff;
+    --muted: #94a0cc;
+    --ember: #ff6b6b;
+    --ion: #5cc8ff;
+    --solar: #ffd166;
+    --ok: #7bffaf;
+    font-size: 16px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Courier New", "Lucida Console", monospace;
+    background: radial-gradient(circle at top, #15122b, #05050b 60%);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+.shell {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.back {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.badge {
+    display: inline-flex;
+    align-self: flex-start;
+    padding: 4px 10px;
+    border: 1px solid var(--accent-soft);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+}
+
+.subtitle {
+    color: var(--muted);
+    max-width: 520px;
+}
+
+.deck {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    gap: 24px;
+}
+
+.monitor {
+    background: linear-gradient(180deg, rgba(24, 32, 60, 0.9), rgba(8, 10, 18, 0.9));
+    border: 1px solid rgba(255, 123, 220, 0.2);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 50px rgba(12, 16, 32, 0.8);
+}
+
+.screen-frame {
+    position: relative;
+    background: #040408;
+    border-radius: 16px;
+    border: 2px solid rgba(255, 123, 220, 0.2);
+    padding: 10px;
+}
+
+#sorter {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.05), transparent 60%);
+}
+
+.scanlines {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(8, 12, 24, 0.15) 0px,
+        rgba(8, 12, 24, 0.15) 2px,
+        rgba(8, 12, 24, 0) 3px,
+        rgba(8, 12, 24, 0) 6px
+    );
+    mix-blend-mode: screen;
+    opacity: 0.5;
+}
+
+.monitor-meta {
+    margin-top: 18px;
+    display: grid;
+    gap: 14px;
+}
+
+.status {
+    font-size: 0.95rem;
+    color: var(--solar);
+}
+
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+}
+
+.metric {
+    background: rgba(10, 14, 26, 0.7);
+    border-radius: 12px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 123, 220, 0.15);
+    display: grid;
+    gap: 6px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+}
+
+.metric strong {
+    font-size: 1.15rem;
+    color: var(--text);
+    letter-spacing: 0.04em;
+}
+
+.controls {
+    background: var(--panel);
+    border: 1px solid rgba(255, 123, 220, 0.15);
+    border-radius: 20px;
+    padding: 20px;
+    display: grid;
+    gap: 18px;
+}
+
+.field {
+    display: grid;
+    gap: 10px;
+}
+
+label {
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+.toggles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btn,
+.chip {
+    border-radius: 999px;
+    border: 1px solid rgba(255, 123, 220, 0.35);
+    background: rgba(12, 18, 34, 0.9);
+    color: var(--text);
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover,
+.chip:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 12px rgba(255, 123, 220, 0.2);
+}
+
+.ghost {
+    background: transparent;
+    color: var(--accent);
+}
+
+.bays {
+    display: grid;
+    gap: 6px;
+    font-size: 0.85rem;
+}
+
+.bay {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bay::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    background: currentColor;
+    box-shadow: 0 0 12px currentColor;
+}
+
+.ember {
+    color: var(--ember);
+}
+
+.ion {
+    color: var(--ion);
+}
+
+.solar {
+    color: var(--solar);
+}
+
+.tips {
+    border-top: 1px dashed rgba(255, 123, 220, 0.2);
+    padding-top: 12px;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+.tips ul {
+    padding-left: 18px;
+    margin: 6px 0 0;
+    display: grid;
+    gap: 6px;
+}
+
+.footer {
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-align: center;
+}
+
+@media (max-width: 960px) {
+    .deck {
+        grid-template-columns: 1fr;
+    }
+}
