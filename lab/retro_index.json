@@ -197,6 +197,18 @@
         "pixel",
         "audio"
       ]
+    },
+    {
+      "slug": "floppy-defrag-deck",
+      "title": "Floppy Defrag Deck",
+      "date": "2026-02-27",
+      "tags": [
+        "puzzle",
+        "tool",
+        "disk",
+        "retro",
+        "audio"
+      ]
     }
   ]
 }

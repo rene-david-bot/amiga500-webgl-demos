@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Floppy Defrag Deck — slide file fragments to compact the drive." />
+    <title>Floppy Defrag Deck</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="shell">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">Puzzle · Disk optimizer</div>
+            <h1>Floppy Defrag Deck</h1>
+            <p class="subtitle">Slide file fragments to compact the drive.</p>
+        </header>
+
+        <section class="workbench">
+            <div class="panel grid-panel">
+                <div class="panel-header">
+                    <h2>Drive map</h2>
+                    <div class="meter"><span id="defrag-percent">0%</span> defrag</div>
+                </div>
+                <div id="grid" class="drive" aria-label="Drive map puzzle"></div>
+                <div class="legend">
+                    <div class="legend-item"><span class="swatch file-a"></span> A · System</div>
+                    <div class="legend-item"><span class="swatch file-b"></span> B · Graphics</div>
+                    <div class="legend-item"><span class="swatch file-c"></span> C · Audio</div>
+                </div>
+            </div>
+
+            <div class="panel console">
+                <div class="panel-header">
+                    <h2>Ops console</h2>
+                    <button id="audio-toggle" class="chip ghost" type="button">Audio: Off</button>
+                </div>
+
+                <div class="stats">
+                    <div class="stat">
+                        <span class="label">Moves</span>
+                        <span id="moves">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">Elapsed</span>
+                        <span id="time">00:00</span>
+                    </div>
+                    <div class="stat">
+                        <span class="label">Head passes</span>
+                        <span id="passes">0</span>
+                    </div>
+                </div>
+
+                <div class="progress">
+                    <div class="progress-bar">
+                        <div id="progress-fill"></div>
+                    </div>
+                    <div class="progress-meta">Compact rows to reach 100% defrag.</div>
+                </div>
+
+                <div class="controls">
+                    <button id="reshuffle" class="btn" type="button">Reshuffle</button>
+                    <button id="reset" class="btn ghost" type="button">Reset</button>
+                </div>
+
+                <div class="status" id="status">Slide blocks into matching rows to compact the disk.</div>
+
+                <div class="tips">
+                    <p><strong>How it works</strong></p>
+                    <ul>
+                        <li>Click a block adjacent to an empty slot to move it.</li>
+                        <li>Each file wants its fragments in a single row.</li>
+                        <li>Empty space should end up on the bottom row.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Simulated on a classic 3.5" floppy drive bay. No data harmed.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
