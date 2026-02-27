@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ROM Glyph Forge — design an 8×8 character and export its ROM bytes." />
+    <title>ROM Glyph Forge</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="shell">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">Tool · Font lab</div>
+            <h1>ROM Glyph Forge</h1>
+            <p class="subtitle">Design an 8×8 character and export its ROM bytes.</p>
+        </header>
+
+        <section class="workbench">
+            <div class="panel editor">
+                <div class="panel-header">
+                    <h2>Glyph grid</h2>
+                    <div class="mode">
+                        <button id="mode-paint" class="chip active">Paint</button>
+                        <button id="mode-erase" class="chip ghost">Erase</button>
+                    </div>
+                </div>
+                <canvas id="glyph" width="320" height="320" aria-label="Glyph editor"></canvas>
+
+                <div class="editor-controls">
+                    <div class="row">
+                        <button class="btn" id="clear">Clear</button>
+                        <button class="btn" id="invert">Invert</button>
+                        <button class="btn ghost" id="random">Noise</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn ghost" id="mirror-x">Mirror X</button>
+                        <button class="btn ghost" id="mirror-y">Mirror Y</button>
+                        <button class="btn ghost" id="shift-left">Shift ←</button>
+                        <button class="btn ghost" id="shift-right">Shift →</button>
+                        <button class="btn ghost" id="shift-up">Shift ↑</button>
+                        <button class="btn ghost" id="shift-down">Shift ↓</button>
+                    </div>
+                    <div class="row palette">
+                        <span class="label">Ink</span>
+                        <button class="swatch active" data-color="#7bffea" style="--swatch:#7bffea" aria-label="Neon mint"></button>
+                        <button class="swatch" data-color="#ffd166" style="--swatch:#ffd166" aria-label="Solar amber"></button>
+                        <button class="swatch" data-color="#ff7d9c" style="--swatch:#ff7d9c" aria-label="Magenta glow"></button>
+                        <button class="swatch" data-color="#8fb8ff" style="--swatch:#8fb8ff" aria-label="CRT blue"></button>
+                        <button class="swatch" data-color="#b8ff8f" style="--swatch:#b8ff8f" aria-label="Phosphor green"></button>
+                    </div>
+                    <div class="row">
+                        <button class="btn" id="export">Export PNG</button>
+                        <button class="btn ghost" id="audio-toggle">Audio: Off</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel preview">
+                <div class="panel-header">
+                    <h2>ROM preview</h2>
+                    <div class="slot">Slot <span id="slot">07</span></div>
+                </div>
+                <div class="screen">
+                    <canvas id="preview" width="420" height="220" aria-label="ROM preview"></canvas>
+                    <div class="scanlines" aria-hidden="true"></div>
+                </div>
+                <div class="readout">
+                    <div class="readout-row">
+                        <span>Hex bytes</span>
+                        <button id="copy" class="chip">Copy</button>
+                    </div>
+                    <code id="hex"></code>
+                </div>
+                <div class="status" id="status">Ready for glyph input.</div>
+                <div class="tips">
+                    <p><strong>Tips</strong></p>
+                    <ul>
+                        <li>Paint the grid to build an 8×8 glyph. Mirror for symmetry.</li>
+                        <li>Export PNG to save a sticker‑sized icon.</li>
+                        <li>Copy the ROM bytes to drop into a sprite table.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>All pixels are generated locally — no external assets.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
