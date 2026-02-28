@@ -209,6 +209,17 @@
         "retro",
         "audio"
       ]
+    },
+    {
+      "slug": "split-flap-terminal",
+      "title": "Split‑Flap Terminal",
+      "date": "2026-02-28",
+      "tags": [
+        "tool",
+        "display",
+        "audio",
+        "retro"
+      ]
     }
   ]
 }

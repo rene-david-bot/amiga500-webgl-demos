@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Split‑Flap Terminal — program a station board with clacking letters." />
+    <title>Split‑Flap Terminal</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="shell">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">Tool · Split‑flap board</div>
+            <h1>Split‑Flap Terminal</h1>
+            <p class="subtitle">Program a station board with clacking letters.</p>
+        </header>
+
+        <section class="workbench">
+            <div class="panel board-panel">
+                <div class="panel-header">
+                    <h2>Concourse board</h2>
+                    <div class="meter"><span id="flip-count">0</span> flips</div>
+                </div>
+                <div id="board" class="board" aria-label="Split-flap board"></div>
+                <div class="board-foot">
+                    <div class="status" id="status">Ready for a timetable update.</div>
+                </div>
+            </div>
+
+            <div class="panel console">
+                <div class="panel-header">
+                    <h2>Dispatch console</h2>
+                    <button id="audio-toggle" class="chip ghost" type="button">Audio: Off</button>
+                </div>
+
+                <div class="controls">
+                    <label class="field">
+                        <span>Line 1</span>
+                        <input id="line1" type="text" maxlength="22" value="DRESDEN HBF 14:30" />
+                    </label>
+                    <label class="field">
+                        <span>Line 2</span>
+                        <input id="line2" type="text" maxlength="22" value="BERLIN OST 15:10" />
+                    </label>
+                    <label class="field">
+                        <span>Line 3</span>
+                        <input id="line3" type="text" maxlength="22" value="RETRO LAB ONLINE" />
+                    </label>
+                </div>
+
+                <div class="control-row">
+                    <button id="apply" class="btn" type="button">Update board</button>
+                    <button id="shuffle" class="btn ghost" type="button">Shuffle</button>
+                </div>
+
+                <div class="slider">
+                    <div class="slider-label">
+                        <span>Flip speed</span>
+                        <span id="speed-value">120 ms</span>
+                    </div>
+                    <input id="speed" type="range" min="70" max="220" value="120" />
+                </div>
+
+                <div class="presets">
+                    <p class="preset-title">Presets</p>
+                    <div class="preset-grid">
+                        <button class="chip" type="button" data-lines="STARPORT GATE 02|ORBITAL DOCK 7|BOARDING 09:05">Orbital dock</button>
+                        <button class="chip" type="button" data-lines="DUNGEON LVL 03|SAFE ROOM B2|PARTY ASSEMBLE">Dungeon raid</button>
+                        <button class="chip" type="button" data-lines="RETRO CORNER|NEW DROP DAILY|HTTP://LIVE">Retro corner</button>
+                    </div>
+                </div>
+
+                <div class="tips">
+                    <p><strong>How it works</strong></p>
+                    <ul>
+                        <li>Characters flip in order to reach the target message.</li>
+                        <li>Spaces pad the end of each line to keep the board tidy.</li>
+                        <li>Enable audio for that classic station clack.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Split‑flap hardware simulation — minus the oil and dust.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
