@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Dot‑Matrix Dispatch — compose a retro telex printout line by line." />
+    <title>Dot‑Matrix Dispatch</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="shell">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">Tool · Dot‑matrix printer</div>
+            <h1>Dot‑Matrix Dispatch</h1>
+            <p class="subtitle">Compose a retro telex printout line by line.</p>
+        </header>
+
+        <section class="workbench">
+            <div class="panel printer">
+                <div class="panel-header">
+                    <h2>Printer bay</h2>
+                    <div class="meter"><span id="line-count">0</span> lines</div>
+                </div>
+                <div class="paper-wrap">
+                    <canvas id="paper" width="576" height="360" aria-label="Printed paper"></canvas>
+                    <div class="paper-overlay"></div>
+                </div>
+                <div class="status" id="status">Idle. Load a message and press print.</div>
+            </div>
+
+            <div class="panel console">
+                <div class="panel-header">
+                    <h2>Dispatch console</h2>
+                    <button id="audio-toggle" class="chip ghost" type="button">Audio: Off</button>
+                </div>
+
+                <label class="field">
+                    <span>Message queue</span>
+                    <textarea id="message" rows="6">DRESDEN CONTROL\nWEATHER CLEAR\nRETRO CORNER ONLINE</textarea>
+                </label>
+
+                <div class="control-row">
+                    <button id="print" class="btn" type="button">Print dispatch</button>
+                    <button id="feed" class="btn ghost" type="button">Feed paper</button>
+                    <button id="clear" class="btn ghost" type="button">Clear</button>
+                </div>
+
+                <div class="slider">
+                    <div class="slider-label">
+                        <span>Print speed</span>
+                        <span id="speed-value">1.0x</span>
+                    </div>
+                    <input id="speed" type="range" min="0.6" max="2" step="0.1" value="1" />
+                </div>
+
+                <div class="presets">
+                    <p class="preset-title">Presets</p>
+                    <div class="preset-grid">
+                        <button class="chip" type="button" data-preset="RETRO CORNER\nDAILY SHIP\nSIGNED: DAVE">Daily ship</button>
+                        <button class="chip" type="button" data-preset="CARGO BAY 04\nLOADING COMPLETE\nDEPART 19:10">Cargo update</button>
+                        <button class="chip" type="button" data-preset="WEATHER RADAR\nCALM FRONT\nVISIBILITY GOOD">Weather telex</button>
+                    </div>
+                </div>
+
+                <div class="tips">
+                    <p><strong>How it works</strong></p>
+                    <ul>
+                        <li>Uppercase text prints best on a 5×7 dot font.</li>
+                        <li>Messages wrap at the printer's 24‑character width.</li>
+                        <li>Enable audio for mechanical ticks and feed noise.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Paper feed simulation inspired by classic 80s telex printers.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

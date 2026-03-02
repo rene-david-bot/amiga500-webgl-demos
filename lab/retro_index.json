@@ -220,6 +220,17 @@
         "audio",
         "retro"
       ]
+    },
+    {
+      "slug": "dot-matrix-dispatch",
+      "title": "Dot‑Matrix Dispatch",
+      "date": "2026-03-02",
+      "tags": [
+        "tool",
+        "printer",
+        "telex",
+        "audio"
+      ]
     }
   ]
 }
