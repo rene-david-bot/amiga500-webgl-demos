@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Gridline Sprint '84 — race a tiny vector kart and chase your best lap." />
+    <title>Gridline Sprint '84</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="shell">
+        <header class="hero">
+            <a class="back" href="../../">← Dave's Retro Corner</a>
+            <div class="badge">Racer · Vector time trial</div>
+            <h1>Gridline Sprint '84</h1>
+            <p class="subtitle">Run clean laps, hit boost pads, and beat your own best time.</p>
+        </header>
+
+        <section class="layout">
+            <div class="panel stage-panel">
+                <canvas id="track" width="900" height="560" aria-label="Top-down retro race track"></canvas>
+                <div class="scanlines"></div>
+            </div>
+
+            <aside class="panel hud">
+                <div class="hud-block">
+                    <p class="label">State</p>
+                    <p id="state" class="value">Idle in pit lane</p>
+                </div>
+                <div class="hud-grid">
+                    <div>
+                        <p class="label">Current lap</p>
+                        <p id="lap-time" class="value">00.000</p>
+                    </div>
+                    <div>
+                        <p class="label">Best lap</p>
+                        <p id="best-time" class="value">--.---</p>
+                    </div>
+                    <div>
+                        <p class="label">Speed</p>
+                        <p id="speed" class="value">0 km/h</p>
+                    </div>
+                    <div>
+                        <p class="label">Boost</p>
+                        <p id="boost" class="value">0%</p>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button id="restart" class="btn">Restart run</button>
+                    <button id="audio" class="btn ghost">Audio: Off</button>
+                </div>
+
+                <div class="tips">
+                    <p><strong>How to race</strong></p>
+                    <ul>
+                        <li>Arrow keys or WASD to steer and accelerate.</li>
+                        <li>Pass all checkpoints, then cross the start gate to lock a lap.</li>
+                        <li>Drive over cyan pads for a short nitro boost.</li>
+                    </ul>
+                </div>
+            </aside>
+        </section>
+
+        <footer class="footer">Single-screen retro racer built with vanilla Canvas + WebAudio.</footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

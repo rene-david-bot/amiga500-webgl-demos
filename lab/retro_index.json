@@ -231,6 +231,18 @@
         "telex",
         "audio"
       ]
+    },
+    {
+      "slug": "gridline-sprint-84",
+      "title": "Gridline Sprint '84",
+      "date": "2026-03-03",
+      "tags": [
+        "racer",
+        "arcade",
+        "time-trial",
+        "canvas",
+        "audio"
+      ]
     }
   ]
 }
