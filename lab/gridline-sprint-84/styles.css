@@ -87,6 +87,9 @@ canvas {
     border-radius: 12px;
     border: 1px solid rgba(126, 255, 244, 0.2);
     background: #050910;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .scanlines {

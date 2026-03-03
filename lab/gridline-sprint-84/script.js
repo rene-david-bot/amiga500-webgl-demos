@@ -19,11 +19,29 @@ const TRACK = {
 };
 
 const START_ANGLE = -Math.PI * 0.5;
-const CHECKPOINTS = [-1.0, -0.2, 0.55, 1.25, 2.05, 2.8].map((a) => a);
-const BOOST_PAD_ANGLES = [-0.55, 0.85, 2.45];
+const BASE_CHECKPOINTS = [-1.0, -0.2, 0.55, 1.25, 2.05, 2.8];
+const BASE_BOOST_PAD_ANGLES = [-0.55, 0.85, 2.45];
 const BOOST_DURATION = 2.6;
 
+let courseSeed = {
+    wobbleAmp: TRACK.wobble,
+    phaseA: 0,
+    phaseB: 0,
+    harmonic: 4,
+    radiusBias: 0,
+    angleShift: 0
+};
+let checkpoints = [...BASE_CHECKPOINTS];
+let boosts = [];
+
 const keys = { left: false, right: false, up: false, down: false };
+const touch = {
+    steerId: null,
+    throttleId: null,
+    steerDir: 0,
+    throttle: 0,
+    brake: 0
+};
 const particles = [];
 
 const car = {
@@ -40,7 +58,7 @@ const car = {
     lastCheckpointMs: -9999
 };
 
-const boosts = BOOST_PAD_ANGLES.map((angle) => ({ angle, nextReady: 0 }));
+
 const stars = Array.from({ length: 80 }, () => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
@@ -73,8 +91,31 @@ function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
 
+function randomBetween(min, max) {
+    return min + Math.random() * (max - min);
+}
+
+function randomizeCourse() {
+    courseSeed = {
+        wobbleAmp: TRACK.wobble * randomBetween(0.82, 1.18),
+        phaseA: randomBetween(0, TAU),
+        phaseB: randomBetween(0, TAU),
+        harmonic: Math.random() > 0.5 ? 4 : 5,
+        radiusBias: randomBetween(-4, 4),
+        angleShift: randomBetween(-0.08, 0.08)
+    };
+
+    checkpoints = BASE_CHECKPOINTS.map((a, i) => a + courseSeed.angleShift + Math.sin(courseSeed.phaseB + i * 0.95) * 0.012);
+    boosts = BASE_BOOST_PAD_ANGLES.map((angle, i) => ({
+        angle: angle + courseSeed.angleShift * 0.75 + Math.sin(courseSeed.phaseA + i * 1.7) * 0.01,
+        nextReady: 0
+    }));
+}
+
 function laneAt(theta) {
-    const wobble = Math.sin(theta * 3 + 0.8) * TRACK.wobble;
+    const wobbleA = Math.sin(theta * 3 + 0.8 + courseSeed.phaseA) * courseSeed.wobbleAmp;
+    const wobbleB = Math.sin(theta * courseSeed.harmonic + courseSeed.phaseB) * courseSeed.wobbleAmp * 0.28;
+    const wobble = wobbleA + wobbleB + courseSeed.radiusBias;
     return {
         inner: TRACK.inner + wobble,
         outer: TRACK.outer + wobble,
@@ -106,8 +147,9 @@ function kartSpawn() {
 }
 
 function resetRun(message = "Run reset. Cross the gate to start.") {
+    randomizeCourse();
     kartSpawn();
-    statusMessage = message;
+    statusMessage = `${message} New lane variant loaded.`;
 }
 
 function isOnTrack(x, y) {
@@ -129,20 +171,20 @@ function nearGate() {
 }
 
 function tryCheckpoint(nowMs) {
-    if (!car.lapActive || car.checkpointIndex >= CHECKPOINTS.length) return;
+    if (!car.lapActive || car.checkpointIndex >= checkpoints.length) return;
     if (nowMs - car.lastCheckpointMs < 400) return;
 
     const theta = Math.atan2(car.y - CENTER.y, car.x - CENTER.x);
-    const target = CHECKPOINTS[car.checkpointIndex];
+    const target = checkpoints[car.checkpointIndex];
     if (Math.abs(angleDiff(theta, target)) < 0.14) {
         car.checkpointIndex += 1;
         car.lastCheckpointMs = nowMs;
         popTone(680 + car.checkpointIndex * 45, 0.07, 0.045);
 
-        if (car.checkpointIndex >= CHECKPOINTS.length) {
+        if (car.checkpointIndex >= checkpoints.length) {
             statusMessage = "All checkpoints green. Bring it home.";
         } else {
-            statusMessage = `Checkpoint ${car.checkpointIndex}/${CHECKPOINTS.length}`;
+            statusMessage = `Checkpoint ${car.checkpointIndex}/${checkpoints.length}`;
         }
     }
 }
@@ -162,8 +204,8 @@ function handleGate(nowMs) {
         return;
     }
 
-    if (car.checkpointIndex < CHECKPOINTS.length) {
-        statusMessage = `Missed checkpoints (${car.checkpointIndex}/${CHECKPOINTS.length}).`;
+    if (car.checkpointIndex < checkpoints.length) {
+        statusMessage = `Missed checkpoints (${car.checkpointIndex}/${checkpoints.length}).`;
         popTone(180, 0.11, 0.06);
         return;
     }
@@ -221,9 +263,9 @@ function emitTrail(dt) {
 }
 
 function updateCar(dt, nowMs) {
-    const accelerate = keys.up ? 1 : 0;
-    const brake = keys.down ? 1 : 0;
-    const steer = (keys.right ? 1 : 0) - (keys.left ? 1 : 0);
+    const accelerate = (keys.up ? 1 : 0) || touch.throttle;
+    const brake = (keys.down ? 1 : 0) || touch.brake;
+    const steer = ((keys.right ? 1 : 0) - (keys.left ? 1 : 0)) || touch.steerDir;
 
     const boostFactor = car.boost > 0 ? 1.45 : 1;
     const accelForce = accelerate * 248 * boostFactor - brake * 172;
@@ -373,7 +415,7 @@ function drawGate() {
 }
 
 function drawCheckpoints() {
-    CHECKPOINTS.forEach((angle, idx) => {
+    checkpoints.forEach((angle, idx) => {
         const lane = laneAt(angle);
         const inPos = polar(angle, lane.inner + 12);
         const outPos = polar(angle, lane.outer - 12);
@@ -525,6 +567,64 @@ function onKey(event, down) {
     if (code === "ArrowUp" || code === "KeyW") keys.up = down;
     if (code === "ArrowDown" || code === "KeyS") keys.down = down;
 }
+
+function setTouchRole(pointerId, x, y) {
+    const w = canvas.clientWidth || canvas.width;
+    const h = canvas.clientHeight || canvas.height;
+
+    if (x < w * 0.58 && touch.steerId === null) {
+        touch.steerId = pointerId;
+        touch.steerDir = x < w * 0.29 ? -1 : 1;
+        return;
+    }
+
+    if (touch.throttleId === null) {
+        touch.throttleId = pointerId;
+        touch.throttle = y < h * 0.62 ? 1 : 0;
+        touch.brake = y >= h * 0.62 ? 1 : 0;
+    }
+}
+
+function moveTouchRole(pointerId, x, y) {
+    const w = canvas.clientWidth || canvas.width;
+    const h = canvas.clientHeight || canvas.height;
+
+    if (touch.steerId === pointerId) {
+        touch.steerDir = x < w * 0.5 ? -1 : 1;
+    }
+
+    if (touch.throttleId === pointerId) {
+        touch.throttle = y < h * 0.62 ? 1 : 0;
+        touch.brake = y >= h * 0.62 ? 1 : 0;
+    }
+}
+
+function clearTouchRole(pointerId) {
+    if (touch.steerId === pointerId) {
+        touch.steerId = null;
+        touch.steerDir = 0;
+    }
+    if (touch.throttleId === pointerId) {
+        touch.throttleId = null;
+        touch.throttle = 0;
+        touch.brake = 0;
+    }
+}
+
+canvas.addEventListener("pointerdown", (e) => {
+    if (e.pointerType !== "touch") return;
+    e.preventDefault();
+    canvas.setPointerCapture(e.pointerId);
+    setTouchRole(e.pointerId, e.offsetX, e.offsetY);
+}, { passive: false });
+
+canvas.addEventListener("pointermove", (e) => {
+    if (e.pointerType !== "touch") return;
+    moveTouchRole(e.pointerId, e.offsetX, e.offsetY);
+}, { passive: true });
+
+canvas.addEventListener("pointerup", (e) => clearTouchRole(e.pointerId));
+canvas.addEventListener("pointercancel", (e) => clearTouchRole(e.pointerId));
 
 window.addEventListener("keydown", (e) => onKey(e, true));
 window.addEventListener("keyup", (e) => onKey(e, false));
