@@ -212,7 +212,7 @@
     },
     {
       "slug": "split-flap-terminal",
-      "title": "Split‑Flap Terminal",
+      "title": "Split\u2011Flap Terminal",
       "date": "2026-02-28",
       "tags": [
         "tool",
@@ -223,7 +223,7 @@
     },
     {
       "slug": "dot-matrix-dispatch",
-      "title": "Dot‑Matrix Dispatch",
+      "title": "Dot\u2011Matrix Dispatch",
       "date": "2026-03-02",
       "tags": [
         "tool",
@@ -253,6 +253,17 @@
         "audio",
         "telecom",
         "training"
+      ]
+    },
+    {
+      "slug": "cartridge-merchant",
+      "title": "Cartridge Merchant",
+      "date": "2026-03-05",
+      "tags": [
+        "strategy",
+        "sim",
+        "trading",
+        "retro"
       ]
     }
   ]

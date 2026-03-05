@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cartridge Merchant</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="back" href="../../index.html">← Retro Lab</a>
+      <h1>Cartridge Merchant</h1>
+      <p>Strategy sim · buy low, sell high, and survive 10 volatile market days.</p>
+    </header>
+
+    <section class="hud" aria-live="polite">
+      <div><span class="label">Day</span><span id="day">1 / 10</span></div>
+      <div><span class="label">Credits</span><span id="credits">₡0</span></div>
+      <div><span class="label">Inventory</span><span id="inventory">0 / 18</span></div>
+      <div><span class="label">Net Worth</span><span id="networth">₡0</span></div>
+      <div><span class="label">Target</span><span id="target">₡5,000</span></div>
+      <div><span class="label">Status</span><span id="status">Trading</span></div>
+    </section>
+
+    <section class="rumor" id="rumor">Rumor terminal warming up…</section>
+
+    <section class="market">
+      <div class="market-head">
+        <h2>Cartridge Exchange</h2>
+        <div class="hint">Tip: rumors are right most of the time, not all the time.</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Owned</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="market-body"></tbody>
+      </table>
+    </section>
+
+    <section class="controls">
+      <button id="next-day">Advance Day</button>
+      <button id="liquidate" class="ghost">Liquidate All</button>
+      <button id="new-run" class="ghost">New Run</button>
+    </section>
+
+    <section class="log">
+      <h2>Ledger Log</h2>
+      <ul id="log"></ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
