@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nixie Lockbreaker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="back" href="../../index.html">← Retro Lab</a>
+      <h1>Nixie Lockbreaker</h1>
+      <p>Puzzle · crack a vintage octal vault before the terminal times out.</p>
+    </header>
+
+    <section class="hud" aria-live="polite">
+      <div><span class="label">Attempts</span><span id="attempts">8</span></div>
+      <div><span class="label">Timer</span><span id="timer">03:00</span></div>
+      <div><span class="label">Status</span><span id="status">Armed</span></div>
+      <div><span class="label">Best</span><span id="best">—</span></div>
+    </section>
+
+    <section class="lock-screen" aria-label="Current code input">
+      <div class="tube-row" id="tube-row">
+        <div class="tube">_</div>
+        <div class="tube">_</div>
+        <div class="tube">_</div>
+        <div class="tube">_</div>
+      </div>
+      <div id="hint" class="hint">Enter 4 digits (0–7), then submit.</div>
+    </section>
+
+    <section class="keypad" aria-label="Octal keypad">
+      <div class="digit-grid" id="digit-grid"></div>
+      <div class="actions">
+        <button id="clear" class="ghost">Clear</button>
+        <button id="backspace" class="ghost">⌫</button>
+        <button id="submit">Submit Guess</button>
+      </div>
+    </section>
+
+    <section class="rules">
+      <h2>Clue System</h2>
+      <ul>
+        <li><strong>Exact</strong>: correct digit in the correct slot.</li>
+        <li><strong>Near</strong>: correct digit in the wrong slot.</li>
+        <li>Code uses digits <strong>0–7</strong> and may repeat.</li>
+      </ul>
+    </section>
+
+    <section class="log">
+      <h2>Attempt Log</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Guess</th>
+            <th>Exact</th>
+            <th>Near</th>
+          </tr>
+        </thead>
+        <tbody id="log-body"></tbody>
+      </table>
+      <div class="controls">
+        <button id="new-run" class="ghost">New Vault</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
