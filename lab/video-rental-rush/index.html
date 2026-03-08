@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Rental Rush</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="back" href="../../index.html">← Retro Lab</a>
+      <h1>Video Rental Rush</h1>
+      <p>Strategy sim · stock the right tapes and survive seven wild nights.</p>
+    </header>
+
+    <section class="hud" aria-live="polite">
+      <div><span class="label">Day</span><span id="day">1 / 7</span></div>
+      <div><span class="label">Cash</span><span id="cash">$180</span></div>
+      <div><span class="label">Buzz</span><span id="buzz">50%</span></div>
+      <div><span class="label">Shelf</span><span id="shelf">0 / 60</span></div>
+      <div><span class="label">Best Run</span><span id="best">—</span></div>
+    </section>
+
+    <section class="event-panel">
+      <h2>Tonight's Signal</h2>
+      <p id="event-copy">Calm evening. Build balanced stock.</p>
+    </section>
+
+    <section class="market">
+      <h2>Wholesale Terminal</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Genre</th>
+              <th>Demand</th>
+              <th>Buy</th>
+              <th>Rent</th>
+              <th>Stock</th>
+              <th>Order</th>
+            </tr>
+          </thead>
+          <tbody id="market-body"></tbody>
+        </table>
+      </div>
+      <div class="actions">
+        <div id="order-meta">Order: $0 · 0 tapes</div>
+        <button id="run-night">Run Night Shift</button>
+      </div>
+      <p id="hint" class="hint">Tip: genres with hotter demand sell out fast.</p>
+    </section>
+
+    <section class="log">
+      <h2>Shift Log</h2>
+      <ul id="log-list"></ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

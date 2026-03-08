@@ -277,6 +277,18 @@
         "octal",
         "audio"
       ]
+    },
+    {
+      "slug": "video-rental-rush",
+      "title": "Video Rental Rush",
+      "date": "2026-03-08",
+      "tags": [
+        "strategy",
+        "sim",
+        "economy",
+        "vhs",
+        "retro"
+      ]
     }
   ]
 }
