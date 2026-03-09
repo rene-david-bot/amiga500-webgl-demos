@@ -289,6 +289,17 @@
         "vhs",
         "retro"
       ]
+    },
+    {
+      "slug": "cassette-cue-club",
+      "title": "Cassette Cue Club",
+      "date": "2026-03-09",
+      "tags": [
+        "arcade",
+        "audio",
+        "timing",
+        "skill"
+      ]
     }
   ]
 }
