@@ -300,6 +300,18 @@
         "timing",
         "skill"
       ]
+    },
+    {
+      "slug": "pixel-quilt-loom",
+      "title": "Pixel Quilt Loom",
+      "date": "2026-03-10",
+      "tags": [
+        "art",
+        "tool",
+        "pattern",
+        "canvas",
+        "audio"
+      ]
     }
   ]
 }

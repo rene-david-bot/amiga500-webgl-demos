@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixel Quilt Loom</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+      <h1>Pixel Quilt Loom</h1>
+      <p>Art tool · weave tiny pixel tiles into infinite retro fabric.</p>
+    </header>
+
+    <section class="layout">
+      <div class="panel editor-panel">
+        <div class="panel-head">
+          <h2>Loom Tile (16×16)</h2>
+          <button id="audioToggle" class="small">Audio: Off</button>
+        </div>
+        <canvas id="editor" width="320" height="320" aria-label="Pixel tile editor"></canvas>
+        <p class="hint">Click/drag to paint. Hold <strong>Shift</strong> to erase.</p>
+      </div>
+
+      <div class="panel controls-panel">
+        <h2>Controls</h2>
+
+        <label class="block">
+          Symmetry
+          <select id="symmetry">
+            <option value="none">None</option>
+            <option value="mirror-x">Mirror X</option>
+            <option value="mirror-y">Mirror Y</option>
+            <option value="quad" selected>Quad Mirror</option>
+          </select>
+        </label>
+
+        <div class="block">
+          <span>Palette</span>
+          <div id="palette" class="palette" role="radiogroup" aria-label="Color palette"></div>
+        </div>
+
+        <div class="actions">
+          <button id="randomize">Randomize</button>
+          <button id="clear">Clear</button>
+          <button id="invert">Invert</button>
+          <button id="export" class="primary">Export PNG</button>
+        </div>
+
+        <div class="stats" aria-live="polite">
+          <div><span class="label">Filled Pixels</span><span id="filled">0</span></div>
+          <div><span class="label">Unique Colors</span><span id="colors">1</span></div>
+          <div><span class="label">Pattern Score</span><span id="score">0</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel preview-panel">
+      <div class="panel-head">
+        <h2>Woven Preview</h2>
+        <p id="status">Ready. Build your textile.</p>
+      </div>
+      <canvas id="preview" width="768" height="288" aria-label="Tiled pattern preview"></canvas>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
