@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bytecode Alchemist</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+      <h1>Bytecode Alchemist</h1>
+      <p>Puzzle logic · transmute bytes into target code with vintage ops.</p>
+    </header>
+
+    <section class="panel status-panel">
+      <div class="byte-wrap">
+        <h2>Current Byte</h2>
+        <div class="byte-box" id="currentBits" aria-live="polite">00000000</div>
+        <div class="hex" id="currentHex">0x00</div>
+      </div>
+      <div class="byte-wrap target">
+        <h2>Target Byte</h2>
+        <div class="byte-box" id="targetBits">00000000</div>
+        <div class="hex" id="targetHex">0x00</div>
+      </div>
+      <div class="meta">
+        <div><span>Level</span><strong id="level">1</strong></div>
+        <div><span>Moves Left</span><strong id="moves">6</strong></div>
+        <div><span>Score</span><strong id="score">0</strong></div>
+        <div><span>Streak</span><strong id="streak">0</strong></div>
+      </div>
+    </section>
+
+    <section class="panel controls-panel">
+      <div class="panel-head">
+        <h2>Operations</h2>
+        <button id="audioToggle" class="small">Audio: Off</button>
+      </div>
+      <div class="ops-grid">
+        <button data-op="xor0f">XOR 0x0F</button>
+        <button data-op="xorf0">XOR 0xF0</button>
+        <button data-op="rol">ROL 1</button>
+        <button data-op="ror">ROR 1</button>
+        <button data-op="not">NOT</button>
+        <button data-op="inc">+1</button>
+        <button data-op="dec">-1</button>
+      </div>
+      <p class="hint">Goal: match target byte before you run out of moves. Keyboard: 1-7 keys trigger operations.</p>
+      <div class="actions">
+        <button id="newRound" class="primary">New Target</button>
+      </div>
+    </section>
+
+    <section class="panel feed-panel">
+      <div class="panel-head">
+        <h2>Console Feed</h2>
+        <span class="chip">1986 BYTE-LAB</span>
+      </div>
+      <ul id="feed" aria-live="polite"></ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
