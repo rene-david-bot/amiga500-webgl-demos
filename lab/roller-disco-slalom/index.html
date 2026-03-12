@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roller Disco Slalom</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+      <h1>Roller Disco Slalom</h1>
+      <p>Arcade groove · weave lanes, dodge cones, grab boombox pickups.</p>
+    </header>
+
+    <section class="panel status-panel">
+      <div class="stat"><span>Score</span><strong id="score">0</strong></div>
+      <div class="stat"><span>Lives</span><strong id="lives">3</strong></div>
+      <div class="stat"><span>Combo</span><strong id="combo">0x</strong></div>
+      <div class="stat"><span>Best</span><strong id="best">0</strong></div>
+      <button id="audioToggle" class="small">Audio: Off</button>
+    </section>
+
+    <section class="panel stage-panel">
+      <canvas id="game" width="720" height="440" aria-label="Roller Disco Slalom game area"></canvas>
+      <div class="overlay" id="overlay">
+        <div class="overlay-title">Press START</div>
+        <p>Arrow keys or A / D to switch lanes.<br />Survive the disco track.</p>
+      </div>
+    </section>
+
+    <section class="panel controls-panel">
+      <div class="button-row">
+        <button id="leftBtn">◀ Lane Left</button>
+        <button id="startBtn" class="primary">Start Run</button>
+        <button id="rightBtn">Lane Right ▶</button>
+      </div>
+      <p class="hint">Green boombox = points. Pink cone = damage. Missed boombox breaks combo.</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
