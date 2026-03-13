@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joystick Repair Bench</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar panel">
+      <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+      <h1>Joystick Repair Bench</h1>
+      <p>Puzzle tool · diagnose crossed wires, dead switches, and noisy contacts before the arcade opens.</p>
+    </header>
+
+    <section class="status panel">
+      <div class="stat"><span>Board ID</span><strong id="boardId">A500-000</strong></div>
+      <div class="stat"><span>Actions Left</span><strong id="actionsLeft">6</strong></div>
+      <div class="stat"><span>Elapsed</span><strong id="elapsed">0.0s</strong></div>
+      <div class="stat"><span>Best Time</span><strong id="bestTime">--</strong></div>
+      <button id="audioToggle" class="small">Audio: Off</button>
+    </section>
+
+    <section class="diag panel">
+      <div class="panel-head">
+        <h2>Diagnostic Console</h2>
+        <button id="scanBtn" class="primary">Run Diagnostics</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Test</th><th>Expected</th><th>Observed</th><th>Status</th></tr>
+          </thead>
+          <tbody id="diagBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="repair panel">
+      <h2>Repair Actions</h2>
+      <div class="repair-grid">
+        <div class="repair-card">
+          <h3>Swap Harness Lines</h3>
+          <p>Use when two channels are crossed.</p>
+          <div class="row">
+            <select id="swapA"></select>
+            <span>↔</span>
+            <select id="swapB"></select>
+          </div>
+          <button id="swapBtn">Apply Swap</button>
+        </div>
+
+        <div class="repair-card">
+          <h3>Replace Dead Switch</h3>
+          <p>Brings one dead channel back online.</p>
+          <div class="row">
+            <select id="replaceSel"></select>
+          </div>
+          <button id="replaceBtn">Replace</button>
+        </div>
+
+        <div class="repair-card">
+          <h3>Clean Noisy Contact</h3>
+          <p>Stops random ghost inputs on one line.</p>
+          <div class="row">
+            <select id="cleanSel"></select>
+          </div>
+          <button id="cleanBtn">Clean</button>
+        </div>
+      </div>
+      <div class="button-row">
+        <button id="newBoardBtn">New Faulty Board</button>
+      </div>
+    </section>
+
+    <section class="log panel">
+      <h2>Workbench Log</h2>
+      <ul id="log"></ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
