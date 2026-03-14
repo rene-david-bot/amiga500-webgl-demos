@@ -11,7 +11,7 @@
     },
     {
       "slug": "mode7-racer",
-      "title": "Mode‑7 Sunset Racer",
+      "title": "Mode\u20117 Sunset Racer",
       "date": "2026-02-17",
       "tags": [
         "game",
@@ -212,7 +212,7 @@
     },
     {
       "slug": "split-flap-terminal",
-      "title": "Split‑Flap Terminal",
+      "title": "Split\u2011Flap Terminal",
       "date": "2026-02-28",
       "tags": [
         "tool",
@@ -223,7 +223,7 @@
     },
     {
       "slug": "dot-matrix-dispatch",
-      "title": "Dot‑Matrix Dispatch",
+      "title": "Dot\u2011Matrix Dispatch",
       "date": "2026-03-02",
       "tags": [
         "tool",
@@ -346,6 +346,18 @@
         "tool",
         "diagnostics",
         "arcade",
+        "audio"
+      ]
+    },
+    {
+      "slug": "crt-brick-blaster",
+      "title": "CRT Brick Blaster",
+      "date": "2026-03-14",
+      "tags": [
+        "arcade",
+        "game",
+        "breakout",
+        "canvas",
         "audio"
       ]
     }

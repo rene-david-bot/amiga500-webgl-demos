@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRT Brick Blaster</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar panel">
+      <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+      <h1>CRT Brick Blaster</h1>
+      <p>Arcade classic · clear neon bricks, chain combos, and hold your last life.</p>
+    </header>
+
+    <section class="hud panel">
+      <div class="stat"><span>Score</span><strong id="score">0</strong></div>
+      <div class="stat"><span>Lives</span><strong id="lives">3</strong></div>
+      <div class="stat"><span>Level</span><strong id="level">1</strong></div>
+      <div class="stat"><span>Best</span><strong id="best">0</strong></div>
+      <button id="audioToggle" class="btn small">Audio: Off</button>
+      <button id="startBtn" class="btn primary">Start Game</button>
+    </section>
+
+    <section class="panel arena-wrap">
+      <canvas id="game" width="800" height="480" aria-label="CRT Brick Blaster game canvas"></canvas>
+      <div class="scanlines" aria-hidden="true"></div>
+      <div id="overlay" class="overlay">Press Start Game</div>
+    </section>
+
+    <section class="panel help">
+      <ul>
+        <li><strong>Controls:</strong> ← → or A / D</li>
+        <li><strong>Mobile:</strong> drag on the playfield</li>
+        <li><strong>Combo:</strong> each quick brick hit adds +10 bonus</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
