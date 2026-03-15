@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixel Badge Press</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="panel topbar">
+      <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+      <h1>Pixel Badge Press</h1>
+      <p>Art tool · craft a chunky 80s event badge and print it as PNG.</p>
+    </header>
+
+    <section class="panel studio">
+      <div class="canvas-wrap">
+        <canvas id="badgeCanvas" width="320" height="320" aria-label="Pixel badge preview canvas"></canvas>
+        <div class="scanlines" aria-hidden="true"></div>
+      </div>
+
+      <div class="controls">
+        <label>
+          Headline
+          <input id="headline" type="text" maxlength="14" value="BYTE JAM" />
+        </label>
+        <label>
+          Subline
+          <input id="subline" type="text" maxlength="18" value="DRESDEN '86" />
+        </label>
+
+        <div class="row">
+          <label>
+            Shape
+            <select id="shape">
+              <option value="shield">Shield</option>
+              <option value="ticket">Ticket</option>
+              <option value="disk">Disk</option>
+            </select>
+          </label>
+          <label>
+            Palette
+            <select id="palette"></select>
+          </label>
+        </div>
+
+        <label>
+          Dither
+          <input id="dither" type="range" min="0" max="100" value="26" />
+        </label>
+
+        <div class="actions">
+          <button id="randomize" class="btn ghost">Randomize</button>
+          <button id="audioToggle" class="btn ghost">Audio: Off</button>
+          <button id="download" class="btn primary">Export PNG</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel tips">
+      <ul>
+        <li><strong>Tip:</strong> Keep the headline under 10 chars for max punch.</li>
+        <li><strong>Look:</strong> Try "Amber CRT" + "Ticket" for train-station vibes.</li>
+        <li><strong>Bonus:</strong> Export multiple colorways and stack them as sticker sheets.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
