@@ -373,6 +373,18 @@
         "canvas",
         "retro"
       ]
+    },
+    {
+      "slug": "boombox-bumper-lab",
+      "title": "Boombox Bumper Lab",
+      "date": "2026-03-16",
+      "tags": [
+        "audio",
+        "tool",
+        "jingle",
+        "webaudio",
+        "retro"
+      ]
     }
   ]
 }

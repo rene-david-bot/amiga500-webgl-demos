@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boombox Bumper Lab</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="panel topbar">
+      <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+      <h1>Boombox Bumper Lab</h1>
+      <p>Audio toy · generate tiny 80s-style ad bumpers and punchy station IDs.</p>
+    </header>
+
+    <section class="panel studio">
+      <div class="controls">
+        <label>
+          Brand / Slogan
+          <input id="seedText" type="text" maxlength="22" value="NEON CORNER" />
+        </label>
+
+        <div class="row">
+          <label>
+            Mood
+            <select id="mood">
+              <option value="sale">Cyber Sale</option>
+              <option value="night">Late Night Drive</option>
+              <option value="sports">Arcade Sports Flash</option>
+            </select>
+          </label>
+          <label>
+            Tempo
+            <input id="tempo" type="range" min="82" max="164" value="118" />
+          </label>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><span>BPM</span><strong id="tempoValue">118</strong></div>
+          <div class="stat"><span>Length</span><strong>2 Bars</strong></div>
+          <div class="stat"><span>Code</span><strong id="patternCode">--</strong></div>
+        </div>
+
+        <div class="actions">
+          <button id="generate" class="btn ghost">Generate</button>
+          <button id="play" class="btn primary">Play Jingle</button>
+          <button id="stop" class="btn ghost">Stop</button>
+          <button id="copy" class="btn ghost">Copy Code</button>
+        </div>
+      </div>
+
+      <div class="monitor">
+        <div class="meter-wrap" aria-hidden="true">
+          <canvas id="meter" width="420" height="140"></canvas>
+          <div class="scanlines"></div>
+        </div>
+        <div id="stepGrid" class="step-grid" aria-label="Generated pattern steps"></div>
+      </div>
+    </section>
+
+    <section class="panel tips">
+      <ul>
+        <li><strong>Generate:</strong> Text + mood creates a repeatable pattern. Same input = same jingle.</li>
+        <li><strong>Hack it:</strong> Click step cells to mute/unmute notes and reshape the hook.</li>
+        <li><strong>Use case:</strong> Quick sonic logo ideas before turning them into full tracks.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
