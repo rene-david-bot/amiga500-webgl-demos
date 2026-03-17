@@ -385,6 +385,18 @@
         "webaudio",
         "retro"
       ]
+    },
+    {
+      "slug": "trackball-maze-courier",
+      "title": "Trackball Maze Courier",
+      "date": "2026-03-17",
+      "tags": [
+        "arcade",
+        "puzzle",
+        "maze",
+        "grid",
+        "retro"
+      ]
     }
   ]
 }
