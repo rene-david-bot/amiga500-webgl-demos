@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BBS Poster Forge — craft colorful ANSI-style event posters in a retro text mode studio." />
+  <title>BBS Poster Forge</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="back" href="../../index.html">← Retro Lab</a>
+      <h1>BBS Poster Forge</h1>
+      <p>Art tool · Build punchy ANSI-style posters for your imaginary late-night BBS events.</p>
+    </header>
+
+    <section class="controls" aria-label="Poster controls">
+      <label>
+        Headline
+        <input id="headline" type="text" maxlength="24" value="NEON NETRUN" />
+      </label>
+      <label>
+        Subline
+        <input id="subline" type="text" maxlength="32" value="FRIDAY 23:00 // NODE 88" />
+      </label>
+      <label>
+        Theme
+        <select id="theme">
+          <option value="amber">Amber Terminal</option>
+          <option value="cyan">Cyan Matrix</option>
+          <option value="magenta">Magenta Nights</option>
+          <option value="mono">Monochrome CRT</option>
+        </select>
+      </label>
+      <label>
+        Background
+        <select id="pattern">
+          <option value="scan">Scanlines</option>
+          <option value="chevron">Chevron</option>
+          <option value="circuit">Circuit Dust</option>
+          <option value="stars">Star Field</option>
+        </select>
+      </label>
+      <label>
+        Border
+        <select id="frame">
+          <option value="double">Double</option>
+          <option value="single">Single</option>
+          <option value="rounded">Rounded</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="actions">
+      <button id="randomBtn" class="primary">Randomize Poster</button>
+      <button id="copyBtn" class="ghost">Copy ANSI Text</button>
+      <button id="pngBtn" class="ghost">Download PNG</button>
+      <span id="status" aria-live="polite">Poster generated.</span>
+    </section>
+
+    <section class="display" aria-label="Poster preview">
+      <pre id="ansiScreen" class="ansi-screen"></pre>
+      <canvas id="posterCanvas" width="960" height="560" aria-label="Poster canvas preview"></canvas>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
