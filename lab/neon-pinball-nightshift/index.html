@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Neon Pinball Night Shift — a retro one-screen pinball challenge with chunky bumpers and CRT glow." />
+  <title>Neon Pinball Night Shift</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+      <h1>Neon Pinball Night Shift</h1>
+      <p>Arcade · Keep the steel ball alive through a noisy midnight shift.</p>
+    </header>
+
+    <section class="hud" aria-label="Score and game status">
+      <div><span class="label">Score</span><strong id="score">000000</strong></div>
+      <div><span class="label">Best</span><strong id="best">000000</strong></div>
+      <div><span class="label">Balls</span><strong id="balls">3</strong></div>
+      <div><span class="label">Audio</span><strong id="audioState">OFF</strong></div>
+    </section>
+
+    <section class="playfield-wrap">
+      <canvas id="playfield" width="720" height="920" aria-label="Pinball playfield"></canvas>
+      <div class="overlay" id="overlay">
+        <h2 id="overlayTitle">Night Shift Ready</h2>
+        <p id="overlayText">Press <kbd>Space</kbd> to launch. Flippers: <kbd>A</kbd>/<kbd>←</kbd> and <kbd>L</kbd>/<kbd>→</kbd>.</p>
+        <div class="overlay-actions">
+          <button id="launchBtn" class="primary">Launch Ball</button>
+          <button id="audioBtn" class="ghost">Enable Audio</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="touch-controls" aria-label="Touch controls">
+      <button id="leftBtn">◀ Left Flipper</button>
+      <button id="rightBtn">Right Flipper ▶</button>
+    </section>
+
+    <p class="tip">Tip: chain bumper hits while both flippers are up for combo sparks.</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
