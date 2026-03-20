@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Switchboard Shift '79 — route incoming calls to the correct trunk line before the board overloads." />
+  <title>Switchboard Shift '79</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+      <h1>Switchboard Shift '79</h1>
+      <p>Puzzle · Route each incoming call to the right trunk line before the board overheats.</p>
+    </header>
+
+    <section class="hud" aria-label="Scoreboard">
+      <div><span class="label">Score</span><strong id="score">000000</strong></div>
+      <div><span class="label">Best</span><strong id="best">000000</strong></div>
+      <div><span class="label">Streak</span><strong id="streak">0</strong></div>
+      <div><span class="label">Strikes</span><strong id="strikes">0 / 3</strong></div>
+      <div><span class="label">Level</span><strong id="level">1</strong></div>
+      <div><span class="label">Audio</span><strong id="audioState">OFF</strong></div>
+    </section>
+
+    <section class="board" aria-live="polite">
+      <div class="incoming">
+        <div class="incoming-label">Incoming Call</div>
+        <div class="incoming-number" id="callNumber">---</div>
+        <div class="incoming-meta">Prefix <span id="callPrefix">--</span></div>
+        <div class="timer-track"><div class="timer-fill" id="timerFill"></div></div>
+      </div>
+
+      <div class="rules">
+        <h2>Trunk Routing Rules</h2>
+        <p>Match the <strong>first digit</strong> of the call prefix to a trunk line.</p>
+        <ul>
+          <li><span>Line 1</span><code id="rule1">0, 1, 2, 3</code></li>
+          <li><span>Line 2</span><code id="rule2">4, 5, 6</code></li>
+          <li><span>Line 3</span><code id="rule3">7, 8, 9</code></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="Routing controls">
+      <button data-line="0" id="line1"><span>Line 1</span><kbd>1</kbd></button>
+      <button data-line="1" id="line2"><span>Line 2</span><kbd>2</kbd></button>
+      <button data-line="2" id="line3"><span>Line 3</span><kbd>3</kbd></button>
+      <button id="audioBtn" class="ghost">Enable Audio</button>
+    </section>
+
+    <p class="tip">Tip: every 8 successful routes advances the shift and remaps all lines.</p>
+
+    <section class="log" aria-label="Switchboard log">
+      <h3>Latest Log</h3>
+      <ul id="logList"></ul>
+    </section>
+
+    <div class="overlay" id="overlay">
+      <h2 id="overlayTitle">Night Shift Ready</h2>
+      <p id="overlayText">Route calls fast. Three mistakes and the supervisor pulls your patch cord.</p>
+      <button id="startBtn" class="primary">Start Shift</button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
