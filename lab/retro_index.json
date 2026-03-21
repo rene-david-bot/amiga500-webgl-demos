@@ -434,6 +434,18 @@
         "audio",
         "retro"
       ]
+    },
+    {
+      "slug": "pitstop-protocol-88",
+      "title": "Pitstop Protocol '88",
+      "date": "2026-03-21",
+      "tags": [
+        "arcade",
+        "strategy",
+        "racer",
+        "timing",
+        "retro"
+      ]
     }
   ]
 }
