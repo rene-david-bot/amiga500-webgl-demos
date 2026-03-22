@@ -446,6 +446,18 @@
         "timing",
         "retro"
       ]
+    },
+    {
+      "slug": "opcode-karaoke-club",
+      "title": "Opcode Karaoke Club",
+      "date": "2026-03-22",
+      "tags": [
+        "audio",
+        "tool",
+        "webaudio",
+        "music",
+        "retro"
+      ]
     }
   ]
 }

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Opcode Karaoke Club — turn any phrase into a crunchy retro chip anthem." />
+  <title>Opcode Karaoke Club</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <p class="kicker">Retro Lab // Daily Build</p>
+      <h1>Opcode Karaoke Club</h1>
+      <p class="subtitle">Type a phrase, synthesize it into an 8-bit hook, and perform it live.</p>
+    </header>
+
+    <section class="panel controls">
+      <label class="field field--wide">
+        <span>Lyric / Phrase</span>
+        <input id="phraseInput" type="text" maxlength="72" value="HELLO DRESDEN" />
+      </label>
+
+      <div class="control-grid">
+        <label class="field">
+          <span>Tempo</span>
+          <input id="tempoInput" type="range" min="70" max="190" value="122" />
+          <strong id="tempoValue">122 BPM</strong>
+        </label>
+
+        <label class="field">
+          <span>Scale</span>
+          <select id="scaleSelect">
+            <option value="major">Major</option>
+            <option value="minor" selected>Minor</option>
+            <option value="pentatonic">Pentatonic</option>
+            <option value="dorian">Dorian</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Waveform</span>
+          <select id="waveSelect">
+            <option value="square" selected>Square</option>
+            <option value="triangle">Triangle</option>
+            <option value="sawtooth">Sawtooth</option>
+            <option value="pulse">Pulse-ish</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="playBtn" class="btn btn--primary">Play Hook</button>
+        <button id="stopBtn" class="btn">Stop</button>
+        <button id="randomBtn" class="btn">Surprise Phrase</button>
+      </div>
+
+      <p class="hint">Tip: Spaces become rests. Punctuation adds syncopation.</p>
+      <p id="status" class="status">Ready. Hit <strong>Play Hook</strong> to hear your phrase.</p>
+    </section>
+
+    <section class="panel monitor">
+      <div class="stats">
+        <div class="stat"><span>Steps</span><strong id="stepsStat">0</strong></div>
+        <div class="stat"><span>Length</span><strong id="lengthStat">0.0s</strong></div>
+        <div class="stat"><span>Unique Notes</span><strong id="notesStat">0</strong></div>
+      </div>
+      <canvas id="scope" width="720" height="170" aria-label="Audio visualizer"></canvas>
+      <div id="sequenceGrid" class="sequence-grid" aria-live="polite"></div>
+    </section>
+
+    <footer class="footer">
+      <a href="../../index.html">← Back to Retro Lab index</a>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
