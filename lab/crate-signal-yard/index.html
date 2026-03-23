@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crate Signal Yard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <a class="back-link" href="../../index.html">← Back to Retro Lab</a>
+
+    <header class="hero">
+      <p class="kicker">Puzzle Shift · 1988</p>
+      <h1>Crate Signal Yard</h1>
+      <p>
+        Route heavy signal crates onto all neon pads before your shift timer embarrasses you.
+        Sokoban logic, crunchy visuals, no mercy.
+      </p>
+    </header>
+
+    <section class="panel">
+      <div class="stats" role="status" aria-live="polite">
+        <div class="stat"><span>Level</span><strong id="levelLabel">1 / 1</strong></div>
+        <div class="stat"><span>Moves</span><strong id="movesLabel">0</strong></div>
+        <div class="stat"><span>Pushes</span><strong id="pushesLabel">0</strong></div>
+        <div class="stat"><span>Best</span><strong id="bestLabel">—</strong></div>
+      </div>
+
+      <div class="controls">
+        <button id="undoBtn" type="button">Undo</button>
+        <button id="restartBtn" type="button">Restart</button>
+        <button id="prevBtn" type="button">Prev</button>
+        <button id="nextBtn" type="button">Next</button>
+      </div>
+
+      <div id="board" class="board" aria-label="Crate puzzle board"></div>
+
+      <div class="pad" aria-hidden="false">
+        <button data-dir="up" aria-label="Move up">▲</button>
+        <div class="row">
+          <button data-dir="left" aria-label="Move left">◀</button>
+          <button data-dir="down" aria-label="Move down">▼</button>
+          <button data-dir="right" aria-label="Move right">▶</button>
+        </div>
+      </div>
+
+      <p class="hint">
+        Keyboard: Arrow keys / WASD · R restart · Z undo · N/P level switch
+      </p>
+    </section>
+
+    <section id="winBanner" class="win hidden" aria-live="assertive">
+      <h2>Signal lanes aligned</h2>
+      <p id="winSummary"></p>
+      <button id="continueBtn" type="button">Load next route</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

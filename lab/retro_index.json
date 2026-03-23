@@ -458,6 +458,18 @@
         "music",
         "retro"
       ]
+    },
+    {
+      "slug": "crate-signal-yard",
+      "title": "Crate Signal Yard",
+      "date": "2026-03-23",
+      "tags": [
+        "puzzle",
+        "sokoban",
+        "grid",
+        "logistics",
+        "retro"
+      ]
     }
   ]
 }
