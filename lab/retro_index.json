@@ -470,6 +470,18 @@
         "logistics",
         "retro"
       ]
+    },
+    {
+      "slug": "sprite-flipbook-foundry",
+      "title": "Sprite Flipbook Foundry",
+      "date": "2026-03-24",
+      "tags": [
+        "art",
+        "tool",
+        "sprite",
+        "animation",
+        "pixel"
+      ]
     }
   ]
 }

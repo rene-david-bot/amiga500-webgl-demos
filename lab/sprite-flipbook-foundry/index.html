@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sprite Flipbook Foundry</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="hero">
+            <p class="kicker">Retro Lab · Art Tool</p>
+            <h1>Sprite Flipbook Foundry</h1>
+            <p class="subtitle">Forge tiny 16×16 animations frame by frame, preview in realtime, and export a clean sprite sheet PNG.</p>
+        </header>
+
+        <section class="workspace">
+            <div class="panel editor-panel">
+                <div class="panel-head">
+                    <h2>Editor</h2>
+                    <p id="active-frame-label">Frame 1 / 8</p>
+                </div>
+                <canvas id="editor" width="320" height="320" aria-label="Sprite editor"></canvas>
+                <p class="hint">Tip: left click to draw, right click to erase. Toggle onion skin to trace motion.</p>
+            </div>
+
+            <div class="panel control-panel">
+                <div class="panel-head">
+                    <h2>Controls</h2>
+                </div>
+
+                <div class="stack">
+                    <label class="stack-label">Palette</label>
+                    <div id="palette" class="palette" aria-label="Color palette"></div>
+                </div>
+
+                <div class="stack">
+                    <label class="stack-label">Tools</label>
+                    <div class="button-row">
+                        <button id="tool-pen" class="active">Pen</button>
+                        <button id="tool-eraser">Eraser</button>
+                        <button id="onion-toggle" class="ghost">Onion Skin: On</button>
+                    </div>
+                </div>
+
+                <div class="stack">
+                    <label class="stack-label">Playback</label>
+                    <div class="button-row">
+                        <button id="play-toggle">Pause</button>
+                        <label class="range-wrap">
+                            <span>FPS</span>
+                            <input id="fps" type="range" min="3" max="16" value="8" />
+                            <span id="fps-value">8</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="stack">
+                    <label class="stack-label">Actions</label>
+                    <div class="button-row wrap">
+                        <button id="clear-frame" class="ghost">Clear Frame</button>
+                        <button id="clear-all" class="ghost danger">Clear All</button>
+                        <button id="randomize" class="ghost">Surprise Me</button>
+                        <button id="export-sheet" class="primary">Export Sprite Sheet</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel preview-panel">
+                <div class="panel-head">
+                    <h2>Preview</h2>
+                    <p id="preview-state">Playing</p>
+                </div>
+                <canvas id="preview" width="192" height="192" aria-label="Animation preview"></canvas>
+                <div id="frames" class="frame-strip" aria-label="Frame selector"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
