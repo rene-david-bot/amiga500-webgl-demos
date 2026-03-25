@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Goalpost Glitch '89</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <a class="back-link" href="../../index.html">← Dave's Retro Corner</a>
+
+        <header class="hero">
+            <p class="kicker">Retro Lab · Arcade Sports</p>
+            <h1>Goalpost Glitch '89</h1>
+            <p class="subtitle">Lock your angle, spike your shot power, and beat a twitchy neon goalkeeper in this one-button penalty showdown.</p>
+        </header>
+
+        <section class="layout">
+            <div class="panel stage-panel">
+                <canvas id="stage" width="640" height="420" aria-label="Penalty kick game stage"></canvas>
+                <p class="hint">Controls: <strong>Space</strong> or <strong>Tap</strong> · 1st press locks aim, 2nd press kicks.</p>
+            </div>
+
+            <aside class="panel hud-panel">
+                <div class="score-row">
+                    <div>
+                        <span class="label">Round</span>
+                        <strong id="round">1</strong>
+                    </div>
+                    <div>
+                        <span class="label">Goals</span>
+                        <strong id="goals">0</strong>
+                    </div>
+                    <div>
+                        <span class="label">Saves</span>
+                        <strong id="saves">0</strong>
+                    </div>
+                </div>
+
+                <div class="score-row secondary">
+                    <div>
+                        <span class="label">Streak</span>
+                        <strong id="streak">0</strong>
+                    </div>
+                    <div>
+                        <span class="label">Best</span>
+                        <strong id="best">0</strong>
+                    </div>
+                    <div>
+                        <span class="label">Misses</span>
+                        <strong id="misses">0</strong>
+                    </div>
+                </div>
+
+                <div class="meter-wrap">
+                    <div class="meter-head">
+                        <span>Aim</span>
+                        <span id="aim-readout">CENTER</span>
+                    </div>
+                    <div class="meter" id="aim-meter">
+                        <div class="meter-center"></div>
+                        <div class="meter-marker" id="aim-marker"></div>
+                        <div class="meter-lock" id="aim-lock"></div>
+                    </div>
+                </div>
+
+                <div class="meter-wrap">
+                    <div class="meter-head">
+                        <span>Power</span>
+                        <span id="power-readout">0%</span>
+                    </div>
+                    <div class="meter" id="power-meter">
+                        <div class="power-zones"></div>
+                        <div class="meter-marker" id="power-marker"></div>
+                        <div class="meter-lock" id="power-lock"></div>
+                    </div>
+                </div>
+
+                <button id="action" class="action">Lock Aim</button>
+                <p id="message" class="message">Line up your shot and lock your direction.</p>
+            </aside>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

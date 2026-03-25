@@ -1,0 +1,239 @@
+:root {
+    --bg: #090d1a;
+    --panel: #101833;
+    --panel-border: #3a4f88;
+    --text: #e7eeff;
+    --muted: #9fb2e2;
+    --accent: #55f8d4;
+    --accent-2: #ff58c8;
+    --warn: #ffc857;
+    --danger: #ff627b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    background:
+        radial-gradient(circle at 12% 8%, rgba(85, 248, 212, 0.12), transparent 32%),
+        radial-gradient(circle at 86% 6%, rgba(255, 88, 200, 0.16), transparent 34%),
+        linear-gradient(180deg, #070b16 0%, #0d1430 100%);
+}
+
+.app {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 1.4rem 1rem 2.1rem;
+}
+
+.back-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.hero {
+    margin: 0.95rem 0 1.1rem;
+}
+
+.kicker {
+    margin: 0;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.76rem;
+}
+
+h1 {
+    margin: 0.35rem 0 0.4rem;
+    font-size: clamp(1.75rem, 3.3vw, 2.6rem);
+}
+
+.subtitle {
+    margin: 0;
+    color: var(--muted);
+    max-width: 66ch;
+}
+
+.layout {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: minmax(300px, 1.2fr) minmax(260px, 0.8fr);
+}
+
+.panel {
+    background: linear-gradient(180deg, rgba(16, 24, 51, 0.96), rgba(11, 18, 37, 0.98));
+    border: 1px solid var(--panel-border);
+    border-radius: 14px;
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.35);
+}
+
+.stage-panel {
+    padding: 0.8rem;
+}
+
+#stage {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid #5066a8;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    display: block;
+    background: #0b1228;
+}
+
+.hint {
+    margin: 0.7rem 0 0.1rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.hud-panel {
+    padding: 0.9rem;
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+}
+
+.score-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+}
+
+.score-row > div {
+    border: 1px solid rgba(108, 132, 204, 0.55);
+    border-radius: 9px;
+    background: rgba(17, 26, 53, 0.78);
+    padding: 0.45rem 0.5rem;
+    text-align: center;
+}
+
+.score-row.secondary > div {
+    border-color: rgba(108, 132, 204, 0.4);
+    background: rgba(14, 21, 45, 0.7);
+}
+
+.label {
+    display: block;
+    font-size: 0.68rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+}
+
+strong {
+    font-size: 1.2rem;
+}
+
+.meter-wrap {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.meter-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.76rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.meter {
+    position: relative;
+    height: 20px;
+    border-radius: 999px;
+    border: 1px solid #546aa9;
+    background: linear-gradient(90deg, #17254d, #1b2d5d);
+    overflow: hidden;
+}
+
+.meter-center {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(50% - 1px);
+    width: 2px;
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.power-zones {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg,
+        rgba(255, 98, 123, 0.42) 0%,
+        rgba(255, 200, 87, 0.45) 22%,
+        rgba(85, 248, 212, 0.45) 45%,
+        rgba(85, 248, 212, 0.45) 70%,
+        rgba(255, 200, 87, 0.45) 82%,
+        rgba(255, 98, 123, 0.42) 100%);
+}
+
+.meter-marker,
+.meter-lock {
+    position: absolute;
+    top: -2px;
+    width: 3px;
+    height: 24px;
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+.meter-marker {
+    background: #f6fbff;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.meter-lock {
+    background: var(--accent-2);
+    opacity: 0;
+    box-shadow: 0 0 0 1px rgba(255, 88, 200, 0.6);
+}
+
+.meter-lock.visible {
+    opacity: 1;
+}
+
+.action {
+    margin-top: 0.25rem;
+    border: 1px solid #89ffd7;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #32dcb3, #1ea082);
+    color: #071412;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    padding: 0.72rem 0.85rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.action:hover {
+    transform: translateY(-1px);
+}
+
+.message {
+    margin: 0;
+    min-height: 2.8em;
+    color: #dce7ff;
+    font-size: 0.88rem;
+    line-height: 1.35;
+}
+
+@media (max-width: 920px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+}
