@@ -495,6 +495,18 @@
         "audio",
         "retro"
       ]
+    },
+    {
+      "slug": "isometric-tile-forge",
+      "title": "Isometric Tile Forge",
+      "date": "2026-03-26",
+      "tags": [
+        "art",
+        "tool",
+        "isometric",
+        "voxel",
+        "pixel"
+      ]
     }
   ]
 }

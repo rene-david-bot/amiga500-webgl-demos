@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Isometric Tile Forge</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <a class="back-link" href="../../index.html">← Dave's Retro Corner</a>
+
+        <header class="hero">
+            <p class="kicker">Retro Lab · Art Tool</p>
+            <h1>Isometric Tile Forge</h1>
+            <p class="subtitle">Sketch chunky voxel-style maps with one-click terrain sculpting and export your scene as a pixel-crisp PNG.</p>
+        </header>
+
+        <section class="layout">
+            <aside class="panel control-panel">
+                <h2>Workbench</h2>
+                <p class="helper">Left click to raise blocks. Right click to lower. Hold <strong>Shift</strong> + left click to repaint.</p>
+
+                <div class="palette" id="palette"></div>
+
+                <div class="actions">
+                    <button id="btn-random">Randomize</button>
+                    <button id="btn-plaza">Build Plaza</button>
+                    <button id="btn-clear" class="ghost">Flatten</button>
+                    <button id="btn-export" class="accent">Export PNG</button>
+                </div>
+
+                <div class="stats">
+                    <div><span>Selected</span><strong id="selected-name">Mint</strong></div>
+                    <div><span>Blocks</span><strong id="block-count">0</strong></div>
+                    <div><span>Max Height</span><strong id="max-height">0</strong></div>
+                </div>
+            </aside>
+
+            <section class="panel editor-panel">
+                <h2>Top Grid Editor</h2>
+                <canvas id="editor" width="360" height="360" aria-label="Tile grid editor"></canvas>
+            </section>
+
+            <section class="panel preview-panel">
+                <h2>Isometric Preview</h2>
+                <canvas id="preview" width="760" height="480" aria-label="Isometric terrain preview"></canvas>
+            </section>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
