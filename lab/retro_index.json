@@ -507,6 +507,19 @@
         "voxel",
         "pixel"
       ]
+    },
+    {
+      "slug": "elevator-operator-86",
+      "title": "Elevator Operator '86",
+      "date": "2026-03-27",
+      "tags": [
+        "arcade",
+        "ops",
+        "dispatch",
+        "timing",
+        "audio",
+        "retro"
+      ]
     }
   ]
 }
