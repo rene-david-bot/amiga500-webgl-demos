@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fax Fragment Forensics</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <a class="back-link" href="../../index.html">← Dave's Retro Corner</a>
+
+        <header class="hero">
+            <p class="kicker">Retro Lab · Puzzle</p>
+            <h1>Fax Fragment Forensics</h1>
+            <p class="subtitle">A late-night copy room mystery: re-order shredded fax strips before the thermal paper fades.</p>
+        </header>
+
+        <section class="layout">
+            <aside class="panel controls">
+                <h2>Investigator Desk</h2>
+                <p class="helper">Click one strip, then another to swap. Restore the original left-to-right order.</p>
+
+                <div class="actions">
+                    <button id="btn-new" class="accent">New Case</button>
+                    <button id="btn-shuffle">Shuffle Again</button>
+                </div>
+
+                <div class="stats">
+                    <div><span>Case</span><strong id="stat-case">—</strong></div>
+                    <div><span>Moves</span><strong id="stat-moves">0</strong></div>
+                    <div><span>Time</span><strong id="stat-time">0s</strong></div>
+                    <div><span>Best Score</span><strong id="stat-best">0</strong></div>
+                </div>
+
+                <p class="clue" id="clue-text">Load a case to begin.</p>
+                <p class="status" id="status-text">Press <strong>New Case</strong> to start.</p>
+            </aside>
+
+            <section class="panel puzzle-panel">
+                <h2>Shredded Fax Tray</h2>
+                <div class="strip-board" id="strip-board"></div>
+            </section>
+
+            <section class="panel output-panel">
+                <h2>Reconstructed Transcript</h2>
+                <pre id="rebuild" class="rebuild"></pre>
+                <p class="hint">Tip: names and timestamps usually align cleanly when strips are in the right order.</p>
+            </section>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

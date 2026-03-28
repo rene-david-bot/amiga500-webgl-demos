@@ -520,6 +520,19 @@
         "audio",
         "retro"
       ]
+    },
+    {
+      "slug": "fax-fragment-forensics",
+      "title": "Fax Fragment Forensics",
+      "date": "2026-03-28",
+      "tags": [
+        "puzzle",
+        "logic",
+        "forensics",
+        "office",
+        "retro",
+        "audio"
+      ]
     }
   ]
 }
