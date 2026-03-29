@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Turbo Tape Rally</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <a class="back-link" href="../../index.html">← Dave's Retro Corner</a>
+
+        <header class="hero">
+            <p class="kicker">Retro Lab · Racer</p>
+            <h1>Turbo Tape Rally</h1>
+            <p class="subtitle">Thread the service lane, dodge crash cones, and grab magnetic boost tapes before the timer burns out.</p>
+        </header>
+
+        <section class="layout">
+            <aside class="panel controls">
+                <h2>Pit Radio</h2>
+                <p class="helper">Steer with <strong>← →</strong> (or <strong>A / D</strong>). On mobile, hold the touch paddles. Every tape pickup gives a short turbo burst.</p>
+
+                <div class="actions">
+                    <button id="btn-start" class="accent">Start Rally</button>
+                    <button id="btn-restart">Restart Run</button>
+                </div>
+
+                <div class="stats">
+                    <div><span>Time</span><strong id="stat-time">60.0s</strong></div>
+                    <div><span>Score</span><strong id="stat-score">0</strong></div>
+                    <div><span>Speed</span><strong id="stat-speed">0</strong></div>
+                    <div><span>Tapes</span><strong id="stat-tapes">0</strong></div>
+                    <div><span>Best</span><strong id="stat-best">0</strong></div>
+                </div>
+
+                <p class="status" id="status-text">Press <strong>Start Rally</strong> to launch your shift.</p>
+            </aside>
+
+            <section class="panel track-panel">
+                <canvas id="game" width="480" height="640" aria-label="Turbo Tape Rally game canvas"></canvas>
+                <div class="touch-controls" aria-hidden="true">
+                    <button id="touch-left" class="touch-btn">◀ Hold Left</button>
+                    <button id="touch-right" class="touch-btn">Hold Right ▶</button>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

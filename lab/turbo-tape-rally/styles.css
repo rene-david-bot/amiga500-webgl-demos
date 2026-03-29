@@ -1,0 +1,206 @@
+:root {
+    --bg: #050813;
+    --panel: #0f1a31;
+    --panel-border: #3f5e97;
+    --text: #e9f1ff;
+    --muted: #9bb0d9;
+    --accent: #6af1d0;
+    --accent-2: #ff96cf;
+    --warn: #ffb35f;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    background:
+        radial-gradient(circle at 12% 9%, rgba(106, 241, 208, 0.15), transparent 34%),
+        radial-gradient(circle at 88% 4%, rgba(255, 150, 207, 0.16), transparent 35%),
+        linear-gradient(180deg, #050813 0%, #0d1730 100%);
+}
+
+.app {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 1.3rem 1rem 2rem;
+}
+
+.back-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.hero {
+    margin: 0.9rem 0 1.2rem;
+}
+
+.kicker {
+    margin: 0;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.76rem;
+}
+
+h1 {
+    margin: 0.35rem 0 0.45rem;
+    font-size: clamp(1.8rem, 3.5vw, 2.7rem);
+}
+
+.subtitle {
+    margin: 0;
+    color: var(--muted);
+    max-width: 70ch;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: minmax(250px, 300px) minmax(340px, 1fr);
+    gap: 1rem;
+    align-items: start;
+}
+
+.panel {
+    background: linear-gradient(180deg, rgba(16, 26, 48, 0.98), rgba(10, 17, 34, 0.98));
+    border: 1px solid var(--panel-border);
+    border-radius: 14px;
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.35);
+    padding: 0.92rem;
+}
+
+.panel h2 {
+    margin: 0 0 0.72rem;
+    font-size: 1rem;
+}
+
+.controls {
+    display: grid;
+    gap: 0.9rem;
+}
+
+.helper {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.83rem;
+    line-height: 1.36;
+}
+
+.actions {
+    display: grid;
+    gap: 0.45rem;
+}
+
+button {
+    border: 1px solid #6884c2;
+    border-radius: 10px;
+    padding: 0.62rem 0.7rem;
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--text);
+    background: linear-gradient(180deg, #36589f, #283f76);
+    cursor: pointer;
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+button.accent {
+    color: #051710;
+    border-color: #9cffe8;
+    background: linear-gradient(180deg, #58ebc8, #2eac8d);
+}
+
+.stats {
+    display: grid;
+    gap: 0.45rem;
+}
+
+.stats > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(109, 133, 203, 0.56);
+    border-radius: 9px;
+    background: rgba(19, 30, 58, 0.74);
+    padding: 0.42rem 0.55rem;
+}
+
+.stats span {
+    color: var(--muted);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.status {
+    margin: 0;
+    border: 1px solid rgba(106, 241, 208, 0.45);
+    border-radius: 9px;
+    background: rgba(8, 15, 31, 0.84);
+    color: #cce4ff;
+    font-size: 0.82rem;
+    line-height: 1.36;
+    padding: 0.58rem;
+}
+
+.status.alert {
+    border-color: rgba(255, 126, 171, 0.72);
+    color: #ffdce9;
+}
+
+.status.ok {
+    border-color: rgba(139, 255, 132, 0.72);
+    color: #dcffd8;
+}
+
+.track-panel {
+    display: grid;
+    gap: 0.7rem;
+}
+
+canvas {
+    width: 100%;
+    max-width: 640px;
+    border-radius: 12px;
+    border: 1px solid rgba(119, 145, 219, 0.65);
+    background: #04070f;
+    image-rendering: pixelated;
+}
+
+.touch-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.55rem;
+}
+
+.touch-btn {
+    font-size: 0.79rem;
+    padding: 0.54rem 0.5rem;
+    background: linear-gradient(180deg, #2f4a88, #223564);
+}
+
+.touch-btn:active {
+    transform: translateY(0);
+    background: linear-gradient(180deg, #4468bd, #2e4888);
+}
+
+@media (max-width: 960px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    canvas {
+        max-width: 100%;
+    }
+}
