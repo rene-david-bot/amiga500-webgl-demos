@@ -546,6 +546,18 @@
         "audio",
         "retro"
       ]
+    },
+    {
+      "slug": "pager-code-sprint",
+      "title": "Pager Code Sprint",
+      "date": "2026-03-30",
+      "tags": [
+        "puzzle",
+        "word",
+        "t9",
+        "retro",
+        "audio"
+      ]
     }
   ]
 }

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pager Code Sprint</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <a class="back-link" href="../../index.html">← Dave's Retro Corner</a>
+
+        <header class="hero">
+            <p class="kicker">Retro Lab · Puzzle</p>
+            <h1>Pager Code Sprint</h1>
+            <p class="subtitle">Decode incoming numeric pager bursts and pick the right word before the shift clock hits zero.</p>
+        </header>
+
+        <section class="layout">
+            <aside class="panel controls">
+                <h2>Dispatch Desk</h2>
+                <p class="helper">Each burst is a T9-style code. Pick the matching word from four options. Use <strong>1–4</strong> keys for fast replies.</p>
+
+                <div class="actions">
+                    <button id="btn-start" class="accent">Start Shift</button>
+                    <button id="btn-restart">Restart</button>
+                </div>
+
+                <div class="stats">
+                    <div><span>Time</span><strong id="stat-time">75.0s</strong></div>
+                    <div><span>Score</span><strong id="stat-score">0</strong></div>
+                    <div><span>Combo</span><strong id="stat-combo">x0</strong></div>
+                    <div><span>Solved</span><strong id="stat-solved">0</strong></div>
+                    <div><span>Best</span><strong id="stat-best">0</strong></div>
+                </div>
+
+                <p class="status" id="status-text">Press <strong>Start Shift</strong> to begin decoding.</p>
+            </aside>
+
+            <section class="panel game-panel">
+                <div class="pager-shell" id="pager-shell">
+                    <div class="pager-top">
+                        <span class="led"></span>
+                        <span class="pager-label">CITYWAVE 2900</span>
+                        <span class="signal" id="signal-bars">▮▮▮</span>
+                    </div>
+
+                    <div class="pager-screen">
+                        <div class="screen-label">INCOMING CODE</div>
+                        <div class="code" id="pager-code">----</div>
+                        <div class="prompt" id="pager-prompt">Waiting for signal…</div>
+                    </div>
+                </div>
+
+                <div class="choices" id="choices"></div>
+
+                <div class="feed-wrap">
+                    <div class="feed-title">Recent Traffic</div>
+                    <ul class="feed" id="traffic-feed"></ul>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
