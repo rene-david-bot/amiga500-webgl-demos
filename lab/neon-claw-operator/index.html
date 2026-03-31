@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Neon Claw Operator — run a retro coin-op claw crane, grab premium tech, and beat the night shift timer." />
+    <title>Neon Claw Operator</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="topbar">
+            <a class="back" href="../../index.html">← Retro Lab</a>
+            <h1>Neon Claw Operator</h1>
+            <p>Arcade shift · Salvage premium tech before sunrise.</p>
+        </header>
+
+        <section class="hud" aria-live="polite">
+            <div class="stat">
+                <span class="label">Score</span>
+                <span class="value" id="score">0</span>
+            </div>
+            <div class="stat">
+                <span class="label">Time</span>
+                <span class="value" id="time">70</span>
+            </div>
+            <div class="stat">
+                <span class="label">Streak</span>
+                <span class="value" id="streak">0</span>
+            </div>
+            <div class="stat">
+                <span class="label">Best</span>
+                <span class="value" id="best">0</span>
+            </div>
+        </section>
+
+        <section class="stage-wrap">
+            <canvas id="game" width="900" height="420" aria-label="Neon claw arcade game"></canvas>
+            <div class="scanlines" aria-hidden="true"></div>
+            <div class="overlay" id="overlay">
+                <div class="panel">
+                    <h2 id="overlay-title">Night Shift Ready</h2>
+                    <p id="overlay-text">Collect cartridges and gold chips. Junk disks wreck your streak.</p>
+                    <button id="start-btn">Start Shift</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="controls">
+            <div><strong>Move:</strong> ← / →</div>
+            <div><strong>Drop claw:</strong> Space</div>
+            <div><strong>Goal:</strong> Max score in 70 seconds</div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

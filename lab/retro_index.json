@@ -558,6 +558,19 @@
         "retro",
         "audio"
       ]
+    },
+    {
+      "slug": "neon-claw-operator",
+      "title": "Neon Claw Operator",
+      "date": "2026-03-31",
+      "tags": [
+        "arcade",
+        "claw",
+        "timing",
+        "skill",
+        "retro",
+        "audio"
+      ]
     }
   ]
 }
