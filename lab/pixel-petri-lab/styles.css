@@ -1,0 +1,188 @@
+:root {
+    --bg: #070914;
+    --panel: #0f1324;
+    --ink: #d9e8ff;
+    --muted: #93a5cc;
+    --cyan: #3cf0ff;
+    --magenta: #ff57d8;
+    --amber: #ffcc47;
+    --line: #243158;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+    color: var(--ink);
+    background:
+        radial-gradient(circle at 20% 20%, rgba(60, 240, 255, 0.12), transparent 45%),
+        radial-gradient(circle at 78% 18%, rgba(255, 87, 216, 0.12), transparent 50%),
+        linear-gradient(160deg, #05070f, #070914 40%, #05060d);
+    display: flex;
+    justify-content: center;
+    padding: 1.25rem;
+}
+
+.app {
+    width: min(960px, 100%);
+    display: grid;
+    gap: 1rem;
+}
+
+.topbar,
+.hud,
+.controls,
+.stage-wrap {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(15, 19, 36, 0.95), rgba(9, 12, 24, 0.95));
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.topbar {
+    padding: 1rem 1.1rem;
+}
+
+.back {
+    color: var(--amber);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.topbar h1 {
+    margin: 0.55rem 0 0.25rem;
+    font-size: clamp(1.45rem, 3vw, 2rem);
+}
+
+.topbar p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.hud {
+    padding: 0.8rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.65rem;
+}
+
+.stat {
+    border: 1px solid #1f2a4e;
+    border-radius: 10px;
+    background: rgba(6, 8, 17, 0.75);
+    padding: 0.5rem 0.65rem;
+}
+
+.label {
+    display: block;
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+}
+
+.value {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-top: 0.15rem;
+    display: block;
+}
+
+.stage-wrap {
+    position: relative;
+    overflow: hidden;
+}
+
+canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #000;
+    image-rendering: pixelated;
+}
+
+.scanlines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.05) 0px,
+        rgba(255, 255, 255, 0.05) 1px,
+        transparent 1px,
+        transparent 4px
+    );
+    mix-blend-mode: soft-light;
+}
+
+.controls {
+    padding: 0.9rem;
+    display: grid;
+    gap: 0.7rem;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    align-items: center;
+}
+
+.row-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-right: 0.2rem;
+    min-width: 64px;
+}
+
+button {
+    border: 1px solid #2a3a6b;
+    border-radius: 8px;
+    background: #121937;
+    color: var(--ink);
+    padding: 0.48rem 0.72rem;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    border-color: #4f66b4;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+.chip.active {
+    border-color: var(--amber);
+    box-shadow: 0 0 0 1px rgba(255, 204, 71, 0.35);
+}
+
+.chip[data-species="1"] { color: var(--cyan); }
+.chip[data-species="2"] { color: var(--magenta); }
+.chip[data-species="3"] { color: var(--amber); }
+
+.hint {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+@media (max-width: 700px) {
+    body {
+        padding: 0.7rem;
+    }
+
+    .row-label {
+        width: 100%;
+    }
+}

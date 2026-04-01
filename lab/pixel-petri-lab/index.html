@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Pixel Petri Lab — grow and remix neon cellular life in a retro CRT petri dish." />
+    <title>Pixel Petri Lab</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="topbar">
+            <a class="back" href="../../index.html">← Retro Lab</a>
+            <h1>Pixel Petri Lab</h1>
+            <p>Art sim · Seed neon lifeforms and watch them evolve.</p>
+        </header>
+
+        <section class="hud" aria-live="polite">
+            <div class="stat">
+                <span class="label">Generation</span>
+                <span class="value" id="generation">0</span>
+            </div>
+            <div class="stat">
+                <span class="label">Live Cells</span>
+                <span class="value" id="live-cells">0</span>
+            </div>
+            <div class="stat">
+                <span class="label">Diversity</span>
+                <span class="value" id="diversity">0</span>
+            </div>
+            <div class="stat">
+                <span class="label">State</span>
+                <span class="value" id="sim-state">Paused</span>
+            </div>
+        </section>
+
+        <section class="stage-wrap">
+            <canvas id="petri" width="768" height="480" aria-label="Retro pixel petri dish"></canvas>
+            <div class="scanlines" aria-hidden="true"></div>
+        </section>
+
+        <section class="controls">
+            <div class="row">
+                <span class="row-label">Species</span>
+                <button class="chip active" data-species="1">Cyan</button>
+                <button class="chip" data-species="2">Magenta</button>
+                <button class="chip" data-species="3">Amber</button>
+                <button class="chip" data-species="0">Erase</button>
+            </div>
+            <div class="row">
+                <span class="row-label">Tools</span>
+                <button id="run-btn">Run</button>
+                <button id="step-btn">Step</button>
+                <button id="random-btn">Randomize</button>
+                <button id="clear-btn">Clear</button>
+                <button id="export-btn">Export PNG</button>
+            </div>
+            <div class="row">
+                <span class="row-label">Presets</span>
+                <button class="preset" data-preset="glider-rain">Glider Rain</button>
+                <button class="preset" data-preset="coral-bloom">Coral Bloom</button>
+                <button class="preset" data-preset="circuit-seeds">Circuit Seeds</button>
+            </div>
+            <div class="hint">
+                Paint with mouse or touch. Each color competes under classic life rules with a tiny mutation rate.
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

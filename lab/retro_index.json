@@ -571,6 +571,18 @@
         "retro",
         "audio"
       ]
+    },
+    {
+      "slug": "pixel-petri-lab",
+      "title": "Pixel Petri Lab",
+      "date": "2026-04-01",
+      "tags": [
+        "art",
+        "sim",
+        "cellular",
+        "canvas",
+        "retro"
+      ]
     }
   ]
 }
