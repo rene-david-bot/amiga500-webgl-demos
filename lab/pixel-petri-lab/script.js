@@ -39,6 +39,16 @@ function makeGrid() {
     return Array.from({ length: GRID_H }, () => Array(GRID_W).fill(0));
 }
 
+function stampPattern(cells, originX, originY, species = 1) {
+    cells.forEach(([dx, dy]) => {
+        const x = originX + dx;
+        const y = originY + dy;
+        if (x >= 0 && x < GRID_W && y >= 0 && y < GRID_H) {
+            grid[y][x] = species;
+        }
+    });
+}
+
 function countNeighbors(x, y) {
     const speciesCount = [0, 0, 0, 0];
     let total = 0;
@@ -216,6 +226,96 @@ function applyPreset(name) {
     const centerX = Math.floor(GRID_W / 2);
     const centerY = Math.floor(GRID_H / 2);
 
+    if (name === 'glider') {
+        const glider = [
+            [1, 0],
+            [2, 1],
+            [0, 2], [1, 2], [2, 2]
+        ];
+        stampPattern(glider, centerX - 1, centerY - 1, 1);
+    }
+
+    if (name === 'lwss') {
+        const lwss = [
+            [1, 0], [4, 0],
+            [0, 1],
+            [0, 2], [4, 2],
+            [0, 3], [1, 3], [2, 3], [3, 3]
+        ];
+        stampPattern(lwss, centerX - 2, centerY - 2, 2);
+    }
+
+    if (name === 'pulsar') {
+        const pulsar = [
+            [2, 0], [3, 0], [4, 0], [8, 0], [9, 0], [10, 0],
+            [0, 2], [5, 2], [7, 2], [12, 2],
+            [0, 3], [5, 3], [7, 3], [12, 3],
+            [0, 4], [5, 4], [7, 4], [12, 4],
+            [2, 5], [3, 5], [4, 5], [8, 5], [9, 5], [10, 5],
+            [2, 7], [3, 7], [4, 7], [8, 7], [9, 7], [10, 7],
+            [0, 8], [5, 8], [7, 8], [12, 8],
+            [0, 9], [5, 9], [7, 9], [12, 9],
+            [0, 10], [5, 10], [7, 10], [12, 10],
+            [2, 12], [3, 12], [4, 12], [8, 12], [9, 12], [10, 12]
+        ];
+        stampPattern(pulsar, centerX - 6, centerY - 6, 3);
+    }
+
+    if (name === 'gosper-gun') {
+        const gun = [
+            [24, 0],
+            [22, 1], [24, 1],
+            [12, 2], [13, 2], [20, 2], [21, 2], [34, 2], [35, 2],
+            [11, 3], [15, 3], [20, 3], [21, 3], [34, 3], [35, 3],
+            [0, 4], [1, 4], [10, 4], [16, 4], [20, 4], [21, 4],
+            [0, 5], [1, 5], [10, 5], [14, 5], [16, 5], [17, 5], [22, 5], [24, 5],
+            [10, 6], [16, 6], [24, 6],
+            [11, 7], [15, 7],
+            [12, 8], [13, 8]
+        ];
+        stampPattern(gun, Math.max(1, centerX - 18), Math.max(1, centerY - 4), 1);
+    }
+
+    if (name === 'toad') {
+        const toad = [
+            [1, 0], [2, 0], [3, 0],
+            [0, 1], [1, 1], [2, 1]
+        ];
+        stampPattern(toad, centerX - 2, centerY - 1, 2);
+    }
+
+    if (name === 'beacon') {
+        const beacon = [
+            [0, 0], [1, 0],
+            [0, 1], [1, 1],
+            [2, 2], [3, 2],
+            [2, 3], [3, 3]
+        ];
+        stampPattern(beacon, centerX - 2, centerY - 2, 3);
+    }
+
+    if (name === 'pentadecathlon') {
+        const penta = [
+            [2, 0], [3, 0],
+            [0, 1], [1, 1], [4, 1], [5, 1],
+            [2, 2], [3, 2],
+            [2, 3], [3, 3],
+            [2, 4], [3, 4],
+            [0, 5], [1, 5], [4, 5], [5, 5],
+            [2, 6], [3, 6]
+        ];
+        stampPattern(penta, centerX - 3, centerY - 3, 1);
+    }
+
+    if (name === 'r-pentomino') {
+        const rPento = [
+            [1, 0], [2, 0],
+            [0, 1], [1, 1],
+            [1, 2]
+        ];
+        stampPattern(rPento, centerX - 1, centerY - 1, 2);
+    }
+
     if (name === 'glider-rain') {
         for (let i = 0; i < 16; i++) {
             const x = 2 + i * 3;
@@ -226,11 +326,7 @@ function applyPreset(name) {
                 [2, 1],
                 [0, 2], [1, 2], [2, 2]
             ];
-            pattern.forEach(([dx, dy]) => {
-                if (x + dx < GRID_W && y + dy < GRID_H) {
-                    grid[y + dy][x + dx] = s;
-                }
-            });
+            stampPattern(pattern, x, y, s);
         }
     }
 
