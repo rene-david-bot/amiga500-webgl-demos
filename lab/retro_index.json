@@ -583,6 +583,18 @@
         "canvas",
         "retro"
       ]
+    },
+    {
+      "slug": "modem-handshake-lab",
+      "title": "Modem Handshake Lab",
+      "date": "2026-04-02",
+      "tags": [
+        "audio",
+        "tool",
+        "modem",
+        "webaudio",
+        "retro"
+      ]
     }
   ]
 }

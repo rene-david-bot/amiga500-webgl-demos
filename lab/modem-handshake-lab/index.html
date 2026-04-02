@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Modem Handshake Lab — dial up retro carrier tones and protocol chatter in a neon terminal rack." />
+    <title>Modem Handshake Lab</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="topbar">
+            <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+            <h1>Modem Handshake Lab</h1>
+            <p>Audio tool · Build crunchy dial‑up handshakes and watch the live signal trace.</p>
+        </header>
+
+        <section class="rack controls">
+            <div class="row">
+                <span class="label">Protocol</span>
+                <div class="chips" id="profile-chips">
+                    <button class="chip active" data-profile="bell103">Bell 103 · 300</button>
+                    <button class="chip" data-profile="v22">V.22 · 1200</button>
+                    <button class="chip" data-profile="v32">V.32 · 9600</button>
+                    <button class="chip" data-profile="sportster">Sportster · 14.4k</button>
+                </div>
+            </div>
+
+            <div class="row actions">
+                <button id="carrier-btn">Carrier On</button>
+                <button id="handshake-btn" class="accent">Run Handshake</button>
+                <button id="burst-btn">Random Burst</button>
+            </div>
+
+            <div class="row sliders">
+                <label for="noise">Line Noise</label>
+                <input id="noise" type="range" min="0" max="100" value="24" />
+                <span id="noise-value">24%</span>
+
+                <label for="speed">Chatter Speed</label>
+                <input id="speed" type="range" min="70" max="140" value="100" />
+                <span id="speed-value">100%</span>
+            </div>
+        </section>
+
+        <section class="rack visual">
+            <div class="scope-wrap">
+                <canvas id="scope" width="960" height="280" aria-label="Signal scope"></canvas>
+                <div class="scanlines" aria-hidden="true"></div>
+            </div>
+            <aside class="telemetry">
+                <div class="stat"><span>Status</span><strong id="status">Idle</strong></div>
+                <div class="stat"><span>Profile</span><strong id="profile-name">Bell 103 · 300</strong></div>
+                <div class="stat"><span>Handshakes</span><strong id="count">0</strong></div>
+                <div class="stat"><span>Peak</span><strong id="peak">-∞ dB</strong></div>
+                <div class="log" id="log" aria-live="polite"></div>
+            </aside>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

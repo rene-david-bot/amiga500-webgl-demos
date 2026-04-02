@@ -1,0 +1,210 @@
+:root {
+    --bg: #060912;
+    --panel: #0f1530;
+    --ink: #e1edff;
+    --muted: #91a8d7;
+    --line: #2a3f78;
+    --cyan: #33f2ff;
+    --pink: #ff5fd2;
+    --amber: #ffc65a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+    color: var(--ink);
+    background:
+        radial-gradient(circle at 16% 14%, rgba(51, 242, 255, 0.14), transparent 40%),
+        radial-gradient(circle at 82% 12%, rgba(255, 95, 210, 0.12), transparent 44%),
+        linear-gradient(170deg, #05070f, #060912 45%, #04050b);
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.app {
+    width: min(1020px, 100%);
+    display: grid;
+    gap: 0.95rem;
+}
+
+.rack,
+.topbar {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(15, 21, 48, 0.96), rgba(9, 13, 31, 0.96));
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.topbar { padding: 0.95rem 1rem; }
+.back {
+    color: var(--amber);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+h1 {
+    margin: 0.6rem 0 0.3rem;
+    font-size: clamp(1.35rem, 3vw, 2rem);
+}
+
+.topbar p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.controls {
+    padding: 0.85rem;
+    display: grid;
+    gap: 0.75rem;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-size: 0.76rem;
+    min-width: 66px;
+}
+
+.chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+
+button {
+    border: 1px solid #3a5394;
+    border-radius: 8px;
+    background: #111b40;
+    color: var(--ink);
+    padding: 0.48rem 0.74rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 120ms ease, border-color 120ms ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    border-color: #5f7ed0;
+}
+
+button:active { transform: translateY(1px); }
+
+.chip.active {
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 1px rgba(51, 242, 255, 0.38);
+}
+
+.accent {
+    border-color: #8d4ddc;
+    background: linear-gradient(180deg, #5f39a0, #472977);
+}
+
+.sliders {
+    display: grid;
+    grid-template-columns: auto minmax(110px, 1fr) auto auto minmax(110px, 1fr) auto;
+    align-items: center;
+    gap: 0.45rem 0.7rem;
+}
+
+input[type="range"] { width: 100%; }
+
+.sliders label,
+.sliders span {
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.visual {
+    display: grid;
+    grid-template-columns: 2.1fr 1fr;
+    gap: 0.85rem;
+    padding: 0.85rem;
+}
+
+.scope-wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid #28427e;
+    background: #000;
+}
+
+canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    image-rendering: pixelated;
+}
+
+.scanlines {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.06) 0px,
+        rgba(255, 255, 255, 0.06) 1px,
+        transparent 1px,
+        transparent 4px
+    );
+    mix-blend-mode: soft-light;
+}
+
+.telemetry {
+    border: 1px solid #25407d;
+    border-radius: 10px;
+    padding: 0.75rem;
+    background: rgba(8, 11, 25, 0.82);
+    display: grid;
+    gap: 0.5rem;
+    min-height: 100%;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.7rem;
+    border-bottom: 1px solid rgba(145, 168, 215, 0.15);
+    padding-bottom: 0.32rem;
+}
+
+.stat span {
+    color: var(--muted);
+    font-size: 0.77rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.stat strong {
+    font-size: 0.92rem;
+}
+
+.log {
+    margin-top: 0.2rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #233868;
+    background: #03050d;
+    min-height: 128px;
+    max-height: 180px;
+    overflow: auto;
+    font-family: "JetBrains Mono", "Consolas", monospace;
+    font-size: 0.74rem;
+    line-height: 1.45;
+    color: #86ffef;
+}
+
+@media (max-width: 860px) {
+    .visual { grid-template-columns: 1fr; }
+    .sliders {
+        grid-template-columns: auto minmax(100px, 1fr) auto;
+    }
+}
