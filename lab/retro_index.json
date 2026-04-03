@@ -595,6 +595,18 @@
         "webaudio",
         "retro"
       ]
+    },
+    {
+      "slug": "neon-route-planner-87",
+      "title": "Neon Route Planner '87",
+      "date": "2026-04-03",
+      "tags": [
+        "strategy",
+        "puzzle",
+        "routing",
+        "grid",
+        "retro"
+      ]
     }
   ]
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Neon Route Planner '87 — chart a courier route through blocked city blocks and deliver every parcel before fuel runs out." />
+    <title>Neon Route Planner '87</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="topbar panel">
+            <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+            <h1>Neon Route Planner '87</h1>
+            <p>Strategy puzzle · Plot one clean courier route, clear all drop-offs, and return to depot on budget.</p>
+        </header>
+
+        <section class="panel controls">
+            <button id="new-map">New Grid</button>
+            <button id="run-route" class="accent">Run Route</button>
+            <button id="undo">Undo Step</button>
+            <button id="clear">Clear Route</button>
+
+            <div class="meters">
+                <div><span>Deliveries</span><strong id="deliveries">0 / 0</strong></div>
+                <div><span>Fuel</span><strong id="fuel">0 / 0</strong></div>
+                <div><span>Route</span><strong id="route">0 hops</strong></div>
+                <div><span>Best Score</span><strong id="best">0</strong></div>
+            </div>
+        </section>
+
+        <section class="panel board-wrap">
+            <canvas id="board" width="1000" height="680" aria-label="Courier planning board"></canvas>
+            <div class="scanlines" aria-hidden="true"></div>
+            <aside class="legend">
+                <div><span class="swatch depot"></span>Depot</div>
+                <div><span class="swatch delivery"></span>Delivery node</div>
+                <div><span class="swatch block"></span>Roadblock</div>
+                <div><span class="swatch route"></span>Your route</div>
+                <p id="status">Click neighboring cells to draft the route from depot.</p>
+            </aside>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
