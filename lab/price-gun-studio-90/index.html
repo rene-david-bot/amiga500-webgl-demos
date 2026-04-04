@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Price Gun Studio '90 — craft chunky retro shelf stickers and export your neon label strip as a PNG." />
+    <title>Price Gun Studio '90</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="panel topbar">
+            <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+            <h1>Price Gun Studio '90</h1>
+            <p>Retail tool · Build chunky shelf stickers and print your own retro markdown strip.</p>
+        </header>
+
+        <section class="panel controls">
+            <div class="field">
+                <label for="item-name">Item</label>
+                <input id="item-name" type="text" maxlength="26" placeholder="Neon Cereal" />
+            </div>
+            <div class="field">
+                <label for="item-price">Price</label>
+                <input id="item-price" type="number" min="0.05" max="999.99" step="0.05" placeholder="3.95" />
+            </div>
+            <div class="field">
+                <label for="accent">Tape color</label>
+                <select id="accent">
+                    <option value="sunset">Sunset Orange</option>
+                    <option value="mint">Mint Green</option>
+                    <option value="magenta">Magenta Burst</option>
+                    <option value="ice">Ice Cyan</option>
+                </select>
+            </div>
+            <div class="buttons">
+                <button id="add" class="accent">Stamp Label</button>
+                <button id="sample">Surprise Me</button>
+                <button id="clear">Clear Strip</button>
+                <button id="export">Export PNG</button>
+            </div>
+            <p id="status" class="status">Stamp your first label to start the strip.</p>
+        </section>
+
+        <section class="panel stage">
+            <div class="stage-head">
+                <h2>Sticker Strip</h2>
+                <p><strong id="count">0</strong> labels · shelf-ready mode</p>
+            </div>
+            <canvas id="strip" width="920" height="520" aria-label="Retro price label preview"></canvas>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
