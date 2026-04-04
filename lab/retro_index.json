@@ -643,6 +643,18 @@
         "audio",
         "retro"
       ]
+    },
+    {
+      "slug": "mall-atrium-rally-90",
+      "title": "Mall Atrium Rally '90",
+      "date": "2026-04-04",
+      "tags": [
+        "racer",
+        "arcade",
+        "delivery",
+        "canvas",
+        "retro"
+      ]
     }
   ]
 }

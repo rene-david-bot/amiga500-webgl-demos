@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Mall Atrium Rally '90 — weave through a neon shopping atrium, dodge obstacles, and deliver rush-order cassettes before time runs out." />
+    <title>Mall Atrium Rally '90</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="panel topbar">
+            <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+            <h1>Mall Atrium Rally '90</h1>
+            <p>Arcade racer · Rush cassettes through a packed neon mall before closing time.</p>
+        </header>
+
+        <section class="panel hud" aria-label="Race status">
+            <div><span>Time</span><strong id="time">45.0s</strong></div>
+            <div><span>Distance</span><strong id="distance">0 m</strong></div>
+            <div><span>Speed</span><strong id="speed">0 km/h</strong></div>
+            <div><span>Deliveries</span><strong id="deliveries">0</strong></div>
+            <div><span>Crashes</span><strong id="crashes">0</strong></div>
+            <div><span>Best Run</span><strong id="best">0 m</strong></div>
+        </section>
+
+        <section class="panel race-wrap">
+            <canvas id="track" width="760" height="420" aria-label="Mall race track"></canvas>
+            <p id="status" class="status">Press Start Run, then use ← → / A D (or tap controls).</p>
+            <div class="controls">
+                <button id="left" aria-label="Move left">◀ Left</button>
+                <button id="start" class="accent">Start Run</button>
+                <button id="right" aria-label="Move right">Right ▶</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
