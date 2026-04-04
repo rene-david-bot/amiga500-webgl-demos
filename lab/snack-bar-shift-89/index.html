@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Snack Bar Shift '89 — serve cinema snack combos under pressure by matching exact receipt totals before the line explodes." />
+    <title>Snack Bar Shift '89</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="panel topbar">
+            <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+            <h1>Snack Bar Shift '89</h1>
+            <p>Counter puzzle · Build each tray to match the exact receipt before impatient moviegoers walk out.</p>
+        </header>
+
+        <section class="panel hud">
+            <div><span>Customer</span><strong id="customer-count">1 / 8</strong></div>
+            <div><span>Lives</span><strong id="lives">3</strong></div>
+            <div><span>Score</span><strong id="score">0</strong></div>
+            <div><span>Combo</span><strong id="combo">x0</strong></div>
+            <div><span>Target</span><strong id="target">€0.00</strong></div>
+            <div><span>Tray Total</span><strong id="subtotal">€0.00</strong></div>
+        </section>
+
+        <section class="panel rush-panel">
+            <div class="rush-head">
+                <div>
+                    <h2 id="customer-name">Seat C12</h2>
+                    <p id="hint">Needs 0 snacks</p>
+                </div>
+                <div class="timer-wrap" aria-label="Patience timer">
+                    <div id="timer-bar"></div>
+                </div>
+            </div>
+            <p id="status" class="status">Tap snacks to build a tray, then hit Serve Tray.</p>
+        </section>
+
+        <section class="panel counter">
+            <h2>Snack Counter</h2>
+            <div class="items" id="items"></div>
+            <div class="actions">
+                <button id="undo">Undo</button>
+                <button id="clear">Clear Tray</button>
+                <button id="serve" class="accent">Serve Tray</button>
+                <button id="new-game">New Shift</button>
+            </div>
+        </section>
+
+        <section class="panel tray">
+            <h2>Current Tray</h2>
+            <ul id="tray-list"></ul>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
