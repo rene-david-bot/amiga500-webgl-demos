@@ -607,6 +607,18 @@
         "grid",
         "retro"
       ]
+    },
+    {
+      "slug": "payphone-coin-drop",
+      "title": "Payphone Coin Drop '88",
+      "date": "2026-04-04",
+      "tags": [
+        "arcade",
+        "physics",
+        "coin-op",
+        "audio",
+        "retro"
+      ]
     }
   ]
 }

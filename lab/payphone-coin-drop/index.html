@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Payphone Coin Drop '88 — bounce coins through a neon pegboard and hit exact call fares before the queue explodes." />
+    <title>Payphone Coin Drop '88</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="panel topbar">
+            <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+            <h1>Payphone Coin Drop '88</h1>
+            <p>Arcade physics · Drop coins through the pegboard and match each caller's fare before they hang up.</p>
+        </header>
+
+        <section class="panel controls">
+            <button id="new-shift">New Shift</button>
+            <button id="drop" class="accent">Drop Coin</button>
+            <button id="next-call">Skip Caller</button>
+
+            <div class="coin-picker" role="group" aria-label="Coin value">
+                <button class="coin active" data-value="10">10¢</button>
+                <button class="coin" data-value="25">25¢</button>
+                <button class="coin" data-value="50">50¢</button>
+            </div>
+
+            <div class="meters">
+                <div><span>Caller</span><strong id="caller">1 / 6</strong></div>
+                <div><span>Target Fare</span><strong id="target">0¢</strong></div>
+                <div><span>Your Total</span><strong id="total">0¢</strong></div>
+                <div><span>Drops Left</span><strong id="drops">0</strong></div>
+                <div><span>Saved Calls</span><strong id="saved">0</strong></div>
+                <div><span>Score</span><strong id="score">0</strong></div>
+            </div>
+        </section>
+
+        <section class="panel board-wrap">
+            <canvas id="board" width="920" height="680" aria-label="Payphone pegboard"></canvas>
+            <div class="scanlines" aria-hidden="true"></div>
+            <aside class="legend">
+                <h2>Bucket Bonuses</h2>
+                <ul id="bonus-list"></ul>
+                <p id="status">Pick a coin, set drop position with mouse/touch, then drop.</p>
+            </aside>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
