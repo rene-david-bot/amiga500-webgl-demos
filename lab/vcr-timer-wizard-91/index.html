@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="VCR Timer Wizard '91 — schedule the perfect tape night by programming your recorder around channel clashes." />
+    <title>VCR Timer Wizard '91</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="panel topbar">
+            <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+            <h1>VCR Timer Wizard '91</h1>
+            <p>Strategy puzzle · Program your VCR to capture the highest-hype TV lineup before midnight.</p>
+        </header>
+
+        <section class="panel hud">
+            <div><span>Night</span><strong id="night">1 / 6</strong></div>
+            <div><span>Lives</span><strong id="lives">3</strong></div>
+            <div><span>Total Score</span><strong id="score">0</strong></div>
+            <div><span>Streak</span><strong id="streak">x0</strong></div>
+            <div><span>Tape Capacity</span><strong id="capacity">0 min</strong></div>
+            <div><span>Best Possible</span><strong id="best">0 pts</strong></div>
+        </section>
+
+        <section class="panel lineup-panel">
+            <div class="lineup-head">
+                <div>
+                    <h2>Tonight's Broadcast Grid</h2>
+                    <p id="lineup-hint">Select shows that don't overlap and stay under tape capacity.</p>
+                </div>
+                <div class="mini-clock" id="clock">18:00</div>
+            </div>
+            <div id="shows" class="shows"></div>
+        </section>
+
+        <section class="panel planner">
+            <h2>Program Timer Deck</h2>
+            <div class="summary">
+                <div><span>Selected Shows</span><strong id="selected-count">0</strong></div>
+                <div><span>Tape Usage</span><strong id="selected-minutes">0 min</strong></div>
+                <div><span>Planned Hype</span><strong id="selected-score">0 pts</strong></div>
+            </div>
+            <p id="status" class="status">Choose your lineup, then hit Record Night.</p>
+            <div class="actions">
+                <button id="clear">Clear Selections</button>
+                <button id="reshuffle">Reshuffle Lineup</button>
+                <button id="record" class="accent">Record Night</button>
+                <button id="new-game">New Week</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
