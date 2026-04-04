@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neon Crossing Guard '93</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="back" href="../../index.html">← Retro Corner</a>
+      <h1>Neon Crossing Guard '93</h1>
+      <p>Keep downtown moving. Toggle the signal before the queue explodes.</p>
+    </header>
+
+    <section class="hud">
+      <div class="panel"><span>Score</span><strong id="score">0</strong></div>
+      <div class="panel"><span>Best</span><strong id="best">0</strong></div>
+      <div class="panel"><span>Flow</span><strong id="phase">Cars GO</strong></div>
+      <div class="panel wide">
+        <span>Queue Pressure</span>
+        <div class="bar"><div id="pressure-fill"></div></div>
+      </div>
+    </section>
+
+    <section class="stage">
+      <canvas id="game" width="900" height="520" aria-label="Neon crossing simulation"></canvas>
+    </section>
+
+    <section class="controls">
+      <button id="start-btn">Start Shift</button>
+      <button id="pause-btn">Pause</button>
+      <button id="toggle-btn">Toggle Signal (Space)</button>
+      <button id="reset-btn">Reset (R)</button>
+    </section>
+
+    <section class="tips">
+      <ul>
+        <li>Cars and pedestrians share one dangerous intersection.</li>
+        <li>Switch too late and queues spike. Switch too early and collisions happen.</li>
+        <li>Every safe crossing scores points. Survive as long as possible.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
