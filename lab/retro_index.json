@@ -668,6 +668,18 @@
         "retro",
         "audio"
       ]
+    },
+    {
+      "slug": "neon-mixdown-match-92",
+      "title": "Neon Mixdown Match '92",
+      "date": "2026-04-04",
+      "tags": [
+        "audio",
+        "puzzle",
+        "eq",
+        "webaudio",
+        "retro"
+      ]
     }
   ]
 }
