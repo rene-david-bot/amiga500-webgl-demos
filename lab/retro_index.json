@@ -619,6 +619,18 @@
         "audio",
         "retro"
       ]
+    },
+    {
+      "slug": "crt-photo-booth-86",
+      "title": "CRT Photo Booth '86",
+      "date": "2026-04-04",
+      "tags": [
+        "art",
+        "tool",
+        "photo",
+        "dither",
+        "retro"
+      ]
     }
   ]
 }

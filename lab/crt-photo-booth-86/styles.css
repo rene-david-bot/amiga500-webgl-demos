@@ -1,0 +1,210 @@
+:root {
+    --bg: #04070f;
+    --panel: #0d1730;
+    --line: #2e4a85;
+    --ink: #eaf2ff;
+    --muted: #9eb2de;
+    --cyan: #3df4ff;
+    --pink: #ff61d8;
+    --amber: #ffc86f;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+    color: var(--ink);
+    background:
+        radial-gradient(circle at 20% 8%, rgba(61, 244, 255, 0.14), transparent 42%),
+        radial-gradient(circle at 82% 14%, rgba(255, 97, 216, 0.13), transparent 42%),
+        linear-gradient(170deg, #04060c, #04070f 45%, #020409);
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.app {
+    width: min(1060px, 100%);
+    display: grid;
+    gap: 0.95rem;
+}
+
+.panel {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(13, 23, 48, 0.96), rgba(7, 12, 26, 0.96));
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+}
+
+.topbar {
+    padding: 1rem;
+}
+
+.back {
+    color: var(--amber);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+h1 {
+    margin: 0.62rem 0 0.35rem;
+    font-size: clamp(1.35rem, 3vw, 2rem);
+}
+
+.topbar p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.controls {
+    padding: 0.82rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(140px, 1fr));
+    gap: 0.58rem;
+    align-items: end;
+}
+
+.upload {
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+}
+
+.upload input[type="file"] {
+    width: 100%;
+    font-size: 0.78rem;
+    color: var(--ink);
+    border: 1px solid #3f5ea5;
+    border-radius: 9px;
+    background: #11214b;
+    padding: 0.35rem;
+}
+
+.presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.42rem;
+}
+
+label {
+    display: grid;
+    gap: 0.26rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: #73a2ff;
+}
+
+button {
+    border: 1px solid #3a58a0;
+    border-radius: 8px;
+    background: #12224c;
+    color: var(--ink);
+    padding: 0.5rem 0.7rem;
+    font-size: 0.84rem;
+    font-weight: 650;
+    cursor: pointer;
+    transition: transform 120ms ease, border-color 120ms ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    border-color: #6a8ae0;
+}
+
+button:active { transform: translateY(1px); }
+
+.preset.active {
+    border-color: var(--amber);
+    background: linear-gradient(180deg, #795e26, #5f4516);
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+button.accent {
+    border-color: #7a5cf1;
+    background: linear-gradient(180deg, #6e50d6, #4f369e);
+}
+
+.toggles {
+    display: flex;
+    gap: 0.8rem;
+    grid-column: 1 / -1;
+    font-size: 0.82rem;
+}
+
+.toggles label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--ink);
+    font-size: 0.84rem;
+}
+
+.stage {
+    padding: 0.9rem;
+    display: grid;
+    justify-items: center;
+    gap: 0.65rem;
+    position: relative;
+}
+
+canvas {
+    width: min(540px, 100%);
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    border: 1px solid #35589f;
+    image-rendering: pixelated;
+    background: #060910;
+}
+
+.scan-overlay {
+    position: absolute;
+    width: min(540px, calc(100% - 1.8rem));
+    aspect-ratio: 3 / 4;
+    top: 0.9rem;
+    border-radius: 10px;
+    pointer-events: none;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.08) 0, rgba(255,255,255,0.08) 1px, transparent 1px, transparent 4px);
+    mix-blend-mode: soft-light;
+    opacity: 0.95;
+}
+
+#status {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.86rem;
+    text-align: center;
+}
+
+@media (max-width: 860px) {
+    .controls {
+        grid-template-columns: repeat(2, minmax(130px, 1fr));
+    }
+
+    .actions,
+    .presets {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 560px) {
+    .controls {
+        grid-template-columns: 1fr;
+    }
+
+    .toggles {
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+}

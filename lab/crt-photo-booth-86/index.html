@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="CRT Photo Booth '86 — turn any picture into a grainy mall-kiosk print with dither, scanlines, and instant export." />
+    <title>CRT Photo Booth '86</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="panel topbar">
+            <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+            <h1>CRT Photo Booth '86</h1>
+            <p>Art tool · Feed in a photo, pick a kiosk palette, and print a crunchy retro portrait strip.</p>
+        </header>
+
+        <section class="panel controls">
+            <label class="upload">
+                <span>Load Photo</span>
+                <input id="upload" type="file" accept="image/*" />
+            </label>
+
+            <div class="presets" role="group" aria-label="Palette preset">
+                <button class="preset active" data-preset="kiosk">Mall Kiosk</button>
+                <button class="preset" data-preset="amber">Amber Monitor</button>
+                <button class="preset" data-preset="neon">Neon Flyer</button>
+            </div>
+
+            <label>Dither
+                <input id="dither" type="range" min="0" max="100" value="56" />
+            </label>
+            <label>Contrast
+                <input id="contrast" type="range" min="70" max="170" value="114" />
+            </label>
+            <label>Brightness
+                <input id="brightness" type="range" min="-45" max="45" value="4" />
+            </label>
+            <label>Noise
+                <input id="noise" type="range" min="0" max="30" value="8" />
+            </label>
+
+            <div class="toggles">
+                <label><input id="scanlines" type="checkbox" checked /> Scanlines</label>
+                <label><input id="stamp" type="checkbox" checked /> Date stamp</label>
+            </div>
+
+            <div class="actions">
+                <button id="shuffle">Surprise me</button>
+                <button id="save" class="accent">Save PNG</button>
+            </div>
+        </section>
+
+        <section class="panel stage">
+            <canvas id="screen" width="360" height="480" aria-label="Retro CRT photo output"></canvas>
+            <div class="scan-overlay" aria-hidden="true"></div>
+            <p id="status">No upload yet — using demo portrait. Try presets or tap “Surprise me”.</p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
