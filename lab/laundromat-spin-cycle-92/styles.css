@@ -1,0 +1,238 @@
+:root {
+    --bg: #05050a;
+    --panel: #121a34;
+    --line: #3f5f9f;
+    --text: #edf4ff;
+    --muted: #9fb1dc;
+    --good: #7dffaf;
+    --warn: #ffd67c;
+    --bad: #ff8eaf;
+    --cyan: #63ebff;
+    --magenta: #ff72d8;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 12% 10%, rgba(99, 235, 255, 0.14), transparent 40%),
+        radial-gradient(circle at 84% 12%, rgba(255, 114, 216, 0.15), transparent 42%),
+        linear-gradient(160deg, #020208, #080d20 45%, #05070f 100%);
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.app {
+    width: min(980px, 100%);
+    display: grid;
+    gap: 0.82rem;
+}
+
+.panel {
+    background: linear-gradient(180deg, rgba(18, 26, 52, 0.95), rgba(9, 13, 27, 0.96));
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.34);
+}
+
+.topbar {
+    padding: 0.9rem 1rem;
+}
+
+.back {
+    color: var(--warn);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+h1 {
+    margin: 0.62rem 0 0.34rem;
+    font-size: clamp(1.32rem, 3.4vw, 2rem);
+}
+
+.topbar p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.status-panel {
+    padding: 0.72rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(90px, 1fr)) auto auto;
+    gap: 0.56rem;
+    align-items: center;
+}
+
+.stat {
+    padding: 0.5rem 0.54rem;
+    border: 1px solid #31497c;
+    border-radius: 10px;
+    background: #101c3d;
+    display: grid;
+    gap: 0.14rem;
+}
+
+.stat span {
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.stat strong {
+    font-size: 1.05rem;
+}
+
+button {
+    border: 1px solid #496cb2;
+    border-radius: 10px;
+    background: #172b59;
+    color: var(--text);
+    font: inherit;
+    font-weight: 650;
+    cursor: pointer;
+    padding: 0.58rem 0.72rem;
+    transition: transform 120ms ease, border-color 120ms ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    border-color: #83b4ff;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+    transform: none;
+}
+
+button.primary {
+    background: linear-gradient(180deg, #8a49df, #5c369f);
+    border-color: #bb83ff;
+}
+
+.ticket {
+    padding: 0.84rem 0.9rem;
+}
+
+.ticket h2 {
+    margin: 0;
+    font-size: 1.06rem;
+}
+
+.ticket p {
+    margin: 0.48rem 0 0;
+    color: var(--muted);
+}
+
+.ticket .tip {
+    margin-top: 0.56rem;
+    color: #cce8ff;
+    font-size: 0.86rem;
+}
+
+.gauges {
+    padding: 0.76rem;
+    display: grid;
+    gap: 0.62rem;
+}
+
+.gauge {
+    border: 1px solid #2f487b;
+    border-radius: 12px;
+    padding: 0.66rem;
+    background: rgba(16, 27, 58, 0.85);
+    display: grid;
+    gap: 0.42rem;
+}
+
+.gauge-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.gauge-title {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.gauge-meta {
+    margin: 0;
+    font-size: 0.78rem;
+    color: var(--muted);
+}
+
+.track {
+    position: relative;
+    height: 24px;
+    border: 1px solid #4064a8;
+    border-radius: 99px;
+    overflow: hidden;
+    background:
+        linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px) 0 0 / 20px 20px,
+        linear-gradient(180deg, #152b5e, #101f44);
+}
+
+.target {
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    border-radius: 99px;
+    background: linear-gradient(180deg, rgba(99, 235, 255, 0.52), rgba(99, 235, 255, 0.2));
+    box-shadow: 0 0 12px rgba(99, 235, 255, 0.5);
+}
+
+.marker {
+    position: absolute;
+    top: -2px;
+    width: 10px;
+    height: 28px;
+    border-radius: 5px;
+    background: linear-gradient(180deg, #fff6da, #ffd268);
+    box-shadow: 0 0 10px rgba(255, 210, 104, 0.5);
+}
+
+.gauge.locked .marker {
+    background: linear-gradient(180deg, #98ffcf, #5fd298);
+    box-shadow: 0 0 11px rgba(95, 210, 152, 0.52);
+}
+
+.gauge button {
+    justify-self: end;
+    min-width: 124px;
+}
+
+.result {
+    padding: 0.82rem 0.9rem;
+}
+
+.result p {
+    margin: 0;
+    min-height: 1.4rem;
+    color: var(--muted);
+}
+
+.result p.good { color: var(--good); }
+.result p.warn { color: var(--warn); }
+.result p.bad { color: var(--bad); }
+
+@media (max-width: 760px) {
+    .status-panel {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .status-panel button {
+        grid-column: span 3;
+    }
+}

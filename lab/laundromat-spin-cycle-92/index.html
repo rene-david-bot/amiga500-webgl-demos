@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Laundromat Spin Cycle '92 — lock three timing gauges and clean rush-hour loads before customers lose patience." />
+    <title>Laundromat Spin Cycle '92</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="panel topbar">
+            <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+            <h1>Laundromat Spin Cycle '92</h1>
+            <p>Arcade timing · Hit wash windows under pressure and keep your neon laundromat streak alive.</p>
+        </header>
+
+        <section class="panel status-panel">
+            <div class="stat"><span>Tickets</span><strong id="tickets">0</strong></div>
+            <div class="stat"><span>Score</span><strong id="score">0</strong></div>
+            <div class="stat"><span>Streak</span><strong id="streak">0</strong></div>
+            <button id="new-ticket" class="primary">New Ticket</button>
+            <button id="reset">Reset Shift</button>
+        </section>
+
+        <section class="panel ticket">
+            <h2 id="ticket-title">Night shift waiting...</h2>
+            <p id="ticket-sub">Press <strong>New Ticket</strong> to start your first wash job.</p>
+            <p class="tip">Lock all three gauges while the marker is inside each glowing target window.</p>
+        </section>
+
+        <section class="panel gauges" id="gauges"></section>
+
+        <section class="panel result">
+            <p id="result-text">No load processed yet.</p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

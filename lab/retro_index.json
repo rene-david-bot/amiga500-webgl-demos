@@ -705,6 +705,19 @@
         "audio",
         "retro"
       ]
+    },
+    {
+      "slug": "laundromat-spin-cycle-92",
+      "title": "Laundromat Spin Cycle '92",
+      "date": "2026-04-05",
+      "tags": [
+        "arcade",
+        "timing",
+        "simulation",
+        "laundromat",
+        "retro",
+        "audio"
+      ]
     }
   ]
 }
