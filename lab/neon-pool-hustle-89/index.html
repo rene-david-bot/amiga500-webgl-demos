@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Neon Pool Hustle '89 — line up precision bank shots, pocket every striped ball, and run the midnight table against the clock." />
+    <title>Neon Pool Hustle '89</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="panel topbar">
+            <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+            <h1>Neon Pool Hustle '89</h1>
+            <p>Arcade sports · Midnight billiard hall showdown. Charge your shot, bank off the rails, and clear each rack before closing time.</p>
+        </header>
+
+        <section class="panel stats" aria-live="polite">
+            <div><span class="k">Score</span><strong id="score">0</strong></div>
+            <div><span class="k">Rack</span><strong id="rack">1</strong></div>
+            <div><span class="k">Balls Left</span><strong id="balls-left">10</strong></div>
+            <div><span class="k">Streak</span><strong id="streak">0</strong></div>
+            <div><span class="k">Clock</span><strong id="clock">90.0s</strong></div>
+            <div><span class="k">Shots</span><strong id="shots">0</strong></div>
+        </section>
+
+        <section class="panel stage">
+            <canvas id="table" width="960" height="540" aria-label="Retro neon billiards table"></canvas>
+            <p class="hint">Controls: <b>Point</b> to aim, <b>hold + release</b> to set shot power. Clear all stripes to advance the rack.</p>
+        </section>
+
+        <section class="panel controls">
+            <div class="buttons">
+                <button id="new-session" class="primary">New Session</button>
+                <button id="rerack">Re-Rack</button>
+                <button id="audio-toggle">Audio: Off</button>
+            </div>
+            <p id="message" class="message">Smoke machine on. Sink clean shots and keep your streak alive.</p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
