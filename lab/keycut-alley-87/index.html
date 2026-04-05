@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Keycut Alley '87 — match neon key tooth patterns under pressure in a retro locksmith puzzle shift." />
+    <title>Keycut Alley '87</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="panel topbar">
+            <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+            <h1>Keycut Alley '87</h1>
+            <p>Puzzle arcade · Midnight locksmith bench. Shape each key exactly before the customer walks.</p>
+        </header>
+
+        <section class="panel status-strip">
+            <div><span class="k">Round</span><strong id="round">1</strong></div>
+            <div><span class="k">Score</span><strong id="score">0</strong></div>
+            <div><span class="k">Streak</span><strong id="streak">0</strong></div>
+            <div><span class="k">Moves</span><strong id="moves">0 / 20</strong></div>
+            <div><span class="k">Timer</span><strong id="timer">30.0s</strong></div>
+        </section>
+
+        <section class="panel stage">
+            <canvas id="bench" width="980" height="420" aria-label="Key shaping preview"></canvas>
+            <p class="hint">Target key is on top. Your cut is on bottom. Use tooth controls to match the exact profile.</p>
+        </section>
+
+        <section class="panel controls">
+            <div class="tooth-grid" id="tooth-grid"></div>
+            <div class="actions">
+                <button id="compare" class="primary">Cut & Compare</button>
+                <button id="new-shift">New Shift</button>
+                <button id="audio-toggle">Audio: Off</button>
+            </div>
+            <p id="message" class="message">Workshop online. Match all 8 teeth before the timer runs out.</p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
