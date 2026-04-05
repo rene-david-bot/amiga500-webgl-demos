@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Forklift Aisle Rush '91 — weave a warehouse forklift through neon aisles, dodge pallet stacks, and hit delivery streaks." />
+    <title>Forklift Aisle Rush '91</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="panel topbar">
+            <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+            <h1>Forklift Aisle Rush '91</h1>
+            <p>Arcade racer · Midnight warehouse lane run. Dodge pallet stacks, grab manifest crates, and keep your delivery streak alive.</p>
+        </header>
+
+        <section class="panel stats" aria-live="polite">
+            <div><span class="k">Score</span><strong id="score">0</strong></div>
+            <div><span class="k">Deliveries</span><strong id="deliveries">0</strong></div>
+            <div><span class="k">Streak</span><strong id="streak">0</strong></div>
+            <div><span class="k">Hull</span><strong id="hull">100%</strong></div>
+            <div><span class="k">Clock</span><strong id="clock">45.0s</strong></div>
+            <div><span class="k">Speed</span><strong id="speed">3</strong></div>
+        </section>
+
+        <section class="panel stage">
+            <canvas id="track" width="960" height="540" aria-label="Forklift aisle run"></canvas>
+            <p class="hint">Controls: <b>← / →</b> change lane, <b>↑ / ↓</b> speed, <b>Space</b> turbo burst. Survive the shift and stack points.</p>
+        </section>
+
+        <section class="panel controls">
+            <div class="buttons">
+                <button id="new-run" class="primary">New Run</button>
+                <button id="audio-toggle">Audio: Off</button>
+            </div>
+            <p id="message" class="message">Dock lights on. Start your shift and keep that forklift clean.</p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
