@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Public Access Lower Third '94 — design retro TV lower-third overlays and ticker bars for late-night cable vibes." />
+    <title>Public Access Lower Third '94</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="panel topbar">
+            <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+            <h1>Public Access Lower Third '94</h1>
+            <p>Broadcast tool · Build crunchy cable-access title bars, ticker crawls, and export a freeze-frame.</p>
+        </header>
+
+        <section class="panel controls">
+            <label>
+                Show title
+                <input id="show-title" type="text" maxlength="34" value="MIDNIGHT BYTE REPORT" />
+            </label>
+            <label>
+                Host / segment
+                <input id="host-name" type="text" maxlength="34" value="HOST: DAVE // LIVE IN DRESDEN" />
+            </label>
+            <label>
+                Ticker crawl
+                <input id="ticker-text" type="text" maxlength="180" value="BREAKING: ARCADE HIGHSCORE BOARD OVERHEATED • CITY BUSKERS REMIXED CHIPTUNE ANTHEMS • TAPE STOCK UP 4%" />
+            </label>
+
+            <div class="row">
+                <label>
+                    Theme
+                    <select id="theme-select"></select>
+                </label>
+                <label>
+                    Speed
+                    <input id="speed" type="range" min="20" max="140" value="72" />
+                </label>
+                <label>
+                    Noise
+                    <input id="noise" type="range" min="0" max="100" value="42" />
+                </label>
+            </div>
+
+            <div class="actions">
+                <button id="randomize" class="primary">Random Segment</button>
+                <button id="stinger">Play Stinger</button>
+                <button id="freeze">Export PNG</button>
+            </div>
+        </section>
+
+        <section class="panel output">
+            <div class="frame" id="frame" aria-label="TV preview frame">
+                <div class="noise" id="noise-layer"></div>
+                <div class="safe-area">
+                    <div class="title-stack">
+                        <p id="title-line" class="title-line">MIDNIGHT BYTE REPORT</p>
+                        <p id="host-line" class="host-line">HOST: DAVE // LIVE IN DRESDEN</p>
+                    </div>
+                    <div class="ticker-wrap">
+                        <div id="ticker-track" class="ticker-track">BREAKING: ARCADE HIGHSCORE BOARD OVERHEATED</div>
+                    </div>
+                </div>
+                <div class="scanlines"></div>
+                <div class="timestamp" id="timestamp">1994-07-16 23:48 CET</div>
+                <div class="record-dot" id="record-dot">● LIVE</div>
+            </div>
+            <p id="status" class="status">Ready. Tune your lower-third and hit Export PNG.</p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
