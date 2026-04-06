@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Chord Coach Terminal '89 — train your ears on crunchy synth triads and hold a streak before the session clock runs out." />
+    <title>Chord Coach Terminal '89</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="panel topbar">
+            <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+            <h1>Chord Coach Terminal '89</h1>
+            <p>Audio training puzzle · Decode neon triads and keep your streak alive under the studio clock.</p>
+        </header>
+
+        <section class="panel stats" aria-live="polite">
+            <div><span class="k">Score</span><strong id="score">0</strong></div>
+            <div><span class="k">Round</span><strong id="round">1</strong></div>
+            <div><span class="k">Streak</span><strong id="streak">0</strong></div>
+            <div><span class="k">Accuracy</span><strong id="accuracy">0%</strong></div>
+            <div><span class="k">Clock</span><strong id="clock">75.0s</strong></div>
+            <div><span class="k">Root</span><strong id="root">--</strong></div>
+        </section>
+
+        <section class="panel stage">
+            <div class="stage-head">
+                <div>
+                    <div class="label">Current challenge</div>
+                    <h2 id="challenge-title">Press Start Session</h2>
+                </div>
+                <button id="replay" class="ghost" disabled>Replay Chord</button>
+            </div>
+
+            <div class="keyboard" id="keyboard" aria-hidden="true"></div>
+
+            <div class="answers" id="answers">
+                <button class="answer" data-quality="major">Major</button>
+                <button class="answer" data-quality="minor">Minor</button>
+                <button class="answer" data-quality="sus4">Sus4</button>
+                <button class="answer" data-quality="diminished">Diminished</button>
+            </div>
+
+            <p class="hint">How to play: listen to the triad, use the shown root note as anchor, then identify the chord quality before time runs out.</p>
+        </section>
+
+        <section class="panel controls">
+            <div class="buttons">
+                <button id="start" class="primary">Start Session</button>
+                <button id="audio-toggle">Audio: Off</button>
+            </div>
+            <p id="message" class="message">Studio warm-up loaded. Hit Start Session to receive your first triad challenge.</p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

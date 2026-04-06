@@ -770,6 +770,19 @@
         "retro",
         "audio"
       ]
+    },
+    {
+      "slug": "chord-coach-terminal-89",
+      "title": "Chord Coach Terminal '89",
+      "date": "2026-04-06",
+      "tags": [
+        "audio",
+        "puzzle",
+        "training",
+        "music-theory",
+        "webaudio",
+        "retro"
+      ]
     }
   ]
 }
