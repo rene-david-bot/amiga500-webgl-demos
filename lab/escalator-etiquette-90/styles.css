@@ -1,0 +1,332 @@
+:root {
+    --bg: #05060f;
+    --panel: #111936;
+    --line: #4d67a8;
+    --text: #eef3ff;
+    --muted: #9cb0df;
+    --cyan: #62ecff;
+    --magenta: #ff6bcf;
+    --amber: #ffd982;
+    --good: #95ffc3;
+    --bad: #ff8ea8;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+    background:
+        radial-gradient(circle at 14% 12%, rgba(98, 236, 255, 0.22), transparent 42%),
+        radial-gradient(circle at 84% 8%, rgba(255, 107, 207, 0.22), transparent 46%),
+        linear-gradient(165deg, #05060e 0%, #0b1431 52%, #06060d 100%);
+}
+
+.app {
+    width: min(980px, 100%);
+    display: grid;
+    gap: 0.85rem;
+}
+
+.panel {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(20, 32, 69, 0.97), rgba(9, 14, 28, 0.97));
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+.topbar {
+    padding: 0.95rem 1rem;
+}
+
+.back {
+    color: var(--amber);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+h1 {
+    margin: 0.5rem 0 0.3rem;
+    font-size: clamp(1.45rem, 3.3vw, 2.1rem);
+}
+
+.topbar p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.stats {
+    padding: 0.75rem;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.48rem;
+}
+
+.stats > div {
+    border: 1px solid #556db0;
+    border-radius: 10px;
+    background: rgba(16, 28, 62, 0.78);
+    padding: 0.42rem 0.54rem;
+}
+
+.k {
+    display: block;
+    text-transform: uppercase;
+    font-size: 0.69rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+}
+
+.stats strong {
+    font-size: 1.04rem;
+}
+
+.stage {
+    padding: 0.8rem;
+    display: grid;
+    gap: 0.72rem;
+}
+
+.stage-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.8rem;
+}
+
+.label {
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.7rem;
+}
+
+h2 {
+    margin: 0.2rem 0 0;
+    font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+}
+
+.legend {
+    display: grid;
+    gap: 0.3rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+}
+
+.chip {
+    display: inline-grid;
+    place-items: center;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 6px;
+    font-style: normal;
+    font-weight: 800;
+    margin-right: 0.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.walk {
+    background: linear-gradient(180deg, #42f2ff, #1a96df);
+    color: #041426;
+}
+
+.stand {
+    background: linear-gradient(180deg, #ffc36d, #d67b21);
+    color: #231204;
+}
+
+.board {
+    position: relative;
+    height: 460px;
+    border: 1px solid #4f69b0;
+    border-radius: 12px;
+    overflow: hidden;
+    background:
+        linear-gradient(90deg, rgba(45, 71, 138, 0.65) 0 49%, rgba(14, 22, 46, 0.92) 49% 51%, rgba(36, 60, 123, 0.7) 51% 100%),
+        linear-gradient(180deg, #0c1431 0%, #121f47 100%);
+}
+
+.board::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        180deg,
+        rgba(198, 214, 255, 0.17) 0 8px,
+        rgba(83, 112, 186, 0.1) 8px 16px,
+        rgba(17, 27, 58, 0.06) 16px 24px
+    );
+    animation: tread 0.7s linear infinite;
+    pointer-events: none;
+}
+
+.board::after {
+    content: "LEFT WALK LANE                                RIGHT STAND LANE";
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 1rem);
+    color: rgba(217, 231, 255, 0.75);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-align: center;
+    z-index: 2;
+    white-space: pre;
+    pointer-events: none;
+}
+
+@keyframes tread {
+    from { transform: translateY(0); }
+    to { transform: translateY(24px); }
+}
+
+.rider {
+    position: absolute;
+    width: 46%;
+    left: 25%;
+    transform: translateX(-50%);
+    border: 1px solid #6684cf;
+    border-radius: 9px;
+    background: linear-gradient(180deg, rgba(35, 59, 122, 0.95), rgba(20, 35, 74, 0.96));
+    padding: 0.33rem 0.42rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.45rem;
+    z-index: 3;
+    cursor: pointer;
+    user-select: none;
+}
+
+.rider[data-lane="1"] {
+    left: 75%;
+}
+
+.rider[data-type="walk"] {
+    border-color: rgba(98, 236, 255, 0.72);
+}
+
+.rider[data-type="stand"] {
+    border-color: rgba(255, 194, 109, 0.72);
+}
+
+.rider .id {
+    font-size: 0.76rem;
+    color: #c8dbff;
+}
+
+.rider .meter {
+    flex: 1;
+    height: 0.34rem;
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.rider .meter > span {
+    display: block;
+    height: 100%;
+    width: 10%;
+    background: linear-gradient(90deg, #73f3ff, #ffd37e, #ff809e);
+}
+
+.rider.hot {
+    box-shadow: 0 0 16px rgba(255, 126, 153, 0.52);
+}
+
+.hint {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.88rem;
+}
+
+.controls {
+    padding: 0.8rem;
+    display: grid;
+    gap: 0.66rem;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.48rem;
+}
+
+button {
+    border: 1px solid #617cc8;
+    border-radius: 10px;
+    background: #1b3169;
+    color: var(--text);
+    font-weight: 700;
+    padding: 0.56rem 0.84rem;
+    cursor: pointer;
+}
+
+button:hover:enabled {
+    border-color: #9fe4ff;
+}
+
+button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.primary {
+    background: linear-gradient(180deg, #1acaff, #136dde);
+    border-color: #7de6ff;
+}
+
+.message {
+    margin: 0;
+    border: 1px solid #4d66a9;
+    border-radius: 10px;
+    min-height: 2.4rem;
+    padding: 0.52rem 0.62rem;
+    background: rgba(15, 24, 52, 0.78);
+    color: #dbe7ff;
+}
+
+.message.good {
+    color: var(--good);
+}
+
+.message.bad {
+    color: var(--bad);
+}
+
+.message.warn {
+    color: var(--amber);
+}
+
+@media (max-width: 900px) {
+    .stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 620px) {
+    .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .board {
+        height: 420px;
+    }
+
+    .rider {
+        width: 43%;
+        font-size: 0.84rem;
+    }
+
+    .stage-head {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Escalator Etiquette '90 — rush-hour lane control where walkers belong left and standers belong right." />
+    <title>Escalator Etiquette '90</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="panel topbar">
+            <a class="back" href="../../index.html">← Dave's Retro Corner</a>
+            <h1>Escalator Etiquette '90</h1>
+            <p>Arcade strategy · Keep rush hour flowing by placing walkers left and standers right.</p>
+        </header>
+
+        <section class="panel stats" aria-live="polite">
+            <div><span class="k">Score</span><strong id="score">0</strong></div>
+            <div><span class="k">Clock</span><strong id="clock">90.0s</strong></div>
+            <div><span class="k">Cleared</span><strong id="cleared">0</strong></div>
+            <div><span class="k">Queue</span><strong id="queue">0</strong></div>
+            <div><span class="k">Strikes</span><strong id="strikes">0 / 5</strong></div>
+            <div><span class="k">Flow</span><strong id="flow">Idle</strong></div>
+        </section>
+
+        <section class="panel stage">
+            <div class="stage-head">
+                <div>
+                    <div class="label">Concourse board</div>
+                    <h2 id="headline">Tap riders to swap lanes</h2>
+                </div>
+                <div class="legend">
+                    <span><em class="chip walk">W</em> walker → left lane</span>
+                    <span><em class="chip stand">S</em> stander → right lane</span>
+                </div>
+            </div>
+
+            <div id="board" class="board" aria-label="Escalator board"></div>
+
+            <p class="hint">How to play: click riders to move them between lanes. Keep everyone in their preferred lane before frustration hits maximum and causes a strike.</p>
+        </section>
+
+        <section class="panel controls">
+            <div class="buttons">
+                <button id="start" class="primary">Start Shift</button>
+                <button id="whistle">Use Whistle</button>
+            </div>
+            <p id="message" class="message">Station offline. Start a shift, then sort the crowd before the queue spirals.</p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
