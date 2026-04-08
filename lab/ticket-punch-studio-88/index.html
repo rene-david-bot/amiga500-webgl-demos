@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ticket Punch Studio '88</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="back-link" href="../../index.html">← Back to Retro Lab</a>
+      <h1>Ticket Punch Studio '88</h1>
+      <p>Transit-print tool — design, punch, and export a crunchy metro ticket.</p>
+    </header>
+
+    <section class="panel">
+      <div class="controls">
+        <label>
+          Passenger
+          <input id="passenger" type="text" maxlength="22" value="R. SCHULTE" />
+        </label>
+        <label>
+          Route code
+          <input id="route" type="text" maxlength="12" value="D-42 NIGHT" />
+        </label>
+        <label>
+          Destination
+          <input id="destination" type="text" maxlength="20" value="NEON STATION" />
+        </label>
+        <label>
+          Fare (DM)
+          <input id="fare" type="number" min="0.5" max="99" step="0.1" value="3.5" />
+        </label>
+        <label>
+          Ticket color
+          <select id="theme">
+            <option value="amber">Amber Cream</option>
+            <option value="mint">Mint Cyan</option>
+            <option value="magenta">Neon Magenta</option>
+            <option value="slate">Slate Mono</option>
+          </select>
+        </label>
+
+        <div class="button-row">
+          <button id="autoPunch">Auto-punch route</button>
+          <button id="randomize">Lucky ticket</button>
+          <button id="clear">Clear punches</button>
+          <button id="download" class="primary">Export PNG</button>
+        </div>
+        <p class="hint">Tip: click inside the punch matrix to toggle holes manually.</p>
+      </div>
+
+      <div class="preview">
+        <canvas id="ticketCanvas" width="960" height="480" aria-label="Ticket preview canvas"></canvas>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
