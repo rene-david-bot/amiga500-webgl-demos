@@ -1,0 +1,89 @@
+:root {
+  --bg: #0a0710;
+  --panel: #171028;
+  --ink: #f5e7b8;
+  --neon: #ff5ee3;
+  --neon2: #57f3ff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", "Verdana", sans-serif;
+  background: radial-gradient(circle at 20% 10%, #22183f, var(--bg) 40%, #050308);
+  color: var(--ink);
+}
+
+.app {
+  width: min(1100px, 94vw);
+  margin: 1.2rem auto 2rem;
+}
+
+header h1 {
+  margin: 0;
+  color: var(--neon2);
+  text-shadow: 0 0 14px #1de7ff66;
+}
+
+header p {
+  margin: 0.35rem 0 1rem;
+  opacity: 0.9;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+  background: linear-gradient(180deg, #20153a, #140d25);
+  border: 1px solid #3e2b66;
+  border-radius: 10px;
+  padding: 0.85rem;
+  box-shadow: inset 0 0 0 1px #0006, 0 10px 30px #0006;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.84rem;
+}
+
+input, select, button {
+  border: 1px solid #4b3b70;
+  background: #0f0a1c;
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 0.45rem 0.55rem;
+}
+
+.buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: end;
+  flex-wrap: wrap;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: #8b78c7;
+}
+
+.stage-wrap {
+  margin-top: 0.9rem;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #413160;
+  box-shadow: 0 14px 34px #0008;
+}
+
+#stage {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #07050d;
+}

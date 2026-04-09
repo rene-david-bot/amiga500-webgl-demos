@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laser Etch Lab '88</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header>
+      <h1>Laser Etch Lab '88</h1>
+      <p>Etch neon brass plates with mirrored stencils and scanline grit.</p>
+    </header>
+
+    <section class="controls">
+      <label>Plate Text
+        <input id="plateText" maxlength="24" value="BYTE WORKS 1988" />
+      </label>
+      <label>Stencil Style
+        <select id="stencilStyle">
+          <option value="block">Block</option>
+          <option value="script">Script</option>
+          <option value="mono">Mono</option>
+        </select>
+      </label>
+      <label>Burn Intensity
+        <input id="intensity" type="range" min="1" max="10" value="6" />
+      </label>
+      <label>Scanline Density
+        <input id="scanlines" type="range" min="4" max="20" value="10" />
+      </label>
+      <div class="buttons">
+        <button id="mirrorBtn">Mirror Stencil</button>
+        <button id="newGrainBtn">New Grain</button>
+        <button id="downloadBtn">Export PNG</button>
+      </div>
+    </section>
+
+    <section class="stage-wrap">
+      <canvas id="stage" width="960" height="600"></canvas>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
