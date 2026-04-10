@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Microfiche Mystery '93</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header>
+      <h1>Microfiche Mystery '93</h1>
+      <p>Align RGB archive layers, reveal the codename, and lock the decode before the clock runs out.</p>
+    </header>
+
+    <section class="hud">
+      <div class="stat"><span>Case</span><strong id="caseId">#01</strong></div>
+      <div class="stat"><span>Score</span><strong id="score">0</strong></div>
+      <div class="stat"><span>Solved</span><strong id="solved">0</strong></div>
+      <div class="stat"><span>Time</span><strong id="timer">75.0s</strong></div>
+      <div class="stat"><span>Clarity</span><strong id="clarity">0%</strong></div>
+    </section>
+
+    <section class="controls">
+      <div class="layer-picks" id="layerPicks">
+        <button class="layer-btn active" data-layer="0">Layer A (Cyan)</button>
+        <button class="layer-btn" data-layer="1">Layer B (Magenta)</button>
+        <button class="layer-btn" data-layer="2">Layer C (Amber)</button>
+      </div>
+
+      <div class="pad">
+        <button class="nudge" data-dx="0" data-dy="-1">▲</button>
+        <div class="mid-row">
+          <button class="nudge" data-dx="-1" data-dy="0">◀</button>
+          <button class="nudge" data-dx="1" data-dy="0">▶</button>
+        </div>
+        <button class="nudge" data-dx="0" data-dy="1">▼</button>
+      </div>
+
+      <div class="actions">
+        <button id="lockBtn" class="primary">Lock Decode</button>
+        <button id="scrambleBtn">Scramble Case</button>
+      </div>
+
+      <p class="hint">Keys: <b>1/2/3</b> choose layer, <b>Arrow keys</b> nudge, <b>Enter</b> lock decode.</p>
+      <p class="status" id="status">Archive scanner online. Stabilize the layers.</p>
+    </section>
+
+    <section class="stage-wrap">
+      <canvas id="stage" width="960" height="560"></canvas>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

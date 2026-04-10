@@ -807,7 +807,7 @@
         "canvas",
         "retro"
       ]
-    }
+    },
     {
       "slug": "laser-etch-lab-88",
       "title": "Laser Etch Lab '88",
@@ -817,6 +817,18 @@
         "tool",
         "engraving",
         "stencil",
+        "retro"
+      ]
+    },
+    {
+      "slug": "microfiche-mystery-93",
+      "title": "Microfiche Mystery '93",
+      "date": "2026-04-10",
+      "tags": [
+        "puzzle",
+        "forensics",
+        "alignment",
+        "canvas",
         "retro"
       ]
     }
