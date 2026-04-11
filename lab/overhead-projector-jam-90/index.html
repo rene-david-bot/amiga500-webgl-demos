@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overhead Projector Jam '90</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header>
+      <h1>Overhead Projector Jam '90</h1>
+      <p>Stack neon acetate sheets, nudge each layer, and print a crunchy classroom-era promo slide.</p>
+    </header>
+
+    <section class="toolbar">
+      <label class="message-label" for="headline">Headline</label>
+      <input id="headline" type="text" maxlength="22" value="TONIGHT 9PM" />
+      <div class="actions">
+        <button id="randomizeBtn">Randomize</button>
+        <button id="resetBtn">Reset</button>
+        <button id="exportBtn" class="primary">Export PNG</button>
+      </div>
+      <p id="status">Projector warmed up. Drag sliders and compose your stack.</p>
+    </section>
+
+    <section class="controls" id="controls"></section>
+
+    <section class="stage-wrap">
+      <canvas id="stage" width="960" height="600"></canvas>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
