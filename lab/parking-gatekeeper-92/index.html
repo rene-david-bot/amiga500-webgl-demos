@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parking Gatekeeper '92</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <h1>Parking Gatekeeper '92</h1>
+      <p>Run the exit booth, validate every parking ticket, and survive the rush without waving through frauds.</p>
+    </header>
+
+    <section class="hud" aria-live="polite">
+      <div><span class="label">Score</span><strong id="score">0</strong></div>
+      <div><span class="label">Streak</span><strong id="streak">0</strong></div>
+      <div><span class="label">Lives</span><strong id="lives">3</strong></div>
+      <div><span class="label">Time</span><strong id="time">75.0s</strong></div>
+      <div><span class="label">Best</span><strong id="best">0</strong></div>
+    </section>
+
+    <section class="booth">
+      <article class="rulebook" aria-label="Validation rules">
+        <h2>Gate Rules</h2>
+        <ul>
+          <li><strong>VIP permit:</strong> always approve.</li>
+          <li><strong>Night stamp:</strong> valid only up to 6h.</li>
+          <li><strong>Zone D:</strong> needs at least 8 DM paid.</li>
+          <li><strong>Any ticket over 9h:</strong> needs at least 12 DM paid.</li>
+          <li><strong>Monthly permit:</strong> must pay 0 DM and stay 10h max.</li>
+        </ul>
+      </article>
+
+      <article class="ticket" aria-label="Current ticket">
+        <h2>Exit Ticket</h2>
+        <div class="ticket-grid">
+          <div><span>Plate</span><strong id="plate">--</strong></div>
+          <div><span>Zone</span><strong id="zone">-</strong></div>
+          <div><span>Hours</span><strong id="hours">0h</strong></div>
+          <div><span>Paid</span><strong id="paid">0 DM</strong></div>
+          <div><span>Permit</span><strong id="permit">none</strong></div>
+          <div><span>Stamp</span><strong id="stamp">day</strong></div>
+        </div>
+        <p id="hint" class="hint">Press Approve (A) or Reject (R).</p>
+      </article>
+    </section>
+
+    <section class="controls">
+      <button id="startBtn" class="primary">Start Shift</button>
+      <button id="approveBtn" class="approve" disabled>Approve (A)</button>
+      <button id="rejectBtn" class="reject" disabled>Reject (R)</button>
+      <button id="restartBtn">Restart</button>
+    </section>
+
+    <p class="footer-note">Tip: wrong calls cost a life, hot streaks boost score multipliers.</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
