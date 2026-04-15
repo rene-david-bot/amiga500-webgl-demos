@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photocopier Zine Lab '93</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <h1>Photocopier Zine Lab '93</h1>
+      <p>Build a crunchy one-page retro zine cover, distort it like a night-shift copy shop, then print to PNG.</p>
+    </header>
+
+    <section class="controls" aria-label="Design controls">
+      <label>
+        Headline
+        <input id="headline" type="text" maxlength="34" value="MIDNIGHT BYTE SCENE" />
+      </label>
+      <label>
+        Deck
+        <input id="deck" type="text" maxlength="48" value="Issue #07 · Tape swaps, hacks, and rooftop gigs" />
+      </label>
+      <label>
+        Ink
+        <select id="palette">
+          <option value="black">Black Toner</option>
+          <option value="cyan">Cyan Leak</option>
+          <option value="magenta">Magenta Burn</option>
+        </select>
+      </label>
+      <label>
+        Layout
+        <select id="layout">
+          <option value="columns">Three Columns</option>
+          <option value="flyer">Flyer Stack</option>
+          <option value="spotlight">Spotlight Box</option>
+        </select>
+      </label>
+      <label>
+        Distress
+        <input id="noise" type="range" min="5" max="95" value="45" />
+      </label>
+      <label>
+        Skew
+        <input id="skew" type="range" min="-8" max="8" step="0.2" value="-1.2" />
+      </label>
+      <label class="check">
+        <input id="folds" type="checkbox" checked />
+        Fold + staple marks
+      </label>
+      <div class="actions">
+        <button id="randomize" class="primary">Fresh Issue</button>
+        <button id="exportBtn">Print PNG</button>
+      </div>
+    </section>
+
+    <section class="stage">
+      <canvas id="poster" width="900" height="1200" aria-label="Photocopier zine preview"></canvas>
+      <p id="status" class="status">Ready. Hit Fresh Issue for a surprise cover.</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
