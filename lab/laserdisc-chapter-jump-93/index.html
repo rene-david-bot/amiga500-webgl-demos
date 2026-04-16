@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laserdisc Chapter Jump '93</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <h1>Laserdisc Chapter Jump '93</h1>
+      <p>Mall video counter challenge: snap the spinning disc onto the requested chapter before the next customer storms off.</p>
+    </header>
+
+    <section class="hud" aria-label="Game stats">
+      <div><span>Time</span><strong id="timeLeft">60.0s</strong></div>
+      <div><span>Score</span><strong id="score">0</strong></div>
+      <div><span>Streak</span><strong id="streak">0</strong></div>
+      <div><span>Target</span><strong id="targetLabel">CH-01</strong></div>
+      <div><span>Speed</span><strong id="speedLabel">1.00x</strong></div>
+    </section>
+
+    <section class="stage">
+      <canvas id="disc" width="720" height="720" aria-label="Laserdisc cue stage"></canvas>
+      <p id="status" class="status">Press <b>Start Shift</b>, then hit <b>Cue Disc</b> (or Space) when the top needle aligns with the target chapter.</p>
+    </section>
+
+    <section class="controls" aria-label="Controls">
+      <button id="startBtn" class="primary">Start Shift</button>
+      <button id="cueBtn" disabled>Cue Disc (Space)</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
