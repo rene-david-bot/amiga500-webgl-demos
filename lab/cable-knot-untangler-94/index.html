@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cable Knot Untangler '94</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <h1>Cable Knot Untangler '94</h1>
+      <p>Backroom A/V emergency: drag each terminal node until every cable run is clean and crossing-free.</p>
+    </header>
+
+    <section class="hud" aria-label="Puzzle stats">
+      <div><span>Level</span><strong id="level">1</strong></div>
+      <div><span>Crossings</span><strong id="crossings">0</strong></div>
+      <div><span>Moves</span><strong id="moves">0</strong></div>
+      <div><span>Time</span><strong id="time">0.0s</strong></div>
+    </section>
+
+    <section class="stage">
+      <canvas id="board" width="920" height="620" aria-label="Cable untangling puzzle board"></canvas>
+      <p id="status" class="status">Press <b>Start Shift</b> and drag the glowing nodes until no cable crossings remain.</p>
+    </section>
+
+    <section class="controls" aria-label="Controls">
+      <button id="startBtn" class="primary">Start Shift</button>
+      <button id="reshuffleBtn">Reshuffle</button>
+      <button id="nextBtn" disabled>Next Rack</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
