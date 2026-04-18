@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flea Market Haggle '95</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <h1>Flea Market Haggle '95</h1>
+      <p>Run a neon swap-meet booth, set your asking price, and close the best deals before sundown.</p>
+    </header>
+
+    <section class="hud" aria-label="Shift stats">
+      <div><span>Round</span><strong id="round">0 / 10</strong></div>
+      <div><span>Cash</span><strong id="cash">$120</strong></div>
+      <div><span>Profit</span><strong id="profit">$0</strong></div>
+      <div><span>Streak</span><strong id="streak">0</strong></div>
+    </section>
+
+    <section class="stage">
+      <article class="ticket" aria-live="polite">
+        <h2 id="itemName">Press Start Market Day</h2>
+        <p id="buyerMood">Pick your first customer and set a price.</p>
+        <div class="facts">
+          <div><span>Wholesale cost</span><strong id="cost">$0</strong></div>
+          <div><span>Crowd buzz</span><strong id="buzz">—</strong></div>
+          <div><span>Target vibe</span><strong id="hint">—</strong></div>
+        </div>
+      </article>
+
+      <div class="quote-box">
+        <label for="priceSlider">Asking price: <strong id="priceOut">$0</strong></label>
+        <input id="priceSlider" type="range" min="10" max="200" value="80" disabled />
+        <div class="meter" role="img" aria-label="Deal confidence meter">
+          <div id="meterFill"></div>
+        </div>
+        <p id="meterText" class="meter-text">Set your quote to test the market.</p>
+
+        <div class="controls">
+          <button id="startBtn" class="primary">Start Market Day</button>
+          <button id="quoteBtn" disabled>Quote Price</button>
+          <button id="nextBtn" disabled>Next Customer</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="log-wrap">
+      <h3>Deal Tape</h3>
+      <ul id="log" class="log"></ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
