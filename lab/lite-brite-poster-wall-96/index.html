@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Lite-Brite Poster Wall '96 — paint glowing pegboard art and export it." />
+  <title>Lite-Brite Poster Wall '96</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="back" href="../../index.html">← Retro Lab</a>
+      <h1>Lite-Brite Poster Wall '96</h1>
+      <p>Art tool · Neon pegboard poster maker</p>
+    </header>
+
+    <section class="panel controls">
+      <div>
+        <label for="message">Stamp text</label>
+        <div class="row">
+          <input id="message" type="text" maxlength="18" value="NITE SHIFT" />
+          <button id="stampBtn">Stamp</button>
+        </div>
+      </div>
+
+      <div>
+        <label>Palette</label>
+        <div id="palette" class="palette"></div>
+      </div>
+
+      <div>
+        <label for="brush">Brush size: <span id="brushValue">1</span></label>
+        <input id="brush" type="range" min="1" max="4" value="1" />
+      </div>
+
+      <div class="row toggle-row">
+        <button id="modeBtn" class="ghost">Mode: Dot</button>
+        <button id="surpriseBtn" class="ghost">Surprise Pattern</button>
+      </div>
+
+      <div class="row">
+        <button id="clearBtn" class="danger">Clear</button>
+        <button id="exportBtn" class="primary">Export PNG</button>
+      </div>
+
+      <div class="stats" id="stats">0 pegs lit</div>
+    </section>
+
+    <section class="panel board-wrap">
+      <canvas id="board" width="960" height="680" aria-label="Lite-Brite board"></canvas>
+      <p class="hint">Tip: drag to paint. Toggle spray mode for fuzzy glow clouds.</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
