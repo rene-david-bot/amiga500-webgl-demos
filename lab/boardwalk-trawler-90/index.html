@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boardwalk Trawler '90</title>
+  <meta name="description" content="Retro one-screen fishing arcade game. Drop your hook, catch glowing fish, dodge junk, and chase combos." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Arcade</p>
+      <h1>Boardwalk Trawler '90</h1>
+      <p class="subtitle">Hook-drop timing on a neon midnight pier.</p>
+    </header>
+
+    <section class="hud" aria-live="polite">
+      <div><span>Score</span><strong id="score">0000</strong></div>
+      <div><span>Combo</span><strong id="combo">x1</strong></div>
+      <div><span>Time</span><strong id="time">60</strong></div>
+      <div><span>Best</span><strong id="best">0000</strong></div>
+    </section>
+
+    <section class="stage">
+      <canvas id="game" width="960" height="540" aria-label="Boardwalk Trawler game area"></canvas>
+      <div class="scanlines" aria-hidden="true"></div>
+      <div id="message" class="message">Press START SHIFT to fish.</div>
+    </section>
+
+    <section class="controls">
+      <button id="startBtn" class="primary">START SHIFT</button>
+      <button id="resetBtn" class="ghost">RESET</button>
+      <p>
+        Move: <kbd>←</kbd><kbd>→</kbd> · Drop hook: <kbd>Space</kbd> · Catch fish for points,
+        avoid trash cans and old boots.
+      </p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

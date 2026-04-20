@@ -944,6 +944,19 @@
         "canvas",
         "retro"
       ]
+    },
+    {
+      "slug": "boardwalk-trawler-90",
+      "title": "Boardwalk Trawler '90",
+      "date": "2026-04-20",
+      "tags": [
+        "arcade",
+        "fishing",
+        "timing",
+        "canvas",
+        "audio",
+        "retro"
+      ]
     }
   ]
 }
