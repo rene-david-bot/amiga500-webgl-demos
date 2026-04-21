@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sticker Swap Album '96</title>
+  <meta name="description" content="Open mystery sticker packs, collect rare holographics, and fill a retro album spread." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Art/Collection</p>
+      <h1>Sticker Swap Album '96</h1>
+      <p class="subtitle">Rip packs, chase holo pulls, and build your dream sticker page.</p>
+    </header>
+
+    <section class="hud" aria-live="polite">
+      <div><span>Credits</span><strong id="credits">12</strong></div>
+      <div><span>Packs</span><strong id="packs">0</strong></div>
+      <div><span>Collection</span><strong id="collection">0/18</strong></div>
+      <div><span>Sparkle</span><strong id="sparkle">0000</strong></div>
+    </section>
+
+    <section class="layout">
+      <article class="panel machine">
+        <h2>Capsule Kiosk</h2>
+        <button id="openPackBtn" class="primary">OPEN PACK</button>
+        <p class="hint">Each pack contains 3 stickers. Duplicates boost sparkle points.</p>
+        <div id="packResult" class="pack-result" aria-live="polite">Rip your first pack.</div>
+      </article>
+
+      <article class="panel inventory">
+        <h2>Sticker Tray</h2>
+        <p class="hint">Tap a sticker, then tap an album slot to place it.</p>
+        <div id="inventory" class="inventory-grid"></div>
+      </article>
+    </section>
+
+    <section class="panel album-panel">
+      <div class="album-topbar">
+        <h2>Album Spread</h2>
+        <button id="clearBtn" class="ghost">CLEAR PAGE</button>
+      </div>
+      <div id="album" class="album-grid" aria-label="Sticker album"></div>
+      <p id="message" class="message">Select a sticker from the tray.</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
