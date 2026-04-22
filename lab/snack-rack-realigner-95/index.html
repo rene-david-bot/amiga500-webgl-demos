@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snack Rack Realigner '95</title>
+  <meta name="description" content="Shift rows and columns to realign a chaotic vending rack before your neon shift timer runs out." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Puzzle Strategy</p>
+      <h1>Snack Rack Realigner '95</h1>
+      <p class="subtitle">Rotate rows and columns until every snack sits in its assigned vending lane.</p>
+    </header>
+
+    <section class="hud" aria-live="polite">
+      <div><span>Level</span><strong id="level">1</strong></div>
+      <div><span>Moves</span><strong id="moves">0</strong></div>
+      <div><span>Time</span><strong id="time">00:00</strong></div>
+      <div><span>Shift Score</span><strong id="score">0000</strong></div>
+      <div><span>Best Level</span><strong id="best">1</strong></div>
+    </section>
+
+    <section class="panel objective">
+      <h2>Target Lanes</h2>
+      <p class="hint">Each column must contain one snack type only, top to bottom.</p>
+      <div id="targets" class="targets" aria-label="Target snack columns"></div>
+    </section>
+
+    <section class="panel board-panel">
+      <div class="column-controls" id="colUp"></div>
+      <div class="playfield">
+        <div class="row-controls" id="rowLeft"></div>
+        <div class="board" id="board" aria-label="Snack rack"></div>
+        <div class="row-controls" id="rowRight"></div>
+      </div>
+      <div class="column-controls" id="colDown"></div>
+    </section>
+
+    <section class="actions">
+      <button id="shuffleBtn" class="ghost">Re-Shuffle</button>
+      <button id="nextBtn" class="primary" disabled>Next Level</button>
+    </section>
+
+    <p id="message" class="message">Shift lanes to match every column target.</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
