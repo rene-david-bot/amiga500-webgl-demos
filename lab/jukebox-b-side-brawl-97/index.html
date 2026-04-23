@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jukebox B-Side Brawl '97</title>
+  <meta name="description" content="Pick the perfect B-side for each diner crowd and keep the neon dance floor alive." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Strategy Audio</p>
+      <h1>Jukebox B-Side Brawl '97</h1>
+      <p class="subtitle">You run the late-night diner jukebox. Pick the right B-side every round to keep the room buzzing.</p>
+    </header>
+
+    <section class="hud" aria-live="polite">
+      <div><span>Round</span><strong id="round">1 / 8</strong></div>
+      <div><span>Crowd Meter</span><strong id="crowd">50%</strong></div>
+      <div><span>Streak</span><strong id="streak">0x</strong></div>
+      <div><span>Score</span><strong id="score">000</strong></div>
+      <div><span>Best</span><strong id="best">000</strong></div>
+    </section>
+
+    <section class="panel request-panel">
+      <h2 id="requestTitle">Tonight's Request</h2>
+      <p id="requestDesc" class="request-desc"></p>
+      <div class="meter-wrap">
+        <div class="meter-label">Dance floor heat</div>
+        <div class="meter-track"><div id="meterFill" class="meter-fill"></div></div>
+      </div>
+    </section>
+
+    <section id="choices" class="choices" aria-label="Record choices"></section>
+
+    <section class="actions">
+      <button id="nextBtn" class="primary" disabled>Next Round</button>
+      <button id="newSetBtn" class="ghost">Fresh Shift</button>
+    </section>
+
+    <p id="message" class="message">Hit play on a record, then lock your B-side choice.</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
