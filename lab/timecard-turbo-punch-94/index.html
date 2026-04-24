@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timecard Turbo Punch '94</title>
+  <meta name="description" content="Lock perfect shift punches by timing two drifting reels in this neon office arcade challenge." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Arcade Timing</p>
+      <h1>Timecard Turbo Punch '94</h1>
+      <p class="subtitle">You inherited the night shift time clock. Nail every punch window before payroll closes.</p>
+    </header>
+
+    <section class="hud" aria-live="polite">
+      <div><span>Round</span><strong id="round">1 / 10</strong></div>
+      <div><span>Score</span><strong id="score">0000</strong></div>
+      <div><span>Combo</span><strong id="combo">0x</strong></div>
+      <div><span>Last Drift</span><strong id="drift">--</strong></div>
+      <div><span>Best</span><strong id="best">0000</strong></div>
+    </section>
+
+    <section class="panel target-panel">
+      <div class="target-meta">
+        <div>
+          <p class="label">Target punch</p>
+          <h2 id="targetTime">07:30</h2>
+        </div>
+        <div>
+          <p class="label">Window</p>
+          <h3 id="targetWindow">±3 min</h3>
+        </div>
+        <div>
+          <p class="label">Current clock</p>
+          <h3 id="currentTime">00:00</h3>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel reels">
+      <article>
+        <div class="track-label">Hour reel</div>
+        <div class="track" id="hourTrack" aria-label="Hour reel"><span id="hourNeedle" class="needle"></span></div>
+        <div class="tick-row" aria-hidden="true">1 2 3 4 5 6 7 8 9 10 11 12</div>
+      </article>
+      <article>
+        <div class="track-label">Minute reel</div>
+        <div class="track minute" id="minuteTrack" aria-label="Minute reel"><span id="minuteNeedle" class="needle"></span></div>
+        <div class="tick-row small" aria-hidden="true">00 · 10 · 20 · 30 · 40 · 50</div>
+      </article>
+    </section>
+
+    <section class="actions">
+      <button id="punchBtn" class="primary">Punch Clock</button>
+      <button id="nextBtn" class="ghost" disabled>Next Card</button>
+      <button id="resetBtn" class="ghost">Fresh Shift</button>
+    </section>
+
+    <p id="message" class="message">Watch both reels, then slam Punch Clock inside the target window.</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+:root {
+  --bg: #060916;
+  --panel: rgba(14, 22, 50, 0.9);
+  --line: rgba(130, 170, 255, 0.4);
+  --text: #ecf3ff;
+  --cyan: #79f4ff;
+  --pink: #ff78c8;
+  --mint: #8bffc5;
+  --gold: #ffd985;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 14% -8%, #40307a 0%, transparent 42%),
+    radial-gradient(circle at 86% 115%, #0f4f75 0%, transparent 45%),
+    var(--bg);
+}
+
+.cabinet {
+  width: min(900px, 100%);
+  border: 2px solid #365895;
+  border-radius: 16px;
+  padding: 16px;
+  background: linear-gradient(180deg, rgba(11, 18, 46, 0.97), rgba(8, 13, 34, 0.98));
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(121, 244, 255, 0.16);
+}
+
+.kicker {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-size: 0.78rem;
+  color: var(--gold);
+}
+
+h1 {
+  margin: 6px 0 0;
+  color: var(--cyan);
+  text-shadow: 0 0 14px rgba(121, 244, 255, 0.45);
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  color: #b5c8f6;
+}
+
+.hud {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.hud div {
+  background: rgba(14, 24, 58, 0.86);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-align: center;
+  padding: 8px 10px;
+}
+
+.hud span {
+  display: block;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.45px;
+  color: #a2b8ee;
+}
+
+.hud strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 1.1rem;
+  color: #f4f9ff;
+}
+
+.panel {
+  margin-top: 12px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.target-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.label {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  font-size: 0.7rem;
+  color: #9ab1e9;
+}
+
+.target-meta h2,
+.target-meta h3 {
+  margin: 6px 0 0;
+}
+
+.target-meta h2 {
+  color: #fff2b0;
+  font-size: 1.65rem;
+}
+
+.target-meta h3 {
+  color: #d9e8ff;
+  font-size: 1.15rem;
+}
+
+.reels {
+  display: grid;
+  gap: 12px;
+}
+
+.track-label {
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-size: 0.72rem;
+  color: #a0b6eb;
+}
+
+.track {
+  margin-top: 8px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid rgba(143, 174, 241, 0.45);
+  background:
+    repeating-linear-gradient(90deg, rgba(120, 144, 218, 0.25) 0 1px, transparent 1px 24px),
+    rgba(19, 30, 66, 0.95);
+  position: relative;
+  overflow: hidden;
+}
+
+.track.minute {
+  background:
+    repeating-linear-gradient(90deg, rgba(120, 144, 218, 0.24) 0 1px, transparent 1px 16px),
+    rgba(19, 30, 66, 0.95);
+}
+
+.needle {
+  position: absolute;
+  top: -3px;
+  width: 4px;
+  height: 44px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #7df5ff, #ff8ecf);
+  box-shadow: 0 0 14px rgba(121, 244, 255, 0.5);
+  transform: translateX(-50%);
+  left: 0%;
+}
+
+.tick-row {
+  margin-top: 6px;
+  color: #91a6da;
+  font-size: 0.77rem;
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: 0.2px;
+}
+
+.tick-row.small {
+  font-size: 0.75rem;
+}
+
+.actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  letter-spacing: 0.45px;
+  cursor: pointer;
+}
+
+.primary {
+  background: linear-gradient(180deg, #82ffd9, #4fdeb6);
+  color: #05332d;
+}
+
+.ghost {
+  background: rgba(20, 31, 68, 0.95);
+  border: 1px solid rgba(155, 181, 255, 0.38);
+  color: #deebff;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.message {
+  margin: 12px 2px 2px;
+  color: #ffd7ef;
+  min-height: 1.4em;
+}
+
+@media (max-width: 760px) {
+  .hud { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .target-meta { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px) {
+  body { padding: 10px; }
+}
