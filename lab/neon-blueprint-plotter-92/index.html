@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neon Blueprint Plotter '92</title>
+  <meta name="description" content="Sketch retro floor plans on a glowing snap grid, stamp furniture symbols, and export your blueprint as PNG." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="panel">
+    <header class="top">
+      <p class="kicker">Retro Lab · Design Tool</p>
+      <h1>Neon Blueprint Plotter '92</h1>
+      <p class="subtitle">Draft a midnight office floor plan with crunchy CAD vibes and one-click export.</p>
+    </header>
+
+    <section class="hud" aria-live="polite">
+      <div><span>Walls</span><strong id="wallCount">0</strong></div>
+      <div><span>Stamps</span><strong id="stampCount">0</strong></div>
+      <div><span>Ink</span><strong id="inkName">Cyan</strong></div>
+      <div><span>Mode</span><strong id="modeName">Wall</strong></div>
+    </section>
+
+    <section class="controls">
+      <div class="group" role="group" aria-label="Draw mode">
+        <button id="wallTool" class="active">Wall</button>
+        <button id="eraseTool">Erase</button>
+      </div>
+
+      <div class="group" role="group" aria-label="Stamp type">
+        <button data-stamp="desk" class="stampBtn">Desk</button>
+        <button data-stamp="terminal" class="stampBtn">Terminal</button>
+        <button data-stamp="door" class="stampBtn">Door</button>
+        <button data-stamp="plant" class="stampBtn">Plant</button>
+      </div>
+
+      <label class="picker">Ink
+        <select id="inkSelect">
+          <option value="cyan">Cyan</option>
+          <option value="mint">Mint</option>
+          <option value="amber">Amber</option>
+          <option value="magenta">Magenta</option>
+        </select>
+      </label>
+
+      <button id="fxBtn" class="ghost">FX On</button>
+      <button id="undoBtn" class="ghost">Undo</button>
+      <button id="templateBtn" class="ghost">Template</button>
+      <button id="clearBtn" class="ghost">Clear</button>
+      <button id="exportBtn" class="primary">Export PNG</button>
+    </section>
+
+    <section class="canvasWrap">
+      <canvas id="plot" width="960" height="640" aria-label="Blueprint canvas"></canvas>
+    </section>
+
+    <p class="hint" id="hint">Wall mode: drag to draw snapped lines. Hold Shift for horizontal/vertical lock.</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

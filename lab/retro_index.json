@@ -1008,6 +1008,18 @@
         "retro",
         "audio"
       ]
+    },
+    {
+      "slug": "neon-blueprint-plotter-92",
+      "title": "Neon Blueprint Plotter '92",
+      "date": "2026-04-25",
+      "tags": [
+        "tool",
+        "design",
+        "blueprint",
+        "canvas",
+        "retro"
+      ]
     }
   ]
 }
