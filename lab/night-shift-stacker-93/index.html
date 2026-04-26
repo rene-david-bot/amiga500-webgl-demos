@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Night Shift Stacker '93</title>
+  <meta name="description" content="Drop neon cargo crates, trigger volatile clear bombs, and survive the warehouse night shift in this retro arcade stacker." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Arcade Puzzle</p>
+      <h1>Night Shift Stacker '93</h1>
+      <p class="subtitle">Cargo keeps dropping. Keep lanes clean, trigger volatile crates, and stop the midnight pileup.</p>
+    </header>
+
+    <section class="layout">
+      <div class="playfield-wrap">
+        <canvas id="game" width="288" height="504" aria-label="Night Shift Stacker game board"></canvas>
+        <p id="status" class="status">Arrow keys move, space drops, P pauses. Press Start Shift.</p>
+      </div>
+
+      <aside class="panel">
+        <div class="stat"><span>Score</span><strong id="score">000000</strong></div>
+        <div class="stat"><span>Level</span><strong id="level">1</strong></div>
+        <div class="stat"><span>Lines</span><strong id="lines">0</strong></div>
+        <div class="stat"><span>Best</span><strong id="best">000000</strong></div>
+
+        <div class="next-wrap">
+          <p>Next Crate</p>
+          <canvas id="next" width="96" height="96" aria-label="Next piece preview"></canvas>
+        </div>
+
+        <div class="actions">
+          <button id="startBtn" class="primary">Start Shift</button>
+          <button id="pauseBtn" class="ghost">Pause</button>
+          <button id="resetBtn" class="ghost">Reset</button>
+        </div>
+
+        <ul class="tips">
+          <li>Fill a full row to clear it.</li>
+          <li>Volatile crates clear a 3×3 blast area.</li>
+          <li>Every 8 lines increases speed.</li>
+        </ul>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
