@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cash Register Change Jam '94</title>
+  <meta name="description" content="Race the checkout clock and build exact euro change in this neon retro register puzzle." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Puzzle Training</p>
+      <h1>Cash Register Change Jam '94</h1>
+      <p class="subtitle">Ring up totals, count exact change, and beat the checkout rush before the queue melts down.</p>
+    </header>
+
+    <section class="layout">
+      <div class="register">
+        <div class="ticket" aria-live="polite">
+          <div class="row"><span>Total</span><strong id="total">€0.00</strong></div>
+          <div class="row"><span>Paid</span><strong id="paid">€0.00</strong></div>
+          <div class="row due"><span>Change Due</span><strong id="due">€0.00</strong></div>
+          <div class="row"><span>Your Tray</span><strong id="tray">€0.00</strong></div>
+        </div>
+
+        <div class="timer-wrap" aria-label="Round timer">
+          <div class="timer-bar" id="timerBar"></div>
+        </div>
+        <p id="status" class="status">Press Start Shift, then tap bills and coins to build exact change.</p>
+
+        <div class="drawer" id="drawer"></div>
+
+        <div class="actions">
+          <button id="startBtn" class="primary">Start Shift</button>
+          <button id="submitBtn" class="good">Submit Change</button>
+          <button id="clearBtn" class="ghost">Clear Tray</button>
+          <button id="undoBtn" class="ghost">Undo Last</button>
+          <button id="muteBtn" class="ghost">Mute</button>
+        </div>
+      </div>
+
+      <aside class="panel">
+        <div class="stat"><span>Round</span><strong id="round">0 / 10</strong></div>
+        <div class="stat"><span>Score</span><strong id="score">0000</strong></div>
+        <div class="stat"><span>Streak</span><strong id="streak">0</strong></div>
+        <div class="stat"><span>Best</span><strong id="best">0000</strong></div>
+        <ul class="tips">
+          <li>Exact change scores big plus time bonus.</li>
+          <li>Wrong tray costs seconds and breaks streak.</li>
+          <li>Ten clean checkouts wins the shift.</li>
+        </ul>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
