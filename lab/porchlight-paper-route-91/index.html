@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Porchlight Paper Route '91</title>
+  <meta name="description" content="Deliver neon newspapers mailbox-by-mailbox and survive the after-school rush in this retro arcade route runner." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Arcade Game</p>
+      <h1>Porchlight Paper Route '91</h1>
+      <p class="subtitle">Ride the neon suburbs, thread around dogs and potholes, and land perfect paper tosses before your reputation hits zero.</p>
+    </header>
+
+    <section class="layout">
+      <div class="stage-panel">
+        <canvas id="game" width="960" height="540" aria-label="Porchlight Paper Route game canvas"></canvas>
+        <p id="status" class="status" aria-live="polite">Press Start Route. Arrow keys move lanes, Space throws papers.</p>
+        <div class="touch-controls" aria-hidden="false">
+          <button id="upBtn" type="button">▲ Lane Up</button>
+          <button id="throwBtn" type="button">● Throw</button>
+          <button id="downBtn" type="button">▼ Lane Down</button>
+        </div>
+      </div>
+
+      <aside class="hud-panel">
+        <div class="stat"><span>Score</span><strong id="score">000000</strong></div>
+        <div class="stat"><span>Best</span><strong id="best">000000</strong></div>
+        <div class="stat"><span>Reputation</span><strong id="rep">6</strong></div>
+        <div class="stat"><span>Combo</span><strong id="combo">x1</strong></div>
+        <div class="stat"><span>Satchel</span><strong id="satchel">18</strong></div>
+        <div class="stat"><span>Accuracy</span><strong id="accuracy">0%</strong></div>
+        <div class="stat"><span>Time Left</span><strong id="time">75.0s</strong></div>
+
+        <div class="actions">
+          <button id="startBtn" class="primary" type="button">Start Route</button>
+          <button id="pauseBtn" class="ghost" type="button">Pause</button>
+          <button id="muteBtn" class="ghost" type="button">Mute</button>
+        </div>
+
+        <ul class="tips">
+          <li>Every missed mailbox costs reputation.</li>
+          <li>Delivered streaks raise combo score.</li>
+          <li>Catch flying paper bundles to refill satchel ammo.</li>
+        </ul>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
