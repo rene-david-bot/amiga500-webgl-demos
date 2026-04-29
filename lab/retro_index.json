@@ -1059,6 +1059,18 @@
         "retro",
         "audio"
       ]
+    },
+    {
+      "slug": "answering-machine-studio-95",
+      "title": "Answering Machine Studio '95",
+      "date": "2026-04-29",
+      "tags": [
+        "audio",
+        "tool",
+        "voicemail",
+        "webaudio",
+        "retro"
+      ]
     }
   ]
 }

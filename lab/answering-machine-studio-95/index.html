@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Answering Machine Studio '95</title>
+  <meta name="description" content="Craft neon voicemail greetings with vibe presets, cassette deck visuals, and instant retro preview playback." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="studio-shell">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Audio Tool</p>
+      <h1>Answering Machine Studio '95</h1>
+      <p class="subtitle">Build the perfect after-hours voicemail greeting with neon presets, cassette meter vibes, and one-button preview.</p>
+      <a class="back-link" href="../../index.html">← Back to Retro Corner</a>
+    </header>
+
+    <section class="layout">
+      <article class="panel controls">
+        <h2>Greeting Builder</h2>
+        <label>
+          Vibe
+          <select id="vibeSelect"></select>
+        </label>
+
+        <label>
+          Name / Team
+          <input id="nameInput" type="text" maxlength="36" placeholder="Rene at Neon Systems" />
+        </label>
+
+        <label>
+          Callback Number
+          <input id="numberInput" type="text" maxlength="24" placeholder="+49 151 1167 0498" />
+        </label>
+
+        <label>
+          Availability
+          <input id="availabilityInput" type="text" maxlength="48" placeholder="Mon-Fri, 09:00-17:00" />
+        </label>
+
+        <label>
+          Optional custom line
+          <input id="customLineInput" type="text" maxlength="90" placeholder="Drop your order number after the beep." />
+        </label>
+
+        <div class="actions">
+          <button id="generateBtn" class="primary" type="button">Generate Greeting</button>
+          <button id="randomBtn" class="ghost" type="button">Randomize</button>
+          <button id="copyBtn" class="ghost" type="button">Copy Text</button>
+        </div>
+      </article>
+
+      <article class="panel output">
+        <h2>Tape Output</h2>
+        <textarea id="scriptOutput" rows="10" aria-label="Generated answering machine script"></textarea>
+        <p id="status" class="status" aria-live="polite">Ready. Generate a script, then hit Preview Greeting.</p>
+
+        <div class="deck" id="deck">
+          <div class="reel left"><span></span></div>
+          <div class="tape-window"></div>
+          <div class="reel right"><span></span></div>
+          <div class="deck-label">MICROCASSETTE AUTO ANSWER MK-II</div>
+        </div>
+
+        <div class="meter" id="meter" aria-hidden="true"></div>
+
+        <div class="actions preview-actions">
+          <button id="previewBtn" class="primary" type="button">Preview Greeting</button>
+          <button id="stopBtn" class="ghost" type="button">Stop</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
