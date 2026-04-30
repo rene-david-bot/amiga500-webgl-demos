@@ -1071,6 +1071,19 @@
         "webaudio",
         "retro"
       ]
+    },
+    {
+      "slug": "coin-pusher-panic-96",
+      "title": "Coin Pusher Panic '96",
+      "date": "2026-04-30",
+      "tags": [
+        "game",
+        "arcade",
+        "coin-op",
+        "strategy",
+        "retro",
+        "audio"
+      ]
     }
   ]
 }

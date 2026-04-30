@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coin Pusher Panic '96</title>
+  <meta name="description" content="Drop neon coins, ride the hydraulic push cycles, and chase jackpot chips in this retro arcade coin pusher sprint." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Arcade Game</p>
+      <h1>Coin Pusher Panic '96</h1>
+      <p class="subtitle">Feed seven neon lanes, time each hydraulic shove, and push jackpot chips over the edge before your credits burn out.</p>
+    </header>
+
+    <section class="layout">
+      <div class="stage-panel">
+        <canvas id="game" width="960" height="540" aria-label="Coin Pusher Panic game canvas"></canvas>
+        <p id="status" class="status" aria-live="polite">Press Start Round. Use ← → to aim, Space to drop coins.</p>
+        <div class="touch-controls">
+          <button id="leftBtn" type="button">◄ Lane</button>
+          <button id="dropBtn" type="button">● Drop Coin</button>
+          <button id="rightBtn" type="button">Lane ►</button>
+        </div>
+      </div>
+
+      <aside class="hud-panel">
+        <div class="stat"><span>Score</span><strong id="score">000000</strong></div>
+        <div class="stat"><span>Best</span><strong id="best">000000</strong></div>
+        <div class="stat"><span>Banked Coins</span><strong id="banked">0</strong></div>
+        <div class="stat"><span>Prize Chips</span><strong id="prizes">0</strong></div>
+        <div class="stat"><span>Credits</span><strong id="credits">42</strong></div>
+        <div class="stat"><span>Multiplier</span><strong id="multiplier">x1.0</strong></div>
+        <div class="stat"><span>Push In</span><strong id="push">1.25s</strong></div>
+        <div class="stat"><span>Time Left</span><strong id="time">90.0s</strong></div>
+
+        <div class="actions">
+          <button id="startBtn" class="primary" type="button">Start Round</button>
+          <button id="pauseBtn" class="ghost" type="button">Pause</button>
+          <button id="muteBtn" class="ghost" type="button">Mute</button>
+        </div>
+
+        <ul class="tips">
+          <li>Payout streaks boost your multiplier.</li>
+          <li>Every 12 coins banked grants +1 bonus credit.</li>
+          <li>Prize chips pay huge and add two extra drops.</li>
+        </ul>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
