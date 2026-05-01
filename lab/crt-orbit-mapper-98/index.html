@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRT Orbit Mapper '98</title>
+  <meta name="description" content="Launch neon satellites, sculpt orbital trails, and paint retro CRT space art in this tiny physics sandbox." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Art Tool</p>
+      <h1>CRT Orbit Mapper '98</h1>
+      <p class="subtitle">Launch glowing satellites, bend gravity, and sketch neon orbital posters like a late-night planetarium operator.</p>
+    </header>
+
+    <section class="layout">
+      <div class="stage-panel">
+        <canvas id="orbit" width="960" height="560" aria-label="CRT Orbit Mapper canvas"></canvas>
+        <p id="status" class="status" aria-live="polite">Pick a preset, then click anywhere in the map to add custom satellites.</p>
+      </div>
+
+      <aside class="hud-panel">
+        <div class="stat"><span>Satellites</span><strong id="satCount">0</strong></div>
+        <div class="stat"><span>Trail Points</span><strong id="trailCount">0</strong></div>
+        <div class="stat"><span>Drift Speed</span><strong id="speedValue">1.00x</strong></div>
+        <div class="stat"><span>Gravity</span><strong id="gravityValue">1.00</strong></div>
+
+        <label class="slider-wrap" for="speedRange">Simulation speed</label>
+        <input id="speedRange" type="range" min="0.4" max="2.2" step="0.05" value="1" />
+
+        <label class="slider-wrap" for="gravityRange">Gravity pull</label>
+        <input id="gravityRange" type="range" min="0.4" max="1.8" step="0.05" value="1" />
+
+        <div class="actions">
+          <button id="rosetteBtn" class="primary" type="button">Rosette</button>
+          <button id="ringsBtn" class="ghost" type="button">Twin Rings</button>
+          <button id="chaosBtn" class="ghost" type="button">Chaos</button>
+          <button id="clearBtn" class="ghost" type="button">Clear Trails</button>
+          <button id="newColorsBtn" class="ghost" type="button">New Palette</button>
+        </div>
+
+        <ul class="tips">
+          <li>Click the map to spawn a satellite at that point.</li>
+          <li>Lower gravity for gentle spirals, raise it for tight loops.</li>
+          <li>Use Clear Trails when the screen gets too dense.</li>
+        </ul>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

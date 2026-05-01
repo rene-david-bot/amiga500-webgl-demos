@@ -1084,6 +1084,19 @@
         "retro",
         "audio"
       ]
+    },
+    {
+      "slug": "crt-orbit-mapper-98",
+      "title": "CRT Orbit Mapper '98",
+      "date": "2026-05-01",
+      "tags": [
+        "art",
+        "tool",
+        "space",
+        "physics",
+        "canvas",
+        "retro"
+      ]
     }
   ]
 }
