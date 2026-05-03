@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zamboni Night Shift '94</title>
+  <meta name="description" content="Pilot a neon Zamboni through a late-night rink, polish dirty ice, dodge skaters, and finish your shift before spill meter overload." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Arcade Game</p>
+      <h1>Zamboni Night Shift '94</h1>
+      <p class="subtitle">Clean the rink, avoid reckless skaters, and keep your spill meter under control through one icy graveyard shift.</p>
+    </header>
+
+    <section class="layout">
+      <div class="stage-panel">
+        <canvas id="game" width="960" height="540" aria-label="Zamboni Night Shift game canvas"></canvas>
+        <p id="status" class="status" aria-live="polite">Press Start Shift. Move with WASD/Arrows, hold Shift for turbo.</p>
+
+        <div class="touch-controls" aria-label="Touch controls">
+          <button id="upBtn" type="button">▲</button>
+          <button id="leftBtn" type="button">◄</button>
+          <button id="turboBtn" type="button">Turbo</button>
+          <button id="rightBtn" type="button">►</button>
+          <button id="downBtn" type="button">▼</button>
+        </div>
+      </div>
+
+      <aside class="hud-panel">
+        <div class="stat"><span>Score</span><strong id="score">000000</strong></div>
+        <div class="stat"><span>Best</span><strong id="best">000000</strong></div>
+        <div class="stat"><span>Ice Cleaned</span><strong id="cleaned">0%</strong></div>
+        <div class="stat"><span>Spill Meter</span><strong id="spill">0 / 100</strong></div>
+        <div class="stat"><span>Streak</span><strong id="streak">x0</strong></div>
+        <div class="stat"><span>Shift Time</span><strong id="time">90.0s</strong></div>
+
+        <div class="actions">
+          <button id="startBtn" class="primary" type="button">Start Shift</button>
+          <button id="pauseBtn" class="ghost" type="button">Pause</button>
+          <button id="muteBtn" class="ghost" type="button">Mute</button>
+        </div>
+
+        <ul class="tips">
+          <li>Clean 85% of dirty ice before time runs out to ace the shift.</li>
+          <li>Skater collisions spike spill meter and wipe your streak.</li>
+          <li>Grab coffee cups to cool nerves and drop spill pressure.</li>
+        </ul>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
