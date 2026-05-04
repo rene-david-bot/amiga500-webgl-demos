@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baggage Carousel Control '95</title>
+  <meta name="description" content="Run a neon airport carousel in this retro arcade puzzle. Spin the belt, route bags to matching exits, and prevent terminal jams." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Arcade Puzzle</p>
+      <h1>Baggage Carousel Control '95</h1>
+      <p class="subtitle">Nudge carousel speed, fire bags into the right exits, and stop the terminal from jamming before your shift ends.</p>
+    </header>
+
+    <section class="layout">
+      <div class="stage-panel">
+        <canvas id="game" width="960" height="540" aria-label="Baggage Carousel Control game canvas"></canvas>
+        <p id="status" class="status" aria-live="polite">Press Start Shift. Arrow keys adjust speed, then hit W/A/S/D to dispatch bags at exits.</p>
+
+        <div class="touch-controls" aria-label="Touch controls">
+          <button id="slowBtn" type="button">◀ Slow Belt</button>
+          <button id="fastBtn" type="button">Fast Belt ▶</button>
+        </div>
+
+        <div class="dispatch-controls" aria-label="Dispatch controls">
+          <button id="topBtn" type="button">W · Top Exit</button>
+          <button id="leftBtn" type="button">A · Left Exit</button>
+          <button id="bottomBtn" type="button">S · Bottom Exit</button>
+          <button id="rightBtn" type="button">D · Right Exit</button>
+        </div>
+      </div>
+
+      <aside class="hud-panel">
+        <div class="stat"><span>Score</span><strong id="score">000000</strong></div>
+        <div class="stat"><span>Best</span><strong id="best">000000</strong></div>
+        <div class="stat"><span>Combo</span><strong id="combo">x0</strong></div>
+        <div class="stat"><span>Accuracy</span><strong id="accuracy">0%</strong></div>
+        <div class="stat"><span>Jams</span><strong id="jams">0 / 5</strong></div>
+        <div class="stat"><span>Shift Time</span><strong id="time">90.0s</strong></div>
+
+        <div class="actions">
+          <button id="startBtn" class="primary" type="button">Start Shift</button>
+          <button id="pauseBtn" class="ghost" type="button">Pause</button>
+          <button id="muteBtn" class="ghost" type="button">Mute</button>
+        </div>
+
+        <ul class="tips">
+          <li>Each bag shows a route letter. Match it to the same-letter exit.</li>
+          <li>Gold bags are bonus cargo worth extra points and +1 second.</li>
+          <li>Five jams and the tower shuts your belt down.</li>
+        </ul>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

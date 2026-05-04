@@ -1123,6 +1123,20 @@
         "dodge",
         "retro"
       ]
+    },
+    {
+      "slug": "baggage-carousel-control-95",
+      "title": "Baggage Carousel Control '95",
+      "date": "2026-05-04",
+      "tags": [
+        "game",
+        "arcade",
+        "puzzle",
+        "airport",
+        "routing",
+        "retro",
+        "audio"
+      ]
     }
   ]
 }
