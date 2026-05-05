@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thermal Receipt Poet '97</title>
+  <meta name="description" content="Generate retro thermal-paper poems with a neon cash-register vibe. Remix line items, moods, and themes into tiny printable art." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Art Tool</p>
+      <h1>Thermal Receipt Poet '97</h1>
+      <p class="subtitle">Turn checkout totals into tiny poems, then print your own late-night receipt artifact.</p>
+    </header>
+
+    <section class="layout">
+      <aside class="controls">
+        <label>
+          Shop Name
+          <input id="shopName" type="text" maxlength="24" value="NEON CORNER MART" />
+        </label>
+
+        <label>
+          Theme Word
+          <input id="theme" type="text" maxlength="20" value="midnight" />
+        </label>
+
+        <label>
+          Tone
+          <select id="tone">
+            <option value="sweet">Sweet</option>
+            <option value="moody" selected>Moody</option>
+            <option value="glitch">Glitch</option>
+            <option value="hopeful">Hopeful</option>
+          </select>
+        </label>
+
+        <label>
+          Poem Length
+          <input id="length" type="range" min="4" max="10" value="6" />
+          <span id="lengthLabel">6 lines</span>
+        </label>
+
+        <div class="actions">
+          <button id="printBtn" class="primary" type="button">Print New Receipt</button>
+          <button id="remixBtn" type="button">Remix Lines</button>
+          <button id="copyBtn" type="button">Copy Text</button>
+        </div>
+
+        <p class="hint">Tip: press <strong>R</strong> for quick reprint.</p>
+      </aside>
+
+      <section class="paper-wrap">
+        <pre id="receipt" class="paper" aria-live="polite"></pre>
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
