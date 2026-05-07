@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carpet Cup Classic '93</title>
+  <meta name="description" content="A neon mini-golf arcade game. Drag, launch, and sink five office-carpet cups before the shift clock expires." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Arcade Sports Game</p>
+      <h1>Carpet Cup Classic '93</h1>
+      <p class="subtitle">After-hours mini golf on office carpet. Read the angle, dodge bumpers, and sink all five cups before lights out.</p>
+    </header>
+
+    <section class="layout">
+      <div class="stage-panel">
+        <canvas id="game" width="960" height="540" aria-label="Carpet Cup Classic game canvas"></canvas>
+        <p id="status" class="status" aria-live="polite">Press Start Round. Drag from the ball to aim and set power, then release to putt.</p>
+      </div>
+
+      <aside class="hud-panel">
+        <div class="stat"><span>Hole</span><strong id="hole">1 / 5</strong></div>
+        <div class="stat"><span>Hole Strokes</span><strong id="strokes">0</strong></div>
+        <div class="stat"><span>Total Strokes</span><strong id="total">0</strong></div>
+        <div class="stat"><span>Par</span><strong id="par">15</strong></div>
+        <div class="stat"><span>Time Left</span><strong id="time">150.0s</strong></div>
+        <div class="stat"><span>Best Round</span><strong id="best">--</strong></div>
+
+        <div class="actions">
+          <button id="startBtn" class="primary" type="button">Start Round</button>
+          <button id="resetBtn" class="ghost" type="button">Reset Hole</button>
+          <button id="muteBtn" class="ghost" type="button">Mute</button>
+        </div>
+
+        <ul class="tips">
+          <li>Long drag = stronger putt, short drag = precision.</li>
+          <li>Use walls for bank shots around desk blockers.</li>
+          <li>Sinks only count when speed is low at the cup.</li>
+        </ul>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
