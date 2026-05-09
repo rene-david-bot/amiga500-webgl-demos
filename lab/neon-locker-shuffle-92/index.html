@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neon Locker Shuffle '92</title>
+  <meta name="description" content="A retro logic puzzle where every locker tap flips nearby locks. Solve each shift before the clock runs out." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Puzzle Logic</p>
+      <h1>Neon Locker Shuffle '92</h1>
+      <p class="subtitle">Night janitor mode. Tap lockers to flip lock states, clear the whole wall, and climb through tougher shift patterns.</p>
+    </header>
+
+    <section class="layout">
+      <section class="board-panel" aria-label="Locker puzzle board">
+        <div id="board" class="board" role="grid" aria-live="polite"></div>
+        <p id="status" class="status">Press Start Shift to generate a scramble. Goal: open every locker.</p>
+      </section>
+
+      <aside class="hud-panel">
+        <div class="stats-grid">
+          <div class="stat"><span>Level</span><strong id="level">1</strong></div>
+          <div class="stat"><span>Moves</span><strong id="moves">0</strong></div>
+          <div class="stat"><span>Time</span><strong id="time">90s</strong></div>
+          <div class="stat"><span>Best</span><strong id="best">0</strong></div>
+          <div class="stat"><span>Par</span><strong id="par">14</strong></div>
+          <div class="stat"><span>Hints</span><strong id="hints">3</strong></div>
+        </div>
+
+        <div class="controls">
+          <button id="startBtn" class="primary" type="button">Start Shift</button>
+          <button id="hintBtn" class="ghost" type="button" disabled>Hint</button>
+          <button id="muteBtn" class="ghost" type="button">Mute</button>
+        </div>
+
+        <div class="tips">
+          <p>• Tapping one locker flips it plus up/down/left/right neighbors.</p>
+          <p>• Beat par moves for bonus score and extra time.</p>
+          <p>• Clear the wall to advance levels and bigger scrambles.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+:root {
+  --bg: #070914;
+  --bg-soft: #0e1530;
+  --panel: #121b3e;
+  --line: #344a86;
+  --text: #deebff;
+  --muted: #9ab0dc;
+  --cyan: #69f6ff;
+  --magenta: #ff67d4;
+  --green: #71ffa5;
+  --amber: #ffd77b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 20% 8%, rgba(105, 246, 255, 0.14), transparent 40%),
+    radial-gradient(circle at 90% 0%, rgba(255, 103, 212, 0.14), transparent 42%),
+    var(--bg);
+  color: var(--text);
+}
+
+.cabinet {
+  width: min(1100px, calc(100% - 2rem));
+  margin: 1.15rem auto 2rem;
+}
+
+.topbar {
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  padding: 1rem 1.2rem;
+  background: linear-gradient(160deg, rgba(19, 29, 68, 0.92), rgba(9, 13, 31, 0.92));
+  box-shadow: 0 0 30px rgba(105, 246, 255, 0.08);
+}
+
+.kicker {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--cyan);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.35rem, 3vw, 2.1rem);
+}
+
+.subtitle {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+  max-width: 80ch;
+}
+
+.layout {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 1rem;
+}
+
+.board-panel,
+.hud-panel {
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: linear-gradient(180deg, rgba(18, 27, 62, 0.95), rgba(8, 11, 27, 0.95));
+}
+
+.board-panel {
+  padding: 1rem;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(48px, 1fr));
+  gap: 0.6rem;
+}
+
+.locker {
+  aspect-ratio: 1 / 1;
+  border-radius: 0.62rem;
+  border: 1px solid rgba(105, 246, 255, 0.35);
+  background: linear-gradient(160deg, rgba(21, 32, 72, 0.9), rgba(10, 14, 32, 0.95));
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 140ms ease, border-color 120ms ease;
+}
+
+.locker:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 0 14px rgba(105, 246, 255, 0.28);
+}
+
+.locker:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.locker.open {
+  border-color: rgba(113, 255, 165, 0.8);
+  box-shadow: inset 0 0 20px rgba(113, 255, 165, 0.3), 0 0 14px rgba(113, 255, 165, 0.35);
+  background: linear-gradient(165deg, rgba(20, 90, 64, 0.88), rgba(9, 42, 33, 0.95));
+}
+
+.locker.hint {
+  border-color: rgba(255, 215, 123, 0.95);
+  box-shadow: 0 0 16px rgba(255, 215, 123, 0.6);
+}
+
+.status {
+  margin: 0.9rem 0 0;
+  border: 1px solid rgba(105, 246, 255, 0.22);
+  border-radius: 0.7rem;
+  padding: 0.66rem 0.72rem;
+  color: #c7d7f8;
+  background: rgba(7, 11, 25, 0.8);
+  min-height: 2.9rem;
+}
+
+.hud-panel {
+  padding: 0.78rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.52rem;
+}
+
+.stat {
+  border: 1px solid rgba(105, 246, 255, 0.18);
+  border-radius: 0.64rem;
+  background: rgba(9, 15, 37, 0.86);
+  padding: 0.5rem 0.58rem;
+}
+
+.stat span {
+  display: block;
+  font-size: 0.66rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stat strong {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 1.05rem;
+}
+
+.controls {
+  display: grid;
+  gap: 0.52rem;
+}
+
+button {
+  font: inherit;
+  font-weight: 700;
+  border-radius: 0.64rem;
+  padding: 0.64rem 0.74rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.primary {
+  color: #051225;
+  background: linear-gradient(180deg, #8efbff, #42d0e9);
+}
+
+.ghost {
+  color: var(--text);
+  background: rgba(11, 18, 43, 0.94);
+  border-color: rgba(105, 246, 255, 0.35);
+}
+
+.tips {
+  border: 1px dashed rgba(154, 176, 220, 0.45);
+  border-radius: 0.64rem;
+  padding: 0.58rem 0.68rem;
+  background: rgba(6, 10, 24, 0.72);
+}
+
+.tips p {
+  margin: 0.38rem 0;
+  color: #c2d1f4;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 920px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cabinet {
+    width: calc(100% - 1rem);
+    margin-top: 0.55rem;
+  }
+}
