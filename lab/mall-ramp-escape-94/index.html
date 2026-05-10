@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mall Ramp Escape '94</title>
+  <meta name="description" content="A retro neon racer where you dive through a spiral mall parking ramp, dodge pillars, and punch through to basement level before security locks the gate." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Racer</p>
+      <h1>Mall Ramp Escape '94</h1>
+      <p class="subtitle">Midnight parking-garage breakaway. Weave through cones and pillars, grab ticket boosts, and reach basement level B5 before the gate seals.</p>
+    </header>
+
+    <section class="layout">
+      <section class="screen-panel" aria-label="Racing game screen">
+        <canvas id="game" width="420" height="640" role="img" aria-label="Parking ramp racing playfield"></canvas>
+        <p id="status" class="status">Press Start Run, then steer with ← → or A / D.</p>
+      </section>
+
+      <aside class="hud-panel">
+        <div class="stats-grid">
+          <div class="stat"><span>Floor</span><strong id="floor">P3</strong></div>
+          <div class="stat"><span>Distance</span><strong id="distance">0 m</strong></div>
+          <div class="stat"><span>Speed</span><strong id="speed">0 km/h</strong></div>
+          <div class="stat"><span>Hull</span><strong id="hull">3</strong></div>
+          <div class="stat"><span>Score</span><strong id="score">0</strong></div>
+          <div class="stat"><span>Best</span><strong id="best">0</strong></div>
+        </div>
+
+        <div class="controls">
+          <button id="startBtn" class="primary" type="button">Start Run</button>
+          <button id="muteBtn" class="ghost" type="button">Mute</button>
+        </div>
+
+        <div class="touch" aria-hidden="false">
+          <button id="leftBtn" class="touch-btn" type="button">◀</button>
+          <button id="rightBtn" class="touch-btn" type="button">▶</button>
+        </div>
+
+        <div class="tips">
+          <p>• Green tickets add score and short speed boosts.</p>
+          <p>• Red barriers and concrete pillars damage your hull.</p>
+          <p>• Reach B5 to win the shift and bank your run score.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
