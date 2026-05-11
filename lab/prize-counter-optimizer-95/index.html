@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prize Counter Optimizer '95</title>
+  <meta name="description" content="A retro strategy puzzle where you optimize arcade ticket redemption picks to maximize hype score under tight ticket budgets." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Strategy Puzzle</p>
+      <h1>Prize Counter Optimizer '95</h1>
+      <p class="subtitle">Night shift at Galaxy Arcade. Build the best prize bundle before the manager closes the glass counter.</p>
+    </header>
+
+    <section class="layout">
+      <section class="panel" aria-label="Prize catalog panel">
+        <h2>Prize Shelf</h2>
+        <p class="panel-copy">Choose quantities. Every item has a ticket cost and a hype value.</p>
+        <div id="prizeList" class="prize-list" role="list"></div>
+      </section>
+
+      <aside class="panel hud" aria-label="Shift stats and controls">
+        <h2>Shift HUD</h2>
+        <div class="stats-grid">
+          <div class="stat"><span>Round</span><strong id="roundStat">1 / 6</strong></div>
+          <div class="stat"><span>Budget</span><strong id="budgetStat">0</strong></div>
+          <div class="stat"><span>Spent</span><strong id="spentStat">0</strong></div>
+          <div class="stat"><span>Hype</span><strong id="hypeStat">0</strong></div>
+          <div class="stat"><span>Shift Score</span><strong id="scoreStat">0</strong></div>
+          <div class="stat"><span>Best Shift</span><strong id="bestStat">0</strong></div>
+        </div>
+
+        <p id="status" class="status">Build your bundle, then lock your redemption pick.</p>
+
+        <div class="controls">
+          <button id="lockBtn" class="primary" type="button">Lock Pick</button>
+          <button id="nextBtn" class="ghost" type="button" disabled>Next Round</button>
+          <button id="muteBtn" class="ghost" type="button" aria-pressed="false">Mute</button>
+        </div>
+
+        <div class="tips">
+          <p>• Goal: maximize Hype without overspending your ticket budget.</p>
+          <p>• You get bonus points when your pick is close to the theoretical best combo.</p>
+          <p>• Finish all 6 rounds to bank the shift score.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

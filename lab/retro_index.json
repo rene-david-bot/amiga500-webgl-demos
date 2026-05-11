@@ -11,7 +11,7 @@
     },
     {
       "slug": "mode7-racer",
-      "title": "Mode\u20117 Sunset Racer",
+      "title": "Mode‑7 Sunset Racer",
       "date": "2026-02-17",
       "tags": [
         "game",
@@ -212,7 +212,7 @@
     },
     {
       "slug": "split-flap-terminal",
-      "title": "Split\u2011Flap Terminal",
+      "title": "Split‑Flap Terminal",
       "date": "2026-02-28",
       "tags": [
         "tool",
@@ -223,7 +223,7 @@
     },
     {
       "slug": "dot-matrix-dispatch",
-      "title": "Dot\u2011Matrix Dispatch",
+      "title": "Dot‑Matrix Dispatch",
       "date": "2026-03-02",
       "tags": [
         "tool",
@@ -1214,6 +1214,19 @@
         "arcade",
         "driving",
         "mall",
+        "retro",
+        "audio"
+      ]
+    },
+    {
+      "slug": "prize-counter-optimizer-95",
+      "title": "Prize Counter Optimizer '95",
+      "date": "2026-05-11",
+      "tags": [
+        "puzzle",
+        "strategy",
+        "optimizer",
+        "arcade",
         "retro",
         "audio"
       ]
