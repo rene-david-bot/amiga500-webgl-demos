@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soda Fountain Shift '90</title>
+  <meta name="description" content="A retro arcade timing game where you pull the soda tap, ride the foam, and land perfect fills through a rush-hour diner shift." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="cabinet">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Arcade Timing</p>
+      <h1>Soda Fountain Shift '90</h1>
+      <p class="subtitle">Night rush at Stardust Diner. Pour to the line, avoid overflow, and keep every booth happy.</p>
+    </header>
+
+    <section class="layout">
+      <section class="panel order-panel" aria-label="Current order">
+        <h2>Order Ticket</h2>
+        <div class="ticket" id="ticket"></div>
+        <p id="status" class="status">Hold Pour, release near the target band, then hit Serve.</p>
+      </section>
+
+      <section class="panel cup-panel" aria-label="Cup station">
+        <h2>Fountain Station</h2>
+        <div class="cup-wrap">
+          <div class="cup" aria-hidden="true">
+            <div id="targetBand" class="target-band"></div>
+            <div id="sodaFill" class="soda-fill"></div>
+            <div id="foamFill" class="foam-fill"></div>
+          </div>
+          <div class="scale">
+            <span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="pourBtn" class="primary" type="button">Hold to Pour</button>
+          <button id="serveBtn" class="ghost" type="button">Serve Cup</button>
+          <button id="nextBtn" class="ghost" type="button" disabled>Next Order</button>
+        </div>
+      </section>
+
+      <aside class="panel hud" aria-label="Shift stats">
+        <h2>Shift HUD</h2>
+        <div class="stats-grid">
+          <div class="stat"><span>Order</span><strong id="orderStat">1 / 8</strong></div>
+          <div class="stat"><span>Shift Score</span><strong id="scoreStat">0</strong></div>
+          <div class="stat"><span>Best Shift</span><strong id="bestStat">0</strong></div>
+          <div class="stat"><span>Liquid</span><strong id="liquidStat">0%</strong></div>
+          <div class="stat"><span>Foam</span><strong id="foamStat">0%</strong></div>
+          <div class="stat"><span>Total Fill</span><strong id="fillStat">0%</strong></div>
+        </div>
+
+        <div class="tips">
+          <p>• Keep total fill inside the glowing band.</p>
+          <p>• Foam rises while pouring and settles after release.</p>
+          <p>• Space = pour. Enter = serve.</p>
+        </div>
+
+        <button id="muteBtn" class="ghost" type="button" aria-pressed="false">Mute</button>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
