@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hold Music Hotline '93</title>
+  <meta name="description" content="A retro audio toy where you generate crunchy 90s corporate hold music while managing an incoming caller queue." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Audio Toy</p>
+      <h1>Hold Music Hotline '93</h1>
+      <p class="subtitle">Build smooth (or chaotic) call-center hold loops and keep the queue from boiling over.</p>
+    </header>
+
+    <section class="layout">
+      <section class="panel controls" aria-label="Music controls">
+        <h2>Hotline Console</h2>
+
+        <label class="field">
+          <span>Mood Preset</span>
+          <select id="moodSelect">
+            <option value="calm">Calm Corporate</option>
+            <option value="busy">Busy Midday</option>
+            <option value="urgent">Urgent Escalations</option>
+            <option value="night">Late-Night Support</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Tempo <strong id="tempoValue">94 BPM</strong></span>
+          <input id="tempoSlider" type="range" min="72" max="132" value="94" />
+        </label>
+
+        <label class="field">
+          <span>Wow & Flutter <strong id="wowValue">18%</strong></span>
+          <input id="wowSlider" type="range" min="0" max="70" value="18" />
+        </label>
+
+        <label class="field">
+          <span>Bit Crunch <strong id="crushValue">22%</strong></span>
+          <input id="crushSlider" type="range" min="0" max="80" value="22" />
+        </label>
+
+        <label class="field">
+          <span>Line Static <strong id="staticValue">20%</strong></span>
+          <input id="staticSlider" type="range" min="0" max="100" value="20" />
+        </label>
+
+        <div class="buttons">
+          <button id="startBtn" class="primary" type="button">Start Hotline</button>
+          <button id="shuffleBtn" class="ghost" type="button">Shuffle Preset</button>
+          <button id="callerBtn" class="ghost" type="button">Add Caller</button>
+        </div>
+      </section>
+
+      <section class="panel monitor" aria-label="Queue monitor">
+        <h2>Queue Monitor</h2>
+        <div class="metrics">
+          <div class="metric"><span>Callers Waiting</span><strong id="queueStat">4</strong></div>
+          <div class="metric"><span>Served</span><strong id="servedStat">0</strong></div>
+          <div class="metric"><span>Avg Hold</span><strong id="holdStat">00:24</strong></div>
+          <div class="metric"><span>Satisfaction</span><strong id="moodStat">A</strong></div>
+        </div>
+
+        <div class="vu-wrap" aria-hidden="true">
+          <div class="vu-label">Signal Meter</div>
+          <div class="vu-track"><div id="vuBar" class="vu-bar"></div></div>
+        </div>
+
+        <p id="status" class="status">Press Start Hotline to boot the synth board.</p>
+
+        <div class="tips">
+          <p>• Higher tempo clears callers faster, but can stress the line.</p>
+          <p>• Wow + crunch gives stronger vintage flavor.</p>
+          <p>• If queue gets too long, satisfaction drops hard.</p>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

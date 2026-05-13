@@ -1243,6 +1243,18 @@
         "retro",
         "audio"
       ]
+    },
+    {
+      "slug": "hold-music-hotline-93",
+      "title": "Hold Music Hotline '93",
+      "date": "2026-05-13",
+      "tags": [
+        "audio",
+        "tool",
+        "webaudio",
+        "generator",
+        "retro"
+      ]
     }
   ]
 }
