@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoCities Glitter Banner '98</title>
+  <meta name="description" content="Design your own sparkling late-90s web banner with animated glitter, neon palettes, and instant PNG export." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Art Tool</p>
+      <h1>GeoCities Glitter Banner '98</h1>
+      <p class="subtitle">Build blink-happy, sparkly web banners like it is internet prime time in 1998.</p>
+    </header>
+
+    <section class="layout">
+      <section class="panel controls" aria-label="Banner controls">
+        <h2>Banner Studio</h2>
+
+        <label class="field">
+          <span>Banner Text</span>
+          <input id="textInput" type="text" maxlength="30" value="WELCOME TO MY PAGE" />
+        </label>
+
+        <label class="field">
+          <span>Text Style</span>
+          <select id="styleSelect">
+            <option value="cyber">Cyber Glow</option>
+            <option value="bubble">Bubble Pop</option>
+            <option value="chrome">Chrome Flash</option>
+            <option value="arcade">Arcade Punch</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Backdrop</span>
+          <select id="bgSelect">
+            <option value="nebula">Nebula Mist</option>
+            <option value="sunset">Sunset Stripe</option>
+            <option value="matrix">Matrix Grid</option>
+            <option value="club">Laser Club</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Glow <strong id="glowValue">58%</strong></span>
+          <input id="glowSlider" type="range" min="10" max="100" value="58" />
+        </label>
+
+        <label class="field">
+          <span>Sparkle Density <strong id="sparkleValue">68%</strong></span>
+          <input id="sparkleSlider" type="range" min="20" max="100" value="68" />
+        </label>
+
+        <label class="field">
+          <span>Shimmer Speed <strong id="speedValue">72%</strong></span>
+          <input id="speedSlider" type="range" min="20" max="100" value="72" />
+        </label>
+
+        <div class="buttons">
+          <button id="randomBtn" class="ghost" type="button">Random Slogan</button>
+          <button id="shuffleBtn" class="ghost" type="button">Shuffle Style</button>
+          <button id="saveBtn" class="primary" type="button">Save PNG</button>
+        </div>
+      </section>
+
+      <section class="panel preview" aria-label="Banner preview">
+        <h2>Live Preview</h2>
+        <div class="frame">
+          <canvas id="bannerCanvas" width="960" height="280" role="img" aria-label="Animated glitter banner preview"></canvas>
+        </div>
+        <p id="status" class="status">Tip: keep slogans short for max sparkle impact.</p>
+        <div class="tips">
+          <p>• Works best with 10-24 characters.</p>
+          <p>• Use Save PNG to drop it straight into your site.</p>
+          <p>• Shuffle Style for instant nostalgia variants.</p>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
