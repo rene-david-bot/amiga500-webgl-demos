@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conveyor Sushi Shift '94</title>
+  <meta name="description" content="Run a neon sushi counter, catch the right plate in the service window, and survive a 90s arcade dinner rush." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Arcade Timing Game</p>
+      <h1>Conveyor Sushi Shift '94</h1>
+      <p class="subtitle">Hit lane keys, match incoming orders, and keep the neon dinner line happy before closing bell.</p>
+    </header>
+
+    <section class="layout">
+      <section class="panel controls" aria-label="Game controls">
+        <h2>Counter Control</h2>
+
+        <div class="buttons">
+          <button id="startBtn" class="primary" type="button">Start Shift</button>
+          <button id="muteBtn" class="ghost" type="button">Sound: On</button>
+        </div>
+
+        <div class="stats">
+          <p><span>Time</span><strong id="timeValue">60</strong></p>
+          <p><span>Score</span><strong id="scoreValue">0</strong></p>
+          <p><span>Combo</span><strong id="comboValue">0</strong></p>
+          <p><span>Lives</span><strong id="livesValue">5</strong></p>
+          <p><span>Best</span><strong id="bestValue">0</strong></p>
+        </div>
+
+        <div class="orders">
+          <h3>Order Queue</h3>
+          <ol id="orderList"></ol>
+        </div>
+
+        <div class="keys">
+          <p><strong>Lane Keys</strong></p>
+          <p>Top lane: <kbd>1</kbd> / <kbd>Q</kbd></p>
+          <p>Mid lane: <kbd>2</kbd> / <kbd>W</kbd></p>
+          <p>Low lane: <kbd>3</kbd> / <kbd>E</kbd></p>
+        </div>
+
+        <p id="status" class="status">Press Start Shift to open service.</p>
+      </section>
+
+      <section class="panel preview" aria-label="Game board">
+        <h2>Neon Belt Floor</h2>
+        <div class="frame">
+          <canvas id="gameCanvas" width="960" height="540" role="img" aria-label="Conveyor Sushi Shift game"></canvas>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
