@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LAN Party Seating Planner '98</title>
+  <meta name="description" content="Seat a chaotic 90s LAN party lobby, keep friends together, separate rivals, and hit the target vibe score." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Strategy Puzzle</p>
+      <h1>LAN Party Seating Planner '98</h1>
+      <p class="subtitle">Place 8 gamers in 9 CRT stations. Link friends, split rivals, satisfy seat preferences, and clear all rounds.</p>
+    </header>
+
+    <section class="layout">
+      <section class="panel controls" aria-label="Round controls and player bench">
+        <h2>Lobby Console</h2>
+
+        <div class="buttons">
+          <button id="startBtn" class="primary" type="button">Start New Run</button>
+          <button id="scoreBtn" type="button">Score Layout</button>
+          <button id="nextBtn" type="button" disabled>Next Round</button>
+          <button id="muteBtn" type="button">Sound: On</button>
+        </div>
+
+        <div class="stats">
+          <p><span>Round</span><strong id="roundValue">1 / 4</strong></p>
+          <p><span>Target</span><strong id="targetValue">0</strong></p>
+          <p><span>Total</span><strong id="totalValue">0</strong></p>
+          <p><span>Best Run</span><strong id="bestValue">0</strong></p>
+        </div>
+
+        <div class="rules">
+          <h3>Scoring</h3>
+          <ul>
+            <li>Friend pair adjacent: <strong>+12</strong></li>
+            <li>Rival pair adjacent: <strong>-10</strong>, separated: <strong>+4</strong></li>
+            <li>Preferred seat matched: <strong>+6</strong>, missed: <strong>-2</strong></li>
+            <li>Adjacent same game genre: <strong>+3</strong></li>
+          </ul>
+        </div>
+
+        <div class="relations">
+          <h3>Lobby Intel</h3>
+          <p class="small">Friends</p>
+          <ul id="friendsList"></ul>
+          <p class="small">Rivals</p>
+          <ul id="rivalsList"></ul>
+        </div>
+
+        <div class="bench-wrap">
+          <h3>Unseated Players</h3>
+          <div id="bench" class="bench"></div>
+        </div>
+
+        <div class="hand">
+          <p><span>In hand:</span> <strong id="handValue">None</strong></p>
+          <button id="dropBtn" type="button">Return to Bench</button>
+        </div>
+
+        <p id="status" class="status">Press Start New Run to build tonight's lobby.</p>
+      </section>
+
+      <section class="panel board" aria-label="Seating board">
+        <h2>CRT Floorplan</h2>
+        <p class="board-note">Power-strip stations are marked with ⚡. Leave exactly one seat empty for airflow.</p>
+        <div id="seatGrid" class="seat-grid"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
