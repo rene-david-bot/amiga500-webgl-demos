@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Passport Stamp Forge '95</title>
+  <meta name="description" content="Design a neon retro passport page with chunky customs stamps, route themes, and exportable travel art." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Art Tool</p>
+      <h1>Passport Stamp Forge '95</h1>
+      <p class="subtitle">Forge chunky border-control stamps on a CRT passport page, stack fake trips, and export your neon travel spread.</p>
+    </header>
+
+    <section class="layout">
+      <section class="panel controls" aria-label="Stamp controls">
+        <h2>Border Console</h2>
+
+        <div class="field-grid">
+          <label>
+            City
+            <input id="cityInput" type="text" value="DRESDEN" maxlength="14" autocomplete="off" />
+          </label>
+          <label>
+            Country Code
+            <input id="countryInput" type="text" value="DE" maxlength="3" autocomplete="off" />
+          </label>
+          <label>
+            Entry Type
+            <select id="typeInput">
+              <option value="ENTRY">Entry</option>
+              <option value="EXIT">Exit</option>
+              <option value="TRANSIT">Transit</option>
+              <option value="VISA OK">Visa OK</option>
+            </select>
+          </label>
+          <label>
+            Ink Color
+            <select id="inkInput">
+              <option value="#ec346f">Magenta</option>
+              <option value="#33f3ff">Cyan</option>
+              <option value="#8bff62">Acid Lime</option>
+              <option value="#ffd84d">Amber</option>
+              <option value="#ffffff">White</option>
+            </select>
+          </label>
+          <label class="wide">
+            Tilt Chaos
+            <input id="tiltInput" type="range" min="0" max="40" step="1" value="16" />
+          </label>
+        </div>
+
+        <div class="buttons">
+          <button id="stampBtn" class="primary" type="button">Stamp Entry</button>
+          <button id="tourBtn" type="button">Auto Tour</button>
+          <button id="undoBtn" type="button">Undo Last</button>
+          <button id="clearBtn" type="button">Reset Page</button>
+          <button id="exportBtn" type="button">Export PNG</button>
+          <button id="muteBtn" type="button">Sound: On</button>
+        </div>
+
+        <div class="stats">
+          <p><span>Stamps</span><strong id="stampCount">0</strong></p>
+          <p><span>Countries</span><strong id="countryCount">0</strong></p>
+          <p><span>Style</span><strong id="styleValue">Neon Route</strong></p>
+        </div>
+
+        <div class="presets">
+          <h3>Quick Routes</h3>
+          <div class="chips" id="routeChips"></div>
+        </div>
+
+        <p id="status" class="status">Set your checkpoint, then hit Stamp Entry.</p>
+      </section>
+
+      <section class="panel stage" aria-label="Passport canvas">
+        <h2>Passport Page</h2>
+        <canvas id="passportCanvas" width="940" height="620" aria-label="Stamped passport page preview"></canvas>
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
