@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taxi Meter Mayhem '91</title>
+  <meta name="description" content="Run a neon night-shift taxi, pick up fares, dodge traffic, and cash out before time or fuel runs dry." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Arcade Driver</p>
+      <h1>Taxi Meter Mayhem '91</h1>
+      <p class="subtitle">Snag fares, weave through rush-hour traffic, and keep your cab rolling through one chaotic neon shift.</p>
+    </header>
+
+    <section class="layout">
+      <section class="panel controls" aria-label="Taxi shift controls">
+        <h2>Night Shift Desk</h2>
+
+        <div class="buttons">
+          <button id="startBtn" class="primary" type="button">Start Shift</button>
+          <button id="muteBtn" class="ghost" type="button">Sound: On</button>
+        </div>
+
+        <div class="stats">
+          <p><span>Time</span><strong id="timeValue">75</strong></p>
+          <p><span>Fuel</span><strong id="fuelValue">100%</strong></p>
+          <p><span>Score</span><strong id="scoreValue">0</strong></p>
+          <p><span>Streak</span><strong id="streakValue">0</strong></p>
+          <p><span>Fares</span><strong id="faresValue">0</strong></p>
+          <p><span>Best</span><strong id="bestValue">0</strong></p>
+        </div>
+
+        <div class="farebox">
+          <h3>Current Fare</h3>
+          <p id="fareStatus">No rider onboard. Grab the glowing pickup.</p>
+        </div>
+
+        <div class="keys">
+          <p><strong>Drive</strong></p>
+          <p><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or arrow keys</p>
+          <p><strong>Rule of thumb:</strong> collisions drain fuel and kill your streak.</p>
+        </div>
+
+        <p id="status" class="status">Press Start Shift to clock in.</p>
+      </section>
+
+      <section class="panel preview" aria-label="Taxi game board">
+        <h2>Metro Grid</h2>
+        <div class="frame">
+          <canvas id="gameCanvas" width="960" height="540" role="img" aria-label="Taxi Meter Mayhem game board"></canvas>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
