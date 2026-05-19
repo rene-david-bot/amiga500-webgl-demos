@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patch Panel Panic '97</title>
+  <meta name="description" content="A retro RJ45 wire-order puzzle where you swap pins, lock perfect crimps, and survive the rack-room timer." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Puzzle Training</p>
+      <h1>Patch Panel Panic '97</h1>
+      <p class="subtitle">Night shift in the server closet. Swap wire pins, match the target standard, and crimp flawless connectors before the clock dies.</p>
+    </header>
+
+    <section class="layout">
+      <section class="panel controls" aria-label="Patch panel controls">
+        <h2>Crimp Desk</h2>
+        <div class="buttons">
+          <button id="startBtn" class="primary" type="button">Start Shift</button>
+          <button id="checkBtn" type="button">Crimp &amp; Test</button>
+          <button id="shuffleBtn" type="button">Shuffle Leads</button>
+          <button id="muteBtn" class="ghost" type="button">Sound: On</button>
+        </div>
+
+        <div class="stats">
+          <p><span>Time</span><strong id="timeValue">95</strong></p>
+          <p><span>Round</span><strong id="roundValue">0</strong></p>
+          <p><span>Score</span><strong id="scoreValue">0</strong></p>
+          <p><span>Streak</span><strong id="streakValue">0</strong></p>
+          <p><span>Correct</span><strong id="correctValue">0/8</strong></p>
+          <p><span>Best</span><strong id="bestValue">0</strong></p>
+        </div>
+
+        <div class="target">
+          <h3 id="targetName">Target Standard</h3>
+          <p id="targetDesc">Press Start Shift to pull the first wiring ticket.</p>
+          <div id="targetPins" class="target-pins" aria-live="polite"></div>
+        </div>
+
+        <div class="wiring-panel">
+          <h3>Live Connector Pins</h3>
+          <p class="hint">Click two pin rows to swap them. Lock all 8 in the correct order.</p>
+          <div id="pinButtons" class="pin-buttons"></div>
+        </div>
+
+        <p id="status" class="status">Rack is idle. Press Start Shift to begin.</p>
+      </section>
+
+      <section class="panel preview" aria-label="Patch panel visualizer">
+        <h2>Rack Scope</h2>
+        <div class="frame">
+          <canvas id="rackCanvas" width="900" height="540" role="img" aria-label="Patch panel wire visualizer"></canvas>
+        </div>
+        <div class="legend" id="legend"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
