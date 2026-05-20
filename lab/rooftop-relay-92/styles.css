@@ -1,0 +1,202 @@
+:root {
+  color-scheme: dark;
+  --bg: #05070f;
+  --panel: #11172a;
+  --edge: #4a6098;
+  --text: #eaf0ff;
+  --muted: #a8b6dc;
+  --cyan: #83ecff;
+  --pink: #ff88d2;
+  --gold: #ffd37f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(131, 236, 255, 0.2), transparent 32%),
+    radial-gradient(circle at 88% 10%, rgba(255, 136, 210, 0.2), transparent 35%),
+    linear-gradient(180deg, #080d1c 0%, #04060d 100%);
+}
+
+.deck {
+  width: min(1060px, 94vw);
+  margin: 1.4rem auto;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.panel,
+.topbar {
+  border: 1px solid var(--edge);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(17, 23, 42, 0.97), rgba(8, 12, 25, 0.97));
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+.topbar {
+  padding: 1rem 1.1rem;
+}
+
+.kicker {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0.4rem 0;
+  font-size: clamp(1.7rem, 3.3vw, 2.35rem);
+  line-height: 1.08;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.controls {
+  padding: 0.9rem;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+button {
+  border: 1px solid #5e73ae;
+  border-radius: 8px;
+  background: #141d3b;
+  color: var(--text);
+  padding: 0.55rem 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button.primary {
+  border-color: #cc9f45;
+  background: linear-gradient(180deg, #624816, #402c0c);
+  color: #ffefc7;
+}
+
+button.ghost {
+  background: #101a33;
+}
+
+.stats {
+  margin-top: 0.72rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.stats p {
+  margin: 0;
+  border: 1px solid #465a90;
+  border-radius: 9px;
+  background: #0d1428;
+  padding: 0.42rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+}
+
+.stats span {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.status {
+  margin: 0.7rem 0 0;
+  border: 1px solid #465a90;
+  border-radius: 9px;
+  background: #0d1428;
+  padding: 0.58rem;
+  color: #d5e0ff;
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.stage {
+  padding: 0.7rem;
+  position: relative;
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid #485c93;
+  border-radius: 10px;
+  background: #040811;
+}
+
+.scanlines {
+  pointer-events: none;
+  position: absolute;
+  inset: 0.7rem;
+  border-radius: 10px;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.04) 0,
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+}
+
+.touch {
+  padding: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.touch button {
+  min-height: 50px;
+  font-size: 1rem;
+}
+
+.notes {
+  padding: 0.9rem 1rem;
+}
+
+.notes h2 {
+  margin: 0 0 0.55rem;
+  font-size: 1rem;
+}
+
+.notes ul {
+  margin: 0;
+  padding-left: 1rem;
+  color: var(--muted);
+  display: grid;
+  gap: 0.35rem;
+  line-height: 1.35;
+}
+
+@media (max-width: 760px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .buttons {
+    grid-template-columns: 1fr;
+  }
+}

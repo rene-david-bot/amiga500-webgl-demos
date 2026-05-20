@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rooftop Relay '92</title>
+  <meta name="description" content="Arcade platformer: dash across neon rooftops, snag floppy disks, and dodge antenna hazards before dawn." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Arcade Platformer</p>
+      <h1>Rooftop Relay '92</h1>
+      <p class="subtitle">Night courier shift. Sprint across glowing rooftops, nail jump timing, and keep the disk chain alive as the skyline speeds up.</p>
+    </header>
+
+    <section class="controls panel">
+      <div class="buttons">
+        <button id="startBtn" class="primary" type="button">Start Run</button>
+        <button id="pauseBtn" type="button">Pause</button>
+        <button id="soundBtn" class="ghost" type="button">Sound: On</button>
+      </div>
+      <div class="stats">
+        <p><span>Score</span><strong id="scoreValue">0</strong></p>
+        <p><span>Best</span><strong id="bestValue">0</strong></p>
+        <p><span>Combo</span><strong id="comboValue">x1</strong></p>
+        <p><span>Speed</span><strong id="speedValue">1.0x</strong></p>
+      </div>
+      <p id="status" class="status">Press Start Run, then use ← → and Space (or tap buttons) to keep the courier moving.</p>
+    </section>
+
+    <section class="panel stage">
+      <canvas id="gameCanvas" width="960" height="540" role="img" aria-label="Rooftop platformer game"></canvas>
+      <div class="scanlines" aria-hidden="true"></div>
+    </section>
+
+    <section class="touch panel" aria-label="Touch controls">
+      <button id="leftBtn" type="button">←</button>
+      <button id="jumpBtn" type="button">Jump</button>
+      <button id="rightBtn" type="button">→</button>
+    </section>
+
+    <section class="panel notes">
+      <h2>How to play</h2>
+      <ul>
+        <li>Land each jump on the next roof. Falling ends the run.</li>
+        <li>Grab floppy disks for score bursts and combo growth.</li>
+        <li>Avoid red antenna masts and broken rooftop edges.</li>
+        <li>The skyline scroll accelerates over time, hold your nerve.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
