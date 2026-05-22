@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixel Tattoo Parlor '94</title>
+  <meta name="description" content="Retro pixel tattoo studio. Paint 24x24 flash art, preview it on mannequin zones, and export your CRT parlor design." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="topbar">
+      <p class="kicker">Retro Lab · Art Tool</p>
+      <h1>Pixel Tattoo Parlor '94</h1>
+      <p class="subtitle">Draft chunky 24x24 flash ink, test it on a mannequin, and export a CRT-faded tattoo sheet from the neon backroom.</p>
+    </header>
+
+    <section class="panel controls">
+      <div class="row">
+        <label for="colorPicker">Ink</label>
+        <input id="colorPicker" type="color" value="#4bf0ff" />
+
+        <label for="zoneSelect">Zone</label>
+        <select id="zoneSelect">
+          <option value="arm">Arm</option>
+          <option value="chest">Chest</option>
+          <option value="back">Back</option>
+        </select>
+
+        <label class="mirror-toggle">
+          <input id="mirrorCheck" type="checkbox" />
+          Mirror X
+        </label>
+      </div>
+
+      <div class="buttons">
+        <button id="clearBtn" type="button">Clear Grid</button>
+        <button id="motifBtn" type="button">Random Flash</button>
+        <button id="stampBtn" class="primary" type="button">Stamp Preview</button>
+        <button id="exportBtn" type="button">Export PNG</button>
+      </div>
+
+      <p id="status" class="status">Draw with mouse or touch. Hold right-click (or Shift+drag) to erase.</p>
+    </section>
+
+    <section class="workspace">
+      <article class="panel board-panel">
+        <h2>Pixel Board</h2>
+        <canvas id="board" width="576" height="576" aria-label="24 by 24 tattoo pixel board"></canvas>
+      </article>
+
+      <article class="panel preview-panel">
+        <h2>Mannequin Preview</h2>
+        <canvas id="preview" width="540" height="640" aria-label="Tattoo mannequin preview"></canvas>
+      </article>
+    </section>
+
+    <section class="panel notes">
+      <h2>How it works</h2>
+      <ul>
+        <li>Paint on the left grid to create your tattoo flash.</li>
+        <li>Toggle Mirror X for symmetrical tribal or badge styles.</li>
+        <li>Choose Arm, Chest, or Back and hit <strong>Stamp Preview</strong> to project the current design.</li>
+        <li>Export PNG saves a single card with board + mannequin preview.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
