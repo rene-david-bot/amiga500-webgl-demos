@@ -1373,6 +1373,18 @@
         "canvas",
         "retro"
       ]
+    },
+    {
+      "slug": "morse-mailroom-91",
+      "title": "Morse Mailroom '91",
+      "date": "2026-05-23",
+      "tags": [
+        "puzzle",
+        "audio",
+        "morse",
+        "decoder",
+        "retro"
+      ]
     }
   ]
 }

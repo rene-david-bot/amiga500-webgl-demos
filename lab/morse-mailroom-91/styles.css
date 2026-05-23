@@ -1,0 +1,236 @@
+:root {
+  color-scheme: dark;
+  --bg: #06070c;
+  --panel: #111521;
+  --line: #2b344a;
+  --text: #e8edff;
+  --muted: #9ca8cc;
+  --cyan: #52efff;
+  --amber: #ffd86b;
+  --danger: #ff6f91;
+  --ok: #8dff93;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(82, 239, 255, 0.16), transparent 34%),
+    radial-gradient(circle at 88% 10%, rgba(255, 216, 107, 0.11), transparent 30%),
+    linear-gradient(180deg, #0a1020 0%, var(--bg) 100%);
+}
+
+.deck {
+  width: min(840px, 94vw);
+  margin: 2rem auto 2.6rem;
+  display: grid;
+  gap: 0.95rem;
+}
+
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.kicker {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.73rem;
+  color: var(--cyan);
+}
+
+h1 {
+  margin: 0.38rem 0 0;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+}
+
+.subtitle {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+.hud {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.stat {
+  border: 1px solid #334061;
+  border-radius: 10px;
+  padding: 0.55rem 0.6rem;
+  background: rgba(12, 16, 28, 0.72);
+}
+
+.label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.value {
+  display: block;
+  margin-top: 0.16rem;
+  font-size: 1.12rem;
+  font-weight: 700;
+}
+
+.controls {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+button,
+input {
+  border-radius: 10px;
+  border: 1px solid #3a4668;
+  background: #131a2f;
+  color: var(--text);
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  padding: 0.56rem 0.9rem;
+  transition: transform 100ms ease, filter 120ms ease;
+}
+
+button:hover:enabled {
+  filter: brightness(1.08);
+}
+
+button:active:enabled {
+  transform: translateY(1px);
+}
+
+button:disabled,
+input:disabled {
+  opacity: 0.54;
+  cursor: not-allowed;
+}
+
+button.primary {
+  border-color: #00b4c5;
+  background: linear-gradient(180deg, #4af2ff, #0f879f);
+  color: #032129;
+  font-weight: 700;
+}
+
+label {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.guess-row {
+  display: flex;
+  gap: 0.45rem;
+  margin-top: 0.34rem;
+}
+
+input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.56rem 0.65rem;
+  text-transform: uppercase;
+}
+
+.status {
+  margin: 0;
+  color: #d3dcff;
+  min-height: 1.35rem;
+}
+
+.status.ok {
+  color: var(--ok);
+}
+
+.status.bad {
+  color: var(--danger);
+}
+
+.signal-panel {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.signal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.04rem;
+}
+
+.lamp {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #54638d;
+  background: #2a3148;
+  box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.45);
+}
+
+.lamp.live {
+  background: radial-gradient(circle at 35% 30%, #fff0b6, #ffb341 72%);
+  border-color: #ffce73;
+  box-shadow: 0 0 16px rgba(255, 179, 65, 0.74), inset 0 0 11px rgba(255, 255, 255, 0.58);
+}
+
+.morse-readout {
+  font-family: "Consolas", "Courier New", monospace;
+  letter-spacing: 0.18em;
+  font-size: 1.12rem;
+  border: 1px solid #354164;
+  border-radius: 10px;
+  padding: 0.7rem 0.8rem;
+  min-height: 2.6rem;
+  background: rgba(11, 15, 28, 0.8);
+  color: var(--amber);
+  overflow-wrap: anywhere;
+}
+
+.signal-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.notes ul {
+  margin: 0.55rem 0 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.32rem;
+  color: #d8e0ff;
+}
+
+@media (max-width: 720px) {
+  .hud {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .guess-row {
+    flex-direction: column;
+  }
+}

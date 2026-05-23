@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Morse Mailroom '91</title>
+  <meta name="description" content="Decode crunchy Morse office memos under pressure in this retro mailroom puzzle game." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="hero panel">
+      <p class="kicker">Retro Lab · Audio Puzzle</p>
+      <h1>Morse Mailroom '91</h1>
+      <p class="subtitle">Night shift at the telecom mailroom: listen to buzzing Morse memos, type the right word, and keep the tube conveyor alive.</p>
+    </header>
+
+    <section class="hud panel">
+      <div class="stat"><span class="label">Score</span><span id="score" class="value">0</span></div>
+      <div class="stat"><span class="label">Round</span><span id="round" class="value">0</span></div>
+      <div class="stat"><span class="label">Lives</span><span id="lives" class="value">3</span></div>
+      <div class="stat"><span class="label">Time</span><span id="time" class="value">--</span></div>
+      <div class="stat"><span class="label">Streak</span><span id="streak" class="value">0</span></div>
+    </section>
+
+    <section class="panel controls">
+      <div class="buttons">
+        <button id="startBtn" class="primary" type="button">Start Shift</button>
+        <button id="replayBtn" type="button" disabled>Replay Signal</button>
+        <button id="skipBtn" type="button" disabled>Skip Memo</button>
+      </div>
+
+      <form id="guessForm" autocomplete="off">
+        <label for="guessInput">Decode memo</label>
+        <div class="guess-row">
+          <input id="guessInput" type="text" maxlength="16" placeholder="Type decoded word" disabled />
+          <button id="submitBtn" type="submit" disabled>Submit</button>
+        </div>
+      </form>
+
+      <p id="status" class="status">Press <strong>Start Shift</strong> to arm audio and receive your first memo.</p>
+    </section>
+
+    <section class="panel signal-panel">
+      <div class="signal-head">
+        <h2>Signal Monitor</h2>
+        <div id="lamp" class="lamp" aria-hidden="true"></div>
+      </div>
+      <div id="morseReadout" class="morse-readout">••• --- •••</div>
+      <p class="signal-note">Dot = short buzz, dash = long buzz. Each letter pauses briefly. Headphones help.</p>
+    </section>
+
+    <section class="panel notes">
+      <h2>How to play</h2>
+      <ul>
+        <li>Each round sends one coded word by light + tone.</li>
+        <li>Type the decoded word before the timer hits zero.</li>
+        <li>Correct answers build streak bonus points.</li>
+        <li>Wrong answers, skips, or timeouts cost one life.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
