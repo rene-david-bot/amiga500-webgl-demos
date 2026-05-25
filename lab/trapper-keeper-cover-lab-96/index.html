@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trapper Keeper Cover Lab '96</title>
+  <meta name="description" content="Design a loud neon 90s binder cover with stickers, doodles, and printable retro gradients." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="panel hero">
+      <p class="kicker">Retro Lab · Art Tool</p>
+      <h1>Trapper Keeper Cover Lab '96</h1>
+      <p class="subtitle">Build a loud-school binder cover: gradient blast, sticker chaos, marker doodles, and a custom title strip.</p>
+    </header>
+
+    <section class="panel controls">
+      <label>
+        Theme
+        <select id="themeSelect">
+          <option value="laser-sunset">Laser Sunset</option>
+          <option value="pool-party">Pool Party</option>
+          <option value="galaxy-gel">Galaxy Gel</option>
+          <option value="mint-static">Mint Static</option>
+        </select>
+      </label>
+
+      <label>
+        Cover title
+        <input id="titleInput" type="text" value="Rene's Mega Binder" maxlength="30" />
+      </label>
+
+      <label>
+        Marker color
+        <input id="markerColor" type="color" value="#ffffff" />
+      </label>
+
+      <div class="button-row">
+        <button id="randomizeBtn" class="primary" type="button">Randomize Cover</button>
+        <button id="stickerBtn" type="button">Drop Sticker</button>
+        <button id="clearInkBtn" type="button">Clear Ink</button>
+        <button id="exportBtn" type="button">Export PNG</button>
+      </div>
+
+      <p class="hint">Draw directly on the cover with mouse or touch. Tip: layer marker lines over stickers for max 90s chaos.</p>
+    </section>
+
+    <section class="panel canvas-panel">
+      <canvas id="coverCanvas" width="640" height="820" aria-label="Binder cover design canvas"></canvas>
+    </section>
+
+    <section class="panel notes">
+      <h2>How it works</h2>
+      <ul>
+        <li>Each theme uses authentic late-90s high-contrast gradients and speckle texture.</li>
+        <li>Stickers are movable by random drop and keep their own color + rotation style.</li>
+        <li>Export creates a print-ready PNG of your final cover.</li>
+      </ul>
+      <a class="back-link" href="../../index.html">← Back to Retro Lab</a>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
