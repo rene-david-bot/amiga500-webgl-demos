@@ -1410,6 +1410,20 @@
         "school",
         "retro"
       ]
+    },
+    {
+      "slug": "barcode-blitz-checkout-92",
+      "title": "Barcode Blitz Checkout '92",
+      "date": "2026-05-26",
+      "tags": [
+        "game",
+        "arcade",
+        "skill",
+        "timing",
+        "checkout",
+        "retro",
+        "audio"
+      ]
     }
   ]
 }
