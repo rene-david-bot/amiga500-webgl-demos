@@ -1424,6 +1424,18 @@
         "retro",
         "audio"
       ]
+    },
+    {
+      "slug": "weatherfax-bulletin-studio-89",
+      "title": "Weatherfax Bulletin Studio '89",
+      "date": "2026-05-27",
+      "tags": [
+        "tool",
+        "broadcast",
+        "weather",
+        "canvas",
+        "retro"
+      ]
     }
   ]
 }

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weatherfax Bulletin Studio '89</title>
+  <meta name="description" content="Design and broadcast a neon late-night weather bulletin in a retro CRT studio." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="panel hero">
+      <p class="kicker">Retro Lab · Broadcast Tool</p>
+      <h1>Weatherfax Bulletin Studio '89</h1>
+      <p class="subtitle">Spin up your own midnight weather channel, tune the forecast, then export a CRT-faded bulletin card.</p>
+    </header>
+
+    <section class="panel controls">
+      <label>City
+        <select id="citySelect"></select>
+      </label>
+      <label>Condition
+        <select id="conditionSelect">
+          <option value="SUN">Clear</option>
+          <option value="CLOUD">Cloudy</option>
+          <option value="RAIN">Rain</option>
+          <option value="STORM">Storm</option>
+          <option value="SNOW">Snow</option>
+        </select>
+      </label>
+      <label>Temperature <span id="tempValue">18°C</span>
+        <input id="tempRange" type="range" min="-8" max="39" value="18" />
+      </label>
+      <label>Wind <span id="windValue">22 km/h</span>
+        <input id="windRange" type="range" min="0" max="90" value="22" />
+      </label>
+      <label>Palette
+        <select id="paletteSelect">
+          <option value="teal">Neon Teal</option>
+          <option value="violet">Violet Storm</option>
+          <option value="amber">Amber Alert</option>
+        </select>
+      </label>
+      <label class="ticker-label">Ticker
+        <input id="tickerInput" type="text" maxlength="88" value="LATE BULLETIN: scattered rain after 22:00, roads slick near downtown loops." />
+      </label>
+
+      <div class="buttons">
+        <button id="randomBtn" type="button">Random Storm</button>
+        <button id="powerBtn" type="button">Broadcast: ON</button>
+        <button id="exportBtn" class="primary" type="button">Export PNG</button>
+      </div>
+    </section>
+
+    <section class="panel display">
+      <canvas id="screen" width="920" height="520" aria-label="Weatherfax preview"></canvas>
+      <p class="hint">Tip: hit Random Storm a few times for weird late-night forecast vibes.</p>
+    </section>
+
+    <section class="panel notes">
+      <h2>How it works</h2>
+      <ul>
+        <li>Pick a city and weather mood, then tune temperature and wind.</li>
+        <li>Edit the ticker for your own local bulletin voice.</li>
+        <li>Switch palettes and export your favorite CRT weather card as PNG.</li>
+      </ul>
+      <a class="back-link" href="../../index.html">← Back to Retro Lab</a>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
