@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pizza Parlor Splitter '97</title>
+  <meta name="description" content="Assign slices, sodas, and arcade snacks to friends, then print a neon CRT bill split in seconds." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="panel hero">
+      <p class="kicker">Retro Lab · Utility Tool</p>
+      <h1>Pizza Parlor Splitter '97</h1>
+      <p class="subtitle">Late-night arcade dinner math. Tap each item to assign it, auto-balance the leftovers, then print a clean thermal-style split.</p>
+    </header>
+
+    <section class="panel settings">
+      <div class="people-grid" id="peopleGrid"></div>
+      <div class="sliders">
+        <label>Tax <span id="taxLabel">7%</span>
+          <input id="taxInput" type="range" min="0" max="20" step="1" value="7" />
+        </label>
+        <label>Tip <span id="tipLabel">10%</span>
+          <input id="tipInput" type="range" min="0" max="25" step="1" value="10" />
+        </label>
+      </div>
+      <div class="buttons">
+        <button id="rebalanceBtn" class="primary" type="button">Auto Balance</button>
+        <button id="shuffleBtn" type="button">New Menu</button>
+        <button id="clearBtn" type="button">Clear Assignments</button>
+      </div>
+    </section>
+
+    <section class="panel items">
+      <h2>Order Items</h2>
+      <div id="itemList" class="item-list"></div>
+      <p class="hint">Tip: click an assignee button to cycle through people, then to Unassigned.</p>
+    </section>
+
+    <section class="panel totals">
+      <h2>Split Totals</h2>
+      <div id="totalsGrid" class="totals-grid"></div>
+      <div class="summary" id="summaryLine"></div>
+    </section>
+
+    <section class="panel receipt">
+      <h2>Receipt Preview</h2>
+      <pre id="receiptOutput"></pre>
+    </section>
+
+    <section class="panel notes">
+      <ul>
+        <li>Assign every item to remove the unassigned warning.</li>
+        <li>Auto Balance places unassigned items on the lowest current subtotal.</li>
+        <li>Great for pizza nights, LAN sessions, and post-arcade snack runs.</li>
+      </ul>
+      <a class="back-link" href="../../index.html">← Back to Retro Lab</a>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
