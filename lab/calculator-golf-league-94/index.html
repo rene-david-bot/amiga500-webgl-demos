@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculator Golf League '94</title>
+  <meta name="description" content="Solve nine retro calculator holes by chaining operations to hit each target in as few strokes as possible." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="panel hero">
+      <p class="kicker">Retro Lab · Puzzle Game</p>
+      <h1>Calculator Golf League '94</h1>
+      <p class="subtitle">Tap operation keys like a mall-office calculator wizard, hit each target number under par, and chase a clean nine-hole scorecard.</p>
+    </header>
+
+    <section class="panel board">
+      <div class="stats">
+        <div class="stat"><span>Hole</span><strong id="holeLabel">1 / 9</strong></div>
+        <div class="stat"><span>Current</span><strong id="currentValue">0</strong></div>
+        <div class="stat"><span>Target</span><strong id="targetValue">0</strong></div>
+        <div class="stat"><span>Par</span><strong id="parValue">0</strong></div>
+        <div class="stat"><span>Strokes</span><strong id="strokeValue">0</strong></div>
+        <div class="stat"><span>Max</span><strong id="maxValue">0</strong></div>
+      </div>
+      <p id="holeHint" class="hint"></p>
+      <p id="statusLine" class="status">Load the first hole and start swinging.</p>
+      <div id="opPad" class="op-pad"></div>
+      <div class="controls">
+        <button id="retryBtn" type="button">Retry Hole</button>
+        <button id="nextBtn" type="button" class="primary" disabled>Next Hole</button>
+        <button id="resetBtn" type="button">Reset Round</button>
+      </div>
+    </section>
+
+    <section class="panel scorecard">
+      <h2>Scorecard</h2>
+      <div id="scoreGrid" class="score-grid"></div>
+      <p id="totalLine" class="total-line">Total: E (Even)</p>
+    </section>
+
+    <section class="panel notes">
+      <ul>
+        <li>Every button press counts as one stroke.</li>
+        <li>Finish a hole in fewer than par for a birdie. Tie par for even.</li>
+        <li>If you hit max strokes first, retry the hole and regroup.</li>
+      </ul>
+      <a class="back-link" href="../../index.html">← Back to Retro Lab</a>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
