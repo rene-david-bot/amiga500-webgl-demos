@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Office Chair Drift '95</title>
+  <meta name="description" content="Rip through a neon office floor on a drifting swivel chair, hit every checkpoint, and finish three laps before overtime ends." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="panel hero">
+      <p class="kicker">Retro Lab · Arcade Racer</p>
+      <h1>Office Chair Drift '95</h1>
+      <p class="subtitle">Overtime is cancelled if you can drift a swivel chair around the cubicle circuit before the timer hits zero.</p>
+    </header>
+
+    <section class="panel hud">
+      <div class="stats">
+        <div class="stat"><span>Lap</span><strong id="lapLabel">0 / 3</strong></div>
+        <div class="stat"><span>Checkpoint</span><strong id="checkpointLabel">1 / 5</strong></div>
+        <div class="stat"><span>Speed</span><strong id="speedLabel">0</strong></div>
+        <div class="stat"><span>Time Left</span><strong id="timeLabel">100.0s</strong></div>
+        <div class="stat"><span>Best Lap</span><strong id="bestLapLabel">--</strong></div>
+        <div class="stat"><span>Status</span><strong id="statusLabel">Idle</strong></div>
+      </div>
+      <div class="boost-wrap" aria-label="boost meter">
+        <div class="boost-track"><div id="boostFill" class="boost-fill"></div></div>
+        <span id="boostLabel">Boost 100%</span>
+      </div>
+      <p class="hint">Controls: <b>WASD / Arrows</b> to drive, <b>Shift</b> to boost, <b>Space</b> to handbrake.</p>
+      <div class="controls">
+        <button id="startBtn" class="primary" type="button">Start race</button>
+        <button id="resetBtn" type="button">Reset</button>
+      </div>
+    </section>
+
+    <section class="panel track-panel">
+      <canvas id="game" width="960" height="560" aria-label="Office chair racing game"></canvas>
+    </section>
+
+    <section class="panel notes">
+      <ul>
+        <li>Hit checkpoints in order. A lap only counts when you cross the start gate after all other gates.</li>
+        <li>Grab floating coffee cups to refill boost and keep your drift speed alive.</li>
+        <li>Bump walls too hard and your chair spins out, costing precious time.</li>
+      </ul>
+      <a class="back-link" href="../../index.html">← Back to Retro Lab</a>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
