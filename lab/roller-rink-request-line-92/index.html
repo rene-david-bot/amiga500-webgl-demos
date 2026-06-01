@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roller Rink Request Line '92</title>
+  <meta name="description" content="Run the neon roller-rink request hotline, pick the right tape for every caller, and keep the floor packed until closing time." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="panel hero">
+      <p class="kicker">Retro Lab · Audio Strategy Game</p>
+      <h1>Roller Rink Request Line '92</h1>
+      <p class="subtitle">Every caller wants a perfect track. Spin the right tape, keep the crowd hype alive, and survive the full night shift.</p>
+    </header>
+
+    <section class="panel hud">
+      <div class="stats">
+        <div class="stat"><span>Time</span><strong id="timeLabel">90s</strong></div>
+        <div class="stat"><span>Score</span><strong id="scoreLabel">0</strong></div>
+        <div class="stat"><span>Hype</span><strong id="hypeLabel">50%</strong></div>
+        <div class="stat"><span>Streak</span><strong id="streakLabel">0</strong></div>
+        <div class="stat"><span>Handled</span><strong id="handledLabel">0</strong></div>
+      </div>
+      <div class="meter-wrap">
+        <div class="meter-track"><div id="hypeFill" class="meter-fill"></div></div>
+        <span id="statusLabel">Press Start Shift to open the hotline.</span>
+      </div>
+      <div class="controls">
+        <button id="startBtn" class="primary" type="button">Start Shift</button>
+        <button id="skipBtn" type="button">Skip Request (-12 hype)</button>
+        <button id="audioBtn" type="button">Audio: Off</button>
+      </div>
+    </section>
+
+    <section class="panel request-panel">
+      <h2>Current Caller</h2>
+      <p id="requestText" class="request-text">No caller yet.</p>
+      <p id="requestHint" class="request-hint">Incoming requests include vibe + tempo clues. Pick the best tape from Deck A/B/C.</p>
+    </section>
+
+    <section class="panel choices">
+      <h2>Available Tapes</h2>
+      <div id="choices" class="choices-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="panel log-panel">
+      <h2>Booth Log</h2>
+      <ul id="log" class="log"></ul>
+      <a class="back-link" href="../../index.html">← Back to Retro Lab</a>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
