@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projector Booth Panic '88</title>
+  <meta name="description" content="Run a late-night cinema projector booth, keep focus and lamp brightness locked, and survive reel chaos until closing time." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="panel hero">
+      <p class="kicker">Retro Lab · Arcade Skill Game</p>
+      <h1>Projector Booth Panic '88</h1>
+      <p class="subtitle">The midnight screening is live. Ride drifting reels, keep the image sharp, and stop the booth from overheating.</p>
+    </header>
+
+    <section class="panel hud">
+      <div class="stats">
+        <div class="stat"><span>Time</span><strong id="timeLabel">75s</strong></div>
+        <div class="stat"><span>Score</span><strong id="scoreLabel">0</strong></div>
+        <div class="stat"><span>Quality</span><strong id="qualityLabel">0%</strong></div>
+        <div class="stat"><span>Heat</span><strong id="heatLabel">0%</strong></div>
+        <div class="stat"><span>Strikes</span><strong id="strikesLabel">0 / 3</strong></div>
+      </div>
+
+      <div class="meters">
+        <div class="meter-block">
+          <div class="meter-head">
+            <span>Focus</span>
+            <span id="focusHint">Calm</span>
+          </div>
+          <div class="meter-track"><div id="focusFill" class="meter-fill cyan"></div></div>
+          <div id="focusTarget" class="target"></div>
+          <input id="focusInput" type="range" min="0" max="100" value="50" />
+        </div>
+
+        <div class="meter-block">
+          <div class="meter-head">
+            <span>Lamp</span>
+            <span id="lampHint">Calm</span>
+          </div>
+          <div class="meter-track"><div id="lampFill" class="meter-fill amber"></div></div>
+          <div id="lampTarget" class="target"></div>
+          <input id="lampInput" type="range" min="0" max="100" value="50" />
+        </div>
+
+        <div class="meter-block">
+          <div class="meter-head">
+            <span>Booth Heat</span>
+            <span id="heatHint">Nominal</span>
+          </div>
+          <div class="meter-track"><div id="heatFill" class="meter-fill danger"></div></div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="startBtn" class="primary" type="button">Start Screening</button>
+        <button id="audioBtn" type="button">Audio: Off</button>
+      </div>
+      <p id="statusLabel" class="status">Use sliders or keys (A/D = focus, J/L = lamp). Keep quality high and heat low.</p>
+    </section>
+
+    <section class="panel notes">
+      <h2>Projection Log</h2>
+      <ul id="log" class="log"></ul>
+      <a class="back-link" href="../../index.html">← Back to Retro Lab</a>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
