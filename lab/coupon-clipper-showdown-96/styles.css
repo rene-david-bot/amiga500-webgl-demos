@@ -1,0 +1,246 @@
+:root {
+  color-scheme: dark;
+  --bg: #070b16;
+  --panel: #111a31;
+  --panel-hi: #1a2643;
+  --line: #2f4474;
+  --text: #eff4ff;
+  --muted: #9eb0d3;
+  --cyan: #5de6ff;
+  --magenta: #ff6fd2;
+  --amber: #ffcc73;
+  --good: #8bffb2;
+  --bad: #ff8d8d;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 15% 10%, #233c79 0%, transparent 35%),
+    radial-gradient(circle at 85% 85%, #5e214f 0%, transparent 32%),
+    var(--bg);
+  color: var(--text);
+  padding: 24px 14px;
+}
+
+.deck {
+  width: min(1060px, 100%);
+  margin: 0 auto;
+  display: grid;
+  gap: 14px;
+}
+
+.panel {
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent), var(--panel);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  padding: 16px;
+}
+
+.hero h1 {
+  margin: 6px 0 8px;
+  font-size: clamp(1.6rem, 2.8vw, 2.3rem);
+  color: var(--cyan);
+}
+
+.kicker {
+  margin: 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  color: var(--amber);
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+  max-width: 72ch;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.stat {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px 10px;
+}
+
+.stat span {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.stat strong { font-size: 1rem; }
+
+.layout {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+}
+
+h2 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  color: var(--amber);
+}
+
+.cart-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 7px;
+}
+
+.cart-row {
+  border: 1px solid #2a3c69;
+  border-radius: 9px;
+  background: rgba(3, 8, 18, 0.65);
+  padding: 7px 8px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cart-meta {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.totals {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #4460a0;
+  display: grid;
+  gap: 8px;
+}
+
+.totals div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.coupon-rack {
+  display: grid;
+  gap: 8px;
+}
+
+.hint {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.87rem;
+}
+
+.coupon {
+  width: 100%;
+  border: 1px solid #4e6fb9;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(67, 96, 170, 0.35), rgba(203, 73, 161, 0.28));
+  color: var(--text);
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 120ms ease, border-color 120ms ease, filter 120ms ease;
+}
+
+.coupon:hover:not([disabled]) {
+  transform: translateY(-1px);
+  border-color: var(--cyan);
+  filter: brightness(1.06);
+}
+
+.coupon.used {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+
+.coupon[disabled] {
+  cursor: not-allowed;
+}
+
+.coupon-title {
+  display: block;
+  font-weight: 700;
+}
+
+.coupon-desc {
+  display: block;
+  font-size: 0.86rem;
+  color: #d7e3ff;
+  margin-top: 2px;
+}
+
+.controls {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+button {
+  border-radius: 999px;
+  border: 1px solid #5d75b6;
+  color: var(--text);
+  background: #1f2f55;
+  padding: 9px 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover { filter: brightness(1.08); }
+
+button.primary {
+  background: linear-gradient(120deg, #2f4fa5, #7a3fbe);
+  border-color: #90adff;
+}
+
+.status {
+  margin: 10px 0 0;
+  color: var(--cyan);
+  min-height: 1.4em;
+}
+
+.receipt-panel .receipt {
+  margin: 0;
+  border: 1px solid #3f578f;
+  border-radius: 10px;
+  background: #050912;
+  color: #b7f6c5;
+  padding: 12px;
+  min-height: 230px;
+  white-space: pre-wrap;
+  line-height: 1.25;
+  font-family: "Consolas", "Courier New", monospace;
+}
+
+.back-link {
+  margin-top: 10px;
+  display: inline-block;
+  color: var(--amber);
+  text-decoration: none;
+}
+
+.back-link:hover { text-decoration: underline; }
+
+.good { color: var(--good); }
+.bad { color: var(--bad); }
+
+@media (max-width: 820px) {
+  .layout { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coupon Clipper Showdown '96</title>
+  <meta name="description" content="Draft four retro coupons, optimize your grocery basket, and beat the weekly savings target." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="panel hero">
+      <p class="kicker">Retro Lab · Puzzle Utility Game</p>
+      <h1>Coupon Clipper Showdown '96</h1>
+      <p class="subtitle">Sunday flyers are out. Pick only four coupons, squeeze every Deutschmark, and beat the weekly savings target.</p>
+    </header>
+
+    <section class="panel hud">
+      <div class="stats">
+        <div class="stat"><span>Week</span><strong id="weekLabel">01</strong></div>
+        <div class="stat"><span>Basket</span><strong id="basketLabel">DM 0.00</strong></div>
+        <div class="stat"><span>Savings</span><strong id="savingsLabel">DM 0.00</strong></div>
+        <div class="stat"><span>Target</span><strong id="targetLabel">0%</strong></div>
+        <div class="stat"><span>Coupons Left</span><strong id="leftLabel">4</strong></div>
+      </div>
+
+      <div class="layout">
+        <div class="cart-block">
+          <h2>Shopping Basket</h2>
+          <ul id="cartList" class="cart-list"></ul>
+          <div class="totals">
+            <div><span>Original Total</span><strong id="originalTotal">DM 0.00</strong></div>
+            <div><span>Checkout Total</span><strong id="checkoutTotal">DM 0.00</strong></div>
+          </div>
+        </div>
+
+        <div class="coupon-block">
+          <h2>Coupon Rack</h2>
+          <p class="hint">You can clip four coupons. Pick wisely.</p>
+          <div id="couponRack" class="coupon-rack"></div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="newWeekBtn" class="ghost" type="button">New Week</button>
+        <button id="checkoutBtn" class="primary" type="button">Checkout</button>
+        <button id="audioBtn" class="ghost" type="button">Audio: Off</button>
+      </div>
+      <p id="statusLabel" class="status">Clip up to four coupons and hit the target savings before checkout.</p>
+    </section>
+
+    <section class="panel receipt-panel">
+      <h2>Thermal Receipt</h2>
+      <pre id="receipt" class="receipt">No coupons clipped yet.</pre>
+      <a class="back-link" href="../../index.html">← Back to Retro Lab</a>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
