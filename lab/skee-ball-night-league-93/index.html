@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skee-Ball Night League '93</title>
+  <meta name="description" content="Retro arcade lane game: charge, aim, and roll ten balls into glowing rings for the top score." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header class="panel hero">
+      <p class="kicker">Retro Lab · Arcade Skill Game</p>
+      <h1>Skee-Ball Night League '93</h1>
+      <p class="subtitle">After-hours at the boardwalk arcade. Charge your roll, hit lit bonus rings, and post a new high score in ten balls.</p>
+    </header>
+
+    <section class="panel game-panel">
+      <div class="hud">
+        <div class="stat"><span>Score</span><strong id="scoreLabel">0</strong></div>
+        <div class="stat"><span>Balls Left</span><strong id="ballsLabel">10</strong></div>
+        <div class="stat"><span>Streak</span><strong id="streakLabel">0</strong></div>
+        <div class="stat"><span>High Score</span><strong id="highLabel">0</strong></div>
+      </div>
+
+      <div class="stage">
+        <canvas id="game" width="800" height="480" aria-label="Skee-ball game lane"></canvas>
+        <div class="scanlines" aria-hidden="true"></div>
+      </div>
+
+      <div class="meter-wrap">
+        <div class="meter-label">Power</div>
+        <div class="meter"><div id="powerFill" class="meter-fill"></div></div>
+      </div>
+
+      <div class="controls">
+        <button id="newGameBtn" type="button" class="primary">New Game</button>
+        <button id="audioBtn" type="button" class="ghost">Audio: Off</button>
+      </div>
+      <p id="status" class="status">Move aim with mouse or arrow keys. Hold and release space (or tap/hold on mobile) to shoot.</p>
+    </section>
+
+    <section class="panel tips">
+      <h2>How to Play</h2>
+      <ul>
+        <li>Score ring values: 10, 20, 30, 40, 50.</li>
+        <li>One ring lights up each throw for a 2× bonus.</li>
+        <li>Hit 30+ on back-to-back shots to build a streak bonus.</li>
+      </ul>
+      <a class="back" href="../../index.html">← Back to Retro Lab</a>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
