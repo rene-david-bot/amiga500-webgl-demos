@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Holo Card Forge '96</title>
+  <meta name="description" content="Design a gleaming 90s-style holo trading card with foil patterns, stat sliders, and instant PNG export." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="deck">
+    <header class="topbar panel">
+      <p class="kicker">Retro Lab · Art Tool</p>
+      <h1>Holo Card Forge '96</h1>
+      <p class="subtitle">Build a neon foil trading card with custom nameplates, stat bars, rarity ribbons, and a crunchy export-ready print finish.</p>
+    </header>
+
+    <section class="layout">
+      <section class="panel controls" aria-label="Card controls">
+        <h2>Card Builder</h2>
+
+        <label class="field">
+          <span>Hero Name</span>
+          <input id="nameInput" type="text" maxlength="22" value="LASER LYNX" />
+        </label>
+
+        <label class="field">
+          <span>Division</span>
+          <select id="divisionSelect">
+            <option value="Arcade League">Arcade League</option>
+            <option value="Mall Circuit">Mall Circuit</option>
+            <option value="Midnight Crew">Midnight Crew</option>
+            <option value="Street Grid">Street Grid</option>
+            <option value="Signal Club">Signal Club</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Rarity</span>
+          <select id="raritySelect">
+            <option value="Rookie">Rookie</option>
+            <option value="Rare" selected>Rare</option>
+            <option value="All-Star">All-Star</option>
+            <option value="Legend">Legend</option>
+            <option value="Glitch Holo">Glitch Holo</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Foil Pattern</span>
+          <select id="foilSelect">
+            <option value="prism">Prism Burst</option>
+            <option value="grid">Grid Flash</option>
+            <option value="sunset">Sunset Melt</option>
+            <option value="lightning">Lightning Cut</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Accent Palette</span>
+          <select id="paletteSelect">
+            <option value="cyanmagenta">Cyan / Magenta</option>
+            <option value="sunfire">Sunfire</option>
+            <option value="violetstorm">Violet Storm</option>
+            <option value="acidmint">Acid Mint</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Signature Move</span>
+          <input id="moveInput" type="text" maxlength="28" value="PIXEL POUNCE" />
+        </label>
+
+        <label class="field stat-field">
+          <span>Speed <strong id="speedValue">82</strong></span>
+          <input id="speedInput" type="range" min="20" max="99" value="82" />
+        </label>
+
+        <label class="field stat-field">
+          <span>Tech <strong id="techValue">76</strong></span>
+          <input id="techInput" type="range" min="20" max="99" value="76" />
+        </label>
+
+        <label class="field stat-field">
+          <span>Style <strong id="styleValue">91</strong></span>
+          <input id="styleInput" type="range" min="20" max="99" value="91" />
+        </label>
+
+        <label class="field stat-field">
+          <span>Luck <strong id="luckValue">68</strong></span>
+          <input id="luckInput" type="range" min="20" max="99" value="68" />
+        </label>
+
+        <div class="buttons">
+          <button id="randomBtn" class="ghost" type="button">Random Hero</button>
+          <button id="shuffleBtn" class="ghost" type="button">Shuffle Foil</button>
+          <button id="saveBtn" class="primary" type="button">Save PNG</button>
+        </div>
+      </section>
+
+      <section class="panel preview" aria-label="Card preview">
+        <h2>Live Card</h2>
+        <div class="frame">
+          <canvas id="cardCanvas" width="720" height="1000" role="img" aria-label="Animated holo trading card preview"></canvas>
+        </div>
+        <p id="status" class="status">Tip: mix high Style with Glitch Holo for maximum lunchbox-energy chaos.</p>
+        <div class="tips">
+          <p>• Drag the sliders to rebalance the card rating in real time.</p>
+          <p>• Shuffle Foil keeps the current hero but remixes the finish.</p>
+          <p>• Save PNG exports the exact live card frame.</p>
+        </div>
+        <a class="back" href="../../index.html">← Back to Retro Lab</a>
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
