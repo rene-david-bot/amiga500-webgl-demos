@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pocket Ring Toss '91</title>
+  <meta
+    name="description"
+    content="A neon liquid handheld ring-toss challenge. Pump left and right jets to float every ring onto its peg before time runs out."
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="hero panel">
+      <p class="kicker">Retro Lab · Arcade Toy</p>
+      <h1>Pocket Ring Toss '91</h1>
+      <p class="subtitle">
+        Hammer the left and right pumps, surf fizzy water jets, and hook every floating ring onto its peg before the
+        lunch-break timer hits zero.
+      </p>
+    </header>
+
+    <section class="layout">
+      <section class="panel stage" aria-label="Game stage">
+        <div class="hud-strip">
+          <div class="hud-card">
+            <span>Hooked</span>
+            <strong id="hookedLabel">0 / 6</strong>
+          </div>
+          <div class="hud-card">
+            <span>Score</span>
+            <strong id="scoreLabel">0</strong>
+          </div>
+          <div class="hud-card">
+            <span>Timer</span>
+            <strong id="timerLabel">45.0s</strong>
+          </div>
+          <div class="hud-card">
+            <span>Best</span>
+            <strong id="bestLabel">0</strong>
+          </div>
+        </div>
+
+        <div class="machine-frame">
+          <canvas id="gameCanvas" width="720" height="960" role="img" aria-label="Liquid ring toss game"></canvas>
+        </div>
+
+        <div class="controls">
+          <button id="leftPumpBtn" class="pump left" type="button">Pump Left</button>
+          <button id="rightPumpBtn" class="pump right" type="button">Pump Right</button>
+        </div>
+
+        <div class="action-row">
+          <button id="resetBtn" class="ghost" type="button">Fresh Round</button>
+          <button id="audioBtn" class="ghost" type="button">Audio: Off</button>
+        </div>
+
+        <p id="status" class="status">Tap the pumps in quick bursts. Gentle alternating taps lift rings higher than button mashing.</p>
+      </section>
+
+      <aside class="panel sidebar" aria-label="How to play">
+        <h2>How It Works</h2>
+        <p>
+          Each pump fires a water jet from the lower corners of the handheld. Use the left jet to drift rings right,
+          the right jet to drift them left, and feather both sides to settle a ring over a peg.
+        </p>
+
+        <div class="stat-grid">
+          <div class="mini-card">
+            <span>Combo</span>
+            <strong id="comboLabel">x1</strong>
+          </div>
+          <div class="mini-card">
+            <span>Medal</span>
+            <strong id="medalLabel">Bronze</strong>
+          </div>
+          <div class="mini-card">
+            <span>Jets</span>
+            <strong id="jetsLabel">0</strong>
+          </div>
+        </div>
+
+        <div class="tips">
+          <p>• Keyboard: <strong>Left / Right Arrow</strong> or <strong>A / D</strong></p>
+          <p>• Hook rings fast to grow the combo bonus.</p>
+          <p>• If a ring is wobbling above a peg, use shorter taps to let it settle.</p>
+          <p>• Press <strong>R</strong> for a fresh cabinet reset.</p>
+        </div>
+
+        <a class="back-link" href="../../index.html">← Back to Retro Lab</a>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
